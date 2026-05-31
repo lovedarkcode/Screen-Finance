@@ -43,6 +43,8 @@ class Settings(BaseSettings):
     ALPHA_VANTAGE_API_KEY: str | None = None
     POLYGON_API_KEY: str | None = None
 
+    GOOGLE_CLIENT_ID: str | None = None
+
 
 @lru_cache
 def get_settings() -> Settings:
