@@ -1,13 +1,11 @@
-from fastapi import FastAPI
+"""Convenience entry point: `python main.py` runs uvicorn against app.main:app."""
+import uvicorn
 
-app = FastAPI(title="Screen Finance API")
-
-
-@app.get("/")
-def root() -> dict[str, str]:
-    return {"status": "ok", "service": "screen-finance-backend"}
+from app.main import app
 
 
-@app.get("/health")
-def health() -> dict[str, str]:
-    return {"status": "healthy"}
+if __name__ == "__main__":
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+
+
+__all__ = ["app"]

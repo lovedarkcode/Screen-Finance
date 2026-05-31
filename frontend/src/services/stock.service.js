@@ -126,11 +126,18 @@ export const mockRelated = [
   { name: 'Amazon.com, Inc.',    symbol: 'AMZN',  price: 182.63,   changePercent: 0.73 },
 ]
 
+import api from './api'
+
+const withFallback = (apiCall, fallback) =>
+  apiCall.then((r) => r.data).catch(() => fallback)
+
 const stockService = {
-  getStock: () => Promise.resolve(mockStock),
-  getMetrics: () => Promise.resolve(mockMetrics),
-  getChart: () => Promise.resolve(mockChartData),
-  getQuarters: () => Promise.resolve(mockQuarters),
+  getStock:    (symbol = 'AAPL') => withFallback(api.get(`/stocks/${symbol}`),         mockStock),
+  getMetrics:  (symbol = 'AAPL') => withFallback(api.get(`/stocks/${symbol}/metrics`),  mockMetrics),
+  getChart:    (symbol = 'AAPL', range = '1Yr') =>
+    withFallback(api.get(`/stocks/${symbol}/chart`, { params: { range } }), mockChartData),
+  getQuarters: (symbol = 'AAPL') => withFallback(api.get(`/stocks/${symbol}/quarters`), mockQuarters),
+  getPeers:    (symbol = 'AAPL') => withFallback(api.get(`/stocks/${symbol}/peers`),    mockRelated),
 }
 
 export default stockService

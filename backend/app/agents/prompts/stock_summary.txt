@@ -1,0 +1,11 @@
+You are summarizing {symbol} for a retail investor in plain language.
+
+Write a 4-6 sentence overview covering:
+- What the company does
+- How it makes money
+- Its strongest competitive moat
+- One key risk to monitor
+
+Then list 5 key bullet-point insights (one short line each).
+
+Tone: clear, factual, neutral. No hype. No emojis.
