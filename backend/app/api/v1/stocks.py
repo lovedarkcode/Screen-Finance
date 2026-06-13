@@ -7,7 +7,10 @@ from typing import Any
 from urllib.parse import quote
 
 import httpx
+import yfinance as yf
 from fastapi import APIRouter, HTTPException
+from fastapi.concurrency import run_in_threadpool
+
 
 router = APIRouter(prefix="/stocks", tags=["stocks"])
 
@@ -193,6 +196,54 @@ async def get_stock(symbol: str) -> dict[str, Any]:
         raise HTTPException(status_code=502, detail=f"Could not load live quote for {symbol}") from exc
 
 
+def _fetch_yfinance_ticker(symbol: str) -> yf.Ticker:
+    ticker = yf.Ticker(symbol)
+    try:
+        # Trigger data fetch in this thread
+        _ = ticker.info
+    except Exception:
+        pass
+    return ticker
+
+
+def _statement_table_from_df(
+    df: Any,
+    title: str,
+    rows: list[tuple[str, str]],
+    limit: int = 6,
+) -> dict[str, Any]:
+    if df is None or getattr(df, "empty", True):
+        return {"title": title, "unit": "Figures in INR Crore", "columns": [], "rows": []}
+
+    # Columns: datetimes from DataFrame columns (yfinance returns them newest first)
+    col_dates = list(df.columns)[:limit][::-1]
+    columns = []
+    for col in col_dates:
+        if hasattr(col, "strftime"):
+            columns.append(col.strftime("%b %Y"))
+        else:
+            columns.append(str(col))
+
+    table_rows = []
+    for label, df_key in rows:
+        values = []
+        if df_key in df.index:
+            row_data = df.loc[df_key]
+            for col in col_dates:
+                val = row_data.get(col)
+                if val is None or (isinstance(val, float) and not isfinite(val)):
+                    values.append("N/A")
+                else:
+                    values.append(_fmt_crore(val))
+        else:
+            values = ["N/A"] * len(col_dates)
+
+        if any(value != "N/A" for value in values):
+            table_rows.append({"label": label, "values": values})
+
+    return {"title": title, "unit": "Figures in INR Crore", "columns": columns, "rows": table_rows}
+
+
 @router.get("/{symbol}/metrics")
 async def get_metrics(symbol: str) -> list[dict[str, str]]:
     normalized = _normalize_symbol(symbol)
@@ -200,31 +251,37 @@ async def get_metrics(symbol: str) -> list[dict[str, str]]:
         quote_data = await _quote(normalized)
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"Could not load metrics for {symbol}") from exc
-    summary = await _summary(
-        normalized,
-        ["price", "summaryDetail", "defaultKeyStatistics", "financialData"],
-    )
 
-    price = summary.get("price", {})
-    detail = summary.get("summaryDetail", {})
-    stats = summary.get("defaultKeyStatistics", {})
-    financial = summary.get("financialData", {})
-    high = detail.get("dayHigh") or detail.get("fiftyTwoWeekHigh")
-    low = detail.get("dayLow") or detail.get("fiftyTwoWeekLow")
+    try:
+        ticker = await run_in_threadpool(_fetch_yfinance_ticker, normalized)
+        info = ticker.info
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Could not fetch data for {symbol}") from exc
+
+    def fmt_div_yield(val: Any) -> str:
+        if val is None:
+            return "N/A"
+        try:
+            fval = float(val)
+            if fval < 0.2:
+                return _fmt_percent(fval, ratio=True)
+            return _fmt_percent(fval, ratio=False)
+        except Exception:
+            return "N/A"
 
     return [
-        {"label": "Market Cap", "value": _fmt_crore(price.get("marketCap") or detail.get("marketCap"))},
+        {"label": "Market Cap", "value": _fmt_crore(info.get("marketCap"))},
         {"label": "Current Price", "value": _fmt_inr(quote_data.get("price"))},
-        {"label": "High / Low", "value": f"{_fmt_inr(high)} / {_fmt_inr(low)}"},
-        {"label": "Stock P/E", "value": _fmt(detail.get("trailingPE"))},
-        {"label": "Book Value", "value": _fmt_inr(stats.get("bookValue"))},
-        {"label": "Dividend Yield", "value": _fmt_percent(detail.get("dividendYield"), ratio=True)},
-        {"label": "ROE", "value": _fmt_percent(financial.get("returnOnEquity"), ratio=True)},
-        {"label": "EPS", "value": _fmt_inr(stats.get("trailingEps"))},
-        {"label": "Price to book value", "value": _fmt(stats.get("priceToBook"))},
-        {"label": "Debt to equity", "value": _fmt(financial.get("debtToEquity"))},
-        {"label": "Revenue", "value": _fmt_crore(financial.get("totalRevenue"))},
-        {"label": "Operating Margin", "value": _fmt_percent(financial.get("operatingMargins"), ratio=True)},
+        {"label": "High / Low", "value": f"{_fmt_inr(info.get('fiftyTwoWeekHigh') or info.get('dayHigh'))} / {_fmt_inr(info.get('fiftyTwoWeekLow') or info.get('dayLow'))}"},
+        {"label": "Stock P/E", "value": _fmt(info.get("trailingPE"))},
+        {"label": "Book Value", "value": _fmt_inr(info.get("bookValue"))},
+        {"label": "Dividend Yield", "value": fmt_div_yield(info.get("dividendYield"))},
+        {"label": "ROE", "value": _fmt_percent(info.get("returnOnEquity"), ratio=True)},
+        {"label": "EPS", "value": _fmt_inr(info.get("trailingEps"))},
+        {"label": "Price to book value", "value": _fmt(info.get("priceToBook"))},
+        {"label": "Debt to equity", "value": _fmt(info.get("debtToEquity"))},
+        {"label": "Revenue", "value": _fmt_crore(info.get("totalRevenue"))},
+        {"label": "Operating Margin", "value": _fmt_percent(info.get("operatingMargins"), ratio=True)},
     ]
 
 
@@ -232,10 +289,16 @@ async def get_metrics(symbol: str) -> list[dict[str, str]]:
 async def get_chart(symbol: str, range: str = "1Yr") -> list[dict[str, Any]]:
     normalized = _normalize_symbol(symbol)
     period = PERIODS.get(range, "1y")
+    interval = "1d"
+    if range in ("5Yr", "10Yr", "Max"):
+        interval = "1wk"
+    elif range == "3Yr":
+        interval = "1d"
+        
     try:
         data = await _get_json(
             YAHOO_CHART_URL.format(symbol=normalized),
-            {"range": period, "interval": "1d", "includePrePost": "false"},
+            {"range": period, "interval": interval, "includePrePost": "false"},
         )
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"Could not load chart for {symbol}") from exc
@@ -247,102 +310,100 @@ async def get_chart(symbol: str, range: str = "1Yr") -> list[dict[str, Any]]:
     volumes = quote_data.get("volume") or []
 
     rows = []
-    for timestamp, close, volume in list(zip(timestamps, closes, volumes))[-180:]:
-        rows.append(
-            {
-                "month": datetime.fromtimestamp(timestamp, UTC).strftime("%d %b %Y"),
-                "price": _number(close),
-                "volume": int(volume or 0),
-            }
-        )
+    for timestamp, close, volume in zip(timestamps, closes, volumes):
+        if close is not None:
+            rows.append(
+                {
+                    "month": datetime.fromtimestamp(timestamp, UTC).strftime("%d %b %Y"),
+                    "price": _number(close),
+                    "volume": int(volume or 0),
+                }
+            )
     return rows
-
-
-def _statement_table(
-    statement_items: list[dict[str, Any]],
-    title: str,
-    rows: list[tuple[str, str]],
-) -> dict[str, Any]:
-    columns = []
-    for item in statement_items[:4]:
-        end_date = item.get("endDate", {}).get("raw")
-        columns.append(datetime.fromtimestamp(end_date, UTC).strftime("%b %Y") if end_date else "Period")
-
-    table_rows = []
-    for label, key in rows:
-        values = [_fmt_crore(item.get(key)) for item in statement_items[:4]]
-        if any(value != "N/A" for value in values):
-            table_rows.append({"label": label, "values": values})
-
-    return {"title": title, "unit": "Figures in INR Crore", "columns": columns, "rows": table_rows}
 
 
 @router.get("/{symbol}/quarters")
 async def get_quarters(symbol: str) -> dict[str, Any]:
     normalized = _normalize_symbol(symbol)
-    summary = await _summary(normalized, ["incomeStatementHistoryQuarterly"])
-    items = summary.get("incomeStatementHistoryQuarterly", {}).get("incomeStatementHistory", [])
-    return _statement_table(
-        items,
+    try:
+        ticker = await run_in_threadpool(_fetch_yfinance_ticker, normalized)
+        df = ticker.quarterly_income_stmt
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Could not load quarters for {symbol}") from exc
+    return _statement_table_from_df(
+        df,
         "Quarterly Results",
         [
-            ("Revenue", "totalRevenue"),
-            ("Total Expenses", "totalOperatingExpenses"),
-            ("Operating Income", "operatingIncome"),
-            ("Net Profit", "netIncome"),
+            ("Revenue", "Total Revenue"),
+            ("Total Expenses", "Total Expenses"),
+            ("Operating Income", "Operating Income"),
+            ("Net Profit", "Net Income"),
         ],
+        limit=6,
     )
 
 
 @router.get("/{symbol}/profit-loss")
 async def get_profit_loss(symbol: str) -> dict[str, Any]:
     normalized = _normalize_symbol(symbol)
-    summary = await _summary(normalized, ["incomeStatementHistory"])
-    items = summary.get("incomeStatementHistory", {}).get("incomeStatementHistory", [])
-    return _statement_table(
-        items,
+    try:
+        ticker = await run_in_threadpool(_fetch_yfinance_ticker, normalized)
+        df = ticker.income_stmt
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Could not load profit & loss for {symbol}") from exc
+    return _statement_table_from_df(
+        df,
         "Profit & Loss",
         [
-            ("Revenue", "totalRevenue"),
-            ("Total Expenses", "totalOperatingExpenses"),
-            ("Operating Income", "operatingIncome"),
-            ("Net Profit", "netIncome"),
+            ("Revenue", "Total Revenue"),
+            ("Total Expenses", "Total Expenses"),
+            ("Operating Income", "Operating Income"),
+            ("Net Profit", "Net Income"),
         ],
+        limit=6,
     )
 
 
 @router.get("/{symbol}/balance-sheet")
 async def get_balance_sheet(symbol: str) -> dict[str, Any]:
     normalized = _normalize_symbol(symbol)
-    summary = await _summary(normalized, ["balanceSheetHistory"])
-    items = summary.get("balanceSheetHistory", {}).get("balanceSheetStatements", [])
-    return _statement_table(
-        items,
+    try:
+        ticker = await run_in_threadpool(_fetch_yfinance_ticker, normalized)
+        df = ticker.balance_sheet
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Could not load balance sheet for {symbol}") from exc
+    return _statement_table_from_df(
+        df,
         "Balance Sheet",
         [
-            ("Total Assets", "totalAssets"),
-            ("Total Liabilities", "totalLiab"),
-            ("Shareholders Equity", "totalStockholderEquity"),
-            ("Cash", "cash"),
-            ("Total Debt", "shortLongTermDebtTotal"),
+            ("Total Assets", "Total Assets"),
+            ("Total Liabilities", "Total Liabilities Net Minority Interest"),
+            ("Shareholders Equity", "Stockholders Equity"),
+            ("Cash", "Cash And Cash Equivalents"),
+            ("Total Debt", "Total Debt"),
         ],
+        limit=6,
     )
 
 
 @router.get("/{symbol}/cash-flow")
 async def get_cash_flow(symbol: str) -> dict[str, Any]:
     normalized = _normalize_symbol(symbol)
-    summary = await _summary(normalized, ["cashflowStatementHistory"])
-    items = summary.get("cashflowStatementHistory", {}).get("cashflowStatements", [])
-    return _statement_table(
-        items,
+    try:
+        ticker = await run_in_threadpool(_fetch_yfinance_ticker, normalized)
+        df = ticker.cashflow
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Could not load cash flow for {symbol}") from exc
+    return _statement_table_from_df(
+        df,
         "Cash Flow",
         [
-            ("Operating Cash Flow", "totalCashFromOperatingActivities"),
-            ("Investing Cash Flow", "totalCashflowsFromInvestingActivities"),
-            ("Financing Cash Flow", "totalCashFromFinancingActivities"),
-            ("Capital Expenditure", "capitalExpenditures"),
+            ("Operating Cash Flow", "Operating Cash Flow"),
+            ("Investing Cash Flow", "Investing Cash Flow"),
+            ("Financing Cash Flow", "Financing Cash Flow"),
+            ("Capital Expenditure", "Capital Expenditure"),
         ],
+        limit=6,
     )
 
 
@@ -356,13 +417,16 @@ async def get_ratios(symbol: str) -> dict[str, Any]:
 @router.get("/{symbol}/about")
 async def get_about(symbol: str) -> dict[str, str]:
     normalized = _normalize_symbol(symbol)
-    summary = await _summary(normalized, ["assetProfile"])
-    profile = summary.get("assetProfile", {})
+    try:
+        ticker = await run_in_threadpool(_fetch_yfinance_ticker, normalized)
+        info = ticker.info
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Could not load details for {symbol}") from exc
     return {
-        "description": profile.get("longBusinessSummary") or "Company profile is not available from the live data provider.",
-        "founded": "N/A",
-        "headquarters": ", ".join(part for part in [profile.get("city"), profile.get("state"), profile.get("country")] if part) or "N/A",
-        "website": (profile.get("website") or "").replace("https://", "").replace("http://", "") or "N/A",
+        "description": info.get("longBusinessSummary") or "Company profile is not available from the live data provider.",
+        # "founded": str(info.get("founded") or "N/A"),
+        "headquarters": ", ".join(part for part in [info.get("city"), info.get("state"), info.get("country")] if part) or "N/A",
+        "website": (info.get("website") or "").replace("https://", "").replace("http://", "") or "N/A",
     }
 
 
@@ -383,9 +447,14 @@ async def get_summary(symbol: str) -> dict[str, Any]:
 @router.get("/{symbol}/peers")
 async def get_peers(symbol: str) -> list[dict[str, Any]]:
     normalized = _normalize_symbol(symbol)
-    summary = await _summary(normalized, ["assetProfile"])
-    sector = summary.get("assetProfile", {}).get("sector")
+    try:
+        ticker = await run_in_threadpool(_fetch_yfinance_ticker, normalized)
+        info = ticker.info
+    except Exception:
+        return []
+    sector = info.get("sector")
     if not sector or sector == "N/A":
         return []
     search = await list_stocks(sector, 6)
     return [item for item in search["items"] if item["symbol"] != normalized]
+

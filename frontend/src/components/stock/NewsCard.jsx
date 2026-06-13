@@ -11,8 +11,8 @@ const NewsCard = ({ about, related = [] }) => {
 
         <div className="mt-4 space-y-2 text-[12px]">
           <div className="flex justify-between">
-            <span className="text-gray-500">Founded</span>
-            <span className="text-gray-200">{about?.founded || 'N/A'}</span>
+            {/* <span className="text-gray-500">Founded</span> */}
+            {/* <span className="text-gray-200">{about?.founded || 'N/A'}</span> */}
           </div>
           <div className="flex justify-between">
             <span className="text-gray-500">Headquarters</span>
@@ -60,9 +60,8 @@ const NewsCard = ({ about, related = [] }) => {
                       {s.currencySymbol || 'INR'} {price ? price.toLocaleString('en-IN', { maximumFractionDigits: 2 }) : 'N/A'}
                     </p>
                     <p
-                      className={`text-[10px] font-medium ${
-                        positive ? 'text-emerald-400' : 'text-red-400'
-                      }`}
+                      className={`text-[10px] font-medium ${positive ? 'text-emerald-400' : 'text-red-400'
+                        }`}
                     >
                       {positive ? 'UP' : 'DOWN'} {Math.abs(Number(s.changePercent || 0)).toFixed(2)}%
                     </p>

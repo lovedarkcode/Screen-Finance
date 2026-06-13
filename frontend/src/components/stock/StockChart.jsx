@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   ComposedChart,
   Line,
@@ -10,13 +10,53 @@ import {
   ResponsiveContainer,
 } from 'recharts'
 import { ChevronDown, TriangleAlert } from 'lucide-react'
+import stockService from '@/services/stock.service'
 
 const RANGES = ['1M', '6M', '1Yr', '3Yr', '5Yr', '10Yr', 'Max']
 
-const StockChart = ({ data = [], exchange = 'NSE/BSE' }) => {
+const StockChart = ({ symbol, exchange = 'NSE/BSE', initialData = [] }) => {
   const [range, setRange] = useState('1Yr')
+  const [data, setData] = useState(initialData)
+  const [loading, setLoading] = useState(false)
   const [showPrice, setShowPrice] = useState(true)
   const [showVolume, setShowVolume] = useState(true)
+
+  // Update data when initialData changes (e.g. symbol changes)
+  useEffect(() => {
+    setData(initialData)
+    setRange('1Yr')
+  }, [initialData])
+
+  useEffect(() => {
+    // If range is 1Yr and data is already set to initialData, skip first fetch
+    if (range === '1Yr' && data === initialData) {
+      return
+    }
+
+    if (!symbol) return
+
+    let active = true
+    const fetchChart = async () => {
+      setLoading(true)
+      try {
+        const res = await stockService.getChart(symbol, range)
+        if (active) {
+          setData(res)
+        }
+      } catch (err) {
+        console.error('Error fetching chart data:', err)
+      } finally {
+        if (active) {
+          setLoading(false)
+        }
+      }
+    }
+
+    fetchChart()
+    return () => {
+      active = false
+    }
+  }, [range, symbol])
 
   return (
     <div className="bg-[#14161c] border border-[#1f2129] rounded-lg p-3">
@@ -25,92 +65,84 @@ const StockChart = ({ data = [], exchange = 'NSE/BSE' }) => {
           {RANGES.map((r) => (
             <button
               key={r}
+              disabled={loading}
               onClick={() => setRange(r)}
-              className={`px-2 py-1 text-[11px] font-medium rounded transition-colors ${
-                range === r
-                  ? 'bg-[#262833] text-white'
-                  : 'text-gray-400 hover:text-gray-200'
-              }`}
+              className={`px-2 py-1 text-[11px] font-medium rounded transition-colors ${range === r
+                ? 'bg-[#262833] text-white'
+                : 'text-gray-400 hover:text-gray-200 disabled:opacity-50'
+                }`}
             >
               {r}
             </button>
           ))}
         </div>
         <div className="flex items-center gap-1 text-[11px]">
-          <button className="px-2 py-1 bg-[#1a1c23] rounded text-gray-200 border border-[#262833]">
-            Price
-          </button>
-          <button className="px-2 py-1 text-gray-400 hover:text-gray-200">PE Ratio</button>
-          <button className="flex items-center gap-1 px-2 py-1 text-gray-400 hover:text-gray-200">
-            More <ChevronDown className="w-3 h-3" />
-          </button>
-          <button className="flex items-center gap-1 px-2 py-1 text-amber-400">
-            <TriangleAlert className="w-3 h-3" /> Alerts
-          </button>
+
+
         </div>
       </div>
 
-      <div className="h-[230px]">
-        {data.length === 0 ? (
+      <div className={`h-[230px] transition-opacity duration-200 ${loading ? 'opacity-50' : 'opacity-100'}`}>
+        {!data || data.length === 0 ? (
           <div className="flex h-full items-center justify-center text-[12px] text-gray-500">
             No live price history available.
           </div>
         ) : (
-        <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={data} margin={{ top: 10, right: 5, bottom: 0, left: -10 }}>
-            <CartesianGrid stroke="#1f2129" strokeDasharray="2 4" vertical={false} />
-            <XAxis
-              dataKey="month"
-              tick={{ fill: '#6b7280', fontSize: 10 }}
-              axisLine={{ stroke: '#1f2129' }}
-              tickLine={false}
-            />
-            <YAxis
-              yAxisId="price"
-              orientation="right"
-              tick={{ fill: '#6b7280', fontSize: 10 }}
-              axisLine={false}
-              tickLine={false}
-              domain={['dataMin - 10', 'dataMax + 5']}
-            />
-            <YAxis
-              yAxisId="volume"
-              orientation="left"
-              tick={{ fill: '#6b7280', fontSize: 10 }}
-              axisLine={false}
-              tickLine={false}
-              tickFormatter={(v) => `${v / 1_000_000}M`}
-            />
-            <Tooltip
-              contentStyle={{
-                background: '#1a1c23',
-                border: '1px solid #262833',
-                borderRadius: 6,
-                fontSize: 12,
-              }}
-              labelStyle={{ color: '#e5e7eb' }}
-            />
-            {showVolume && (
-              <Bar
-                yAxisId="volume"
-                dataKey="volume"
-                fill="#2a2d36"
-                barSize={10}
-                radius={[2, 2, 0, 0]}
+          <ResponsiveContainer width="100%" height="100%">
+            <ComposedChart data={data} margin={{ top: 10, right: 5, bottom: 0, left: -10 }}>
+              <CartesianGrid stroke="#1f2129" strokeDasharray="2 4" vertical={false} />
+              <XAxis
+                dataKey="month"
+                tick={{ fill: '#6b7280', fontSize: 10 }}
+                axisLine={{ stroke: '#1f2129' }}
+                tickLine={false}
               />
-            )}
-            {showPrice && (
-              <Line
+              <YAxis
                 yAxisId="price"
-                type="monotone"
-                dataKey="price"
-                stroke="#818cf8"
-                strokeWidth={2}
-                dot={false}
+                orientation="right"
+                tick={{ fill: '#6b7280', fontSize: 10 }}
+                axisLine={false}
+                tickLine={false}
+                domain={['dataMin - 10', 'dataMax + 5']}
               />
-            )}
-          </ComposedChart>
-        </ResponsiveContainer>
+              <YAxis
+                yAxisId="volume"
+                orientation="left"
+                tick={{ fill: '#6b7280', fontSize: 10 }}
+                axisLine={false}
+                tickLine={false}
+                tickFormatter={(v) => `${v / 1_000_000}M`}
+              />
+              <Tooltip
+                contentStyle={{
+                  background: '#1a1c23',
+                  border: '1px solid #262833',
+                  borderRadius: 6,
+                  fontSize: 12,
+                }}
+                labelStyle={{ color: '#e5e7eb' }}
+              />
+              {showVolume && (
+                <Bar
+                  yAxisId="volume"
+                  dataKey="volume"
+                  fill="#2a2d36"
+                  barSize={10}
+                  radius={[2, 2, 0, 0]}
+                />
+              )}
+              {showPrice && (
+                <Line
+                  yAxisId="price"
+                  type="monotone"
+                  dataKey="price"
+                  stroke="#818cf8"
+                  strokeWidth={2}
+                  dot={false}
+                />
+              )}
+            </ComposedChart>
+          </ResponsiveContainer>
         )}
       </div>
 

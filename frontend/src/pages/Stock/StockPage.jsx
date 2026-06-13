@@ -139,11 +139,10 @@ const StockPage = () => {
                 <button
                   key={t}
                   onClick={() => setActive(t)}
-                  className={`relative pb-2 whitespace-nowrap transition-colors ${
-                    isActive
+                  className={`relative pb-2 whitespace-nowrap transition-colors ${isActive
                       ? 'text-indigo-400 font-medium'
                       : 'text-gray-400 hover:text-gray-200'
-                  }`}
+                    }`}
                 >
                   <span className="flex items-center gap-1.5">
                     {t}
