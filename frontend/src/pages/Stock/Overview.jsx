@@ -1,13 +1,12 @@
 import { Pencil } from 'lucide-react'
 import MetricsCard from '@/components/stock/MetricsCard'
 import StockChart from '@/components/stock/StockChart'
-import { mockMetrics, mockChartData } from '@/services/stock.service'
 
-const Overview = () => {
+const Overview = ({ metrics = [], chartData = [], stock }) => {
   const cols = [
-    mockMetrics.filter((_, i) => i % 3 === 0),
-    mockMetrics.filter((_, i) => i % 3 === 1),
-    mockMetrics.filter((_, i) => i % 3 === 2),
+    metrics.filter((_, i) => i % 3 === 0),
+    metrics.filter((_, i) => i % 3 === 1),
+    metrics.filter((_, i) => i % 3 === 2),
   ]
 
   return (
@@ -22,6 +21,11 @@ const Overview = () => {
             </div>
           ))}
         </div>
+        {metrics.length === 0 && (
+          <div className="px-3 py-8 text-center text-[12px] text-gray-500">
+            Live metrics are not available for this stock.
+          </div>
+        )}
         <div className="flex items-center justify-between gap-3 px-3 py-2 mt-2 border border-dashed border-[#262833] rounded-md">
           <div className="flex-1">
             <p className="text-[11px] text-gray-500 mb-1">Add ratio to table</p>
@@ -37,7 +41,7 @@ const Overview = () => {
         </div>
       </div>
 
-      <StockChart data={mockChartData} />
+      <StockChart data={chartData} exchange={stock?.exchange} />
     </section>
   )
 }

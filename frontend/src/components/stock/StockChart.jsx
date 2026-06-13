@@ -13,7 +13,7 @@ import { ChevronDown, TriangleAlert } from 'lucide-react'
 
 const RANGES = ['1M', '6M', '1Yr', '3Yr', '5Yr', '10Yr', 'Max']
 
-const StockChart = ({ data }) => {
+const StockChart = ({ data = [], exchange = 'NSE/BSE' }) => {
   const [range, setRange] = useState('1Yr')
   const [showPrice, setShowPrice] = useState(true)
   const [showVolume, setShowVolume] = useState(true)
@@ -51,6 +51,11 @@ const StockChart = ({ data }) => {
       </div>
 
       <div className="h-[230px]">
+        {data.length === 0 ? (
+          <div className="flex h-full items-center justify-center text-[12px] text-gray-500">
+            No live price history available.
+          </div>
+        ) : (
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={data} margin={{ top: 10, right: 5, bottom: 0, left: -10 }}>
             <CartesianGrid stroke="#1f2129" strokeDasharray="2 4" vertical={false} />
@@ -106,6 +111,7 @@ const StockChart = ({ data }) => {
             )}
           </ComposedChart>
         </ResponsiveContainer>
+        )}
       </div>
 
       <div className="flex items-center gap-4 mt-2 text-[11px] text-gray-400">
@@ -116,7 +122,7 @@ const StockChart = ({ data }) => {
             onChange={(e) => setShowPrice(e.target.checked)}
             className="w-3 h-3 accent-indigo-500"
           />
-          Price on NASDAQ
+          Price on {exchange}
         </label>
         <label className="flex items-center gap-1.5 cursor-pointer">
           <input

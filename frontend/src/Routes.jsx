@@ -25,7 +25,7 @@ const AppRoutes = () => {
 
       <Route element={<ProtectedRoute />}>
         <Route element={<Mainlayouts />}>
-          <Route path="/" element={<Navigate to="/stock/AAPL" replace />} />
+          <Route path="/" element={<Navigate to="/feed" replace />} />
           <Route path="/feed" element={<HomePage />} />
           <Route path="/stock/:symbol" element={<StockPage />} />
           <Route path="/screens" element={<ScreenerPage />} />
