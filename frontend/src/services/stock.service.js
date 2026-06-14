@@ -49,6 +49,14 @@ const stockService = {
     const response = await api.get(`/stocks/${symbol}/about`)
     return response.data
   },
+  getSectors: async () => {
+    const response = await api.get('/stocks/sectors')
+    return response.data
+  },
+  getSectorStocks: async (sectorId) => {
+    const response = await api.get(`/stocks/sectors/${sectorId}`)
+    return response.data
+  },
 }
 
 export default stockService

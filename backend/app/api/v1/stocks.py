@@ -1,6 +1,7 @@
 """Live Indian stock data endpoints for NSE/BSE listed companies."""
 from __future__ import annotations
 
+import asyncio
 from datetime import UTC, datetime
 from math import isfinite
 from typing import Any
@@ -181,6 +182,108 @@ async def list_stocks(q: str | None = None, limit: int = 10) -> dict[str, Any]:
             break
 
     return {"items": items, "total": len(items)}
+
+
+SECTORS = {
+    "defence": {
+        "name": "Defence",
+        "icon": "Shield",
+        "description": "Defense aerospace, electronics, and naval shipbuilding enterprises of India.",
+        "symbols": ["HAL.NS", "BEL.NS", "MAZDOCK.NS", "BDL.NS", "COCHINSHIP.NS"],
+    },
+    "railway": {
+        "name": "Railway",
+        "icon": "Train",
+        "description": "Rail infrastructure, financing, and transport services.",
+        "symbols": ["IRCTC.NS", "IRFC.NS", "RVNL.NS", "IRCON.NS", "CONCOR.NS"],
+    },
+    "energy": {
+        "name": "Energy",
+        "icon": "Zap",
+        "description": "Oil, gas, power generation, transmission, and renewable energy.",
+        "symbols": ["RELIANCE.NS", "NTPC.NS", "POWERGRID.NS", "ONGC.NS", "TATAPOWER.NS", "ADANIGREEN.NS"],
+    },
+    "production": {
+        "name": "Production & Metals",
+        "icon": "Factory",
+        "description": "Steel, aluminium, cement, and core industrial materials.",
+        "symbols": ["TATASTEEL.NS", "JSWSTEEL.NS", "HINDALCO.NS", "GRASIM.NS", "JINDALSTEL.NS"],
+    },
+    "electronics": {
+        "name": "Electronics",
+        "icon": "Cpu",
+        "description": "Electronics manufacturing, appliances, and hardware components.",
+        "symbols": ["DIXON.NS", "SYRMA.NS", "KAYNES.NS", "VOLTAS.NS", "HAVELLS.NS"],
+    },
+    "it": {
+        "name": "IT & Software",
+        "icon": "Code",
+        "description": "Global software services, consulting, and system integration.",
+        "symbols": ["TCS.NS", "INFY.NS", "HCLTECH.NS", "WIPRO.NS", "TECHM.NS"],
+    },
+    "banking": {
+        "name": "Banking & Finance",
+        "icon": "Building",
+        "description": "Commercial banking, public sector banks, and retail credit providers.",
+        "symbols": ["HDFCBANK.NS", "ICICIBANK.NS", "SBIN.NS", "AXISBANK.NS", "KOTAKBANK.NS"],
+    },
+    "auto": {
+        "name": "Automobile",
+        "icon": "Car",
+        "description": "Passenger vehicles, commercial vehicles, and two-wheeler giants.",
+        "symbols": ["TATAMOTORS.NS", "MARUTI.NS", "M&M.NS", "BAJAJ-AUTO.NS", "EICHERMOT.NS"],
+    },
+    "pharma": {
+        "name": "Pharmaceuticals",
+        "icon": "Pills",
+        "description": "Drug formulations, APIs, diagnostics, and healthcare chains.",
+        "symbols": ["SUNPHARMA.NS", "CIPLA.NS", "REDDY.NS", "DIVISLAB.NS", "APOLLOHOSP.NS"],
+    },
+}
+
+
+@router.get("/sectors")
+async def list_sectors() -> list[dict]:
+    return [
+        {
+            "id": sector_id,
+            "name": data["name"],
+            "icon": data["icon"],
+            "description": data["description"],
+            "tickerCount": len(data["symbols"]),
+        }
+        for sector_id, data in SECTORS.items()
+    ]
+
+
+@router.get("/sectors/{sector_id}")
+async def get_sector_stocks(sector_id: str) -> list[dict]:
+    sector = SECTORS.get(sector_id.lower())
+    if not sector:
+        raise HTTPException(status_code=404, detail=f"Sector '{sector_id}' not found")
+
+    async def fetch_safe_quote(sym: str) -> dict:
+        try:
+            return await _quote(sym)
+        except Exception:
+            return {
+                "symbol": sym,
+                "baseSymbol": sym.rsplit(".", 1)[0],
+                "name": sym.rsplit(".", 1)[0],
+                "price": None,
+                "change": None,
+                "changePercent": None,
+                "exchange": "NSE",
+                "country": "India",
+                "currency": "INR",
+                "currencySymbol": "INR",
+                "sector": sector["name"],
+                "industry": "N/A",
+                "error": True
+            }
+
+    tasks = [fetch_safe_quote(sym) for sym in sector["symbols"]]
+    return await asyncio.gather(*tasks)
 
 
 @router.get("/{symbol}")
