@@ -22,7 +22,7 @@ const Login = () => {
   const { status, error } = useSelector(selectAuth)
   const isSubmitting = status === 'loading'
 
-  const redirectTo = location.state?.from?.pathname || '/stock/AAPL'
+  const redirectTo = '/feed'
 
   const {
     register,
@@ -44,9 +44,10 @@ const Login = () => {
 
   return (
     <div className="space-y-6">
-      <div className="text-center">
+      <div className="text-center flex flex-col items-center">
+        <img src="/assest hunter.png" alt="Asset Hunter Logo" className="w-16 h-16 rounded-xl mb-3 shadow-lg object-contain" />
         <h1 className="text-2xl font-semibold text-gray-100">Welcome back</h1>
-        <p className="mt-1 text-sm text-gray-400">Sign in to your StockScreener account</p>
+        <p className="mt-1 text-sm text-gray-400">Sign in to your Assest Hunter account</p>
       </div>
 
       <GoogleButton onSuccess={() => navigate(redirectTo, { replace: true })} />

@@ -35,9 +35,9 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-40 border-b border-[#1f2129] bg-[#0d0e13]/95 backdrop-blur">
       <div className="mx-auto max-w-[1440px] px-6 h-14 flex items-center gap-6">
-        <Link to="/" className="flex items-center gap-1.5 shrink-0">
-          <span className="font-semibold text-[15px] text-gray-100">StockScreener</span>
-          <BarChart3 className="w-4 h-4 text-indigo-400" />
+        <Link to="/" className="flex items-center gap-2 shrink-0">
+          <img src="/assest hunter.png" alt="Asset Hunter Logo" className="w-6 h-6 rounded object-contain" />
+          <span className="font-semibold text-[15px] text-gray-100">Assest Hunter</span>
         </Link>
 
         <nav className="flex items-center gap-5 text-[13px] font-medium text-gray-300">

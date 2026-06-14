@@ -6,9 +6,9 @@ const Authlayout = () => {
     <div className="min-h-screen flex flex-col bg-[#0d0e13] text-gray-200">
       <header className="border-b border-[#1f2129]">
         <div className="mx-auto max-w-[1440px] px-6 h-14 flex items-center">
-          <Link to="/" className="flex items-center gap-1.5">
-            <span className="font-semibold text-[15px] text-gray-100">StockScreener</span>
-            <BarChart3 className="w-4 h-4 text-indigo-400" />
+          <Link to="/" className="flex items-center gap-2">
+            <img src="/assest hunter.png" alt="Asset Hunter Logo" className="w-6 h-6 rounded object-contain" />
+            <span className="font-semibold text-[15px] text-gray-100">Assest Hunter</span>
           </Link>
         </div>
       </header>
@@ -20,7 +20,7 @@ const Authlayout = () => {
       </main>
 
       <footer className="text-center text-xs text-gray-500 py-4">
-        © {new Date().getFullYear()} StockScreener
+        © {new Date().getFullYear()} Assest Hunter
       </footer>
     </div>
   )

@@ -37,7 +37,7 @@ const Register = () => {
     const result = await dispatch(registerUser(values))
     if (registerUser.fulfilled.match(result)) {
       toast.success(`Welcome, ${result.payload.user.name}!`)
-      navigate('/stock/AAPL', { replace: true })
+      navigate('/feed', { replace: true })
     } else {
       toast.error(result.payload || 'Registration failed')
     }
@@ -51,7 +51,7 @@ const Register = () => {
       </div>
 
       <GoogleButton
-        onSuccess={() => navigate('/stock/AAPL', { replace: true })}
+        onSuccess={() => navigate('/feed', { replace: true })}
         label="Sign up with Google"
       />
 
