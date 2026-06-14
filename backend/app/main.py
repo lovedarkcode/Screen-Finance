@@ -61,6 +61,10 @@ def create_app() -> FastAPI:
     async def health() -> dict[str, str]:
         return {"status": "healthy"}
 
+    @app.get("/api/health", tags=["health"])
+    async def api_health() -> dict[str, str]:
+        return {"status": "healthy"}
+
     @app.get("/health/db", tags=["health"])
     async def health_db() -> dict[str, str]:
         try:

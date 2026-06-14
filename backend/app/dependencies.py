@@ -6,6 +6,7 @@ from typing import AsyncGenerator
 import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.security import decode_token
@@ -20,6 +21,14 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
     async with SessionLocal() as session:
         try:
             yield session
+        except HTTPException:
+            raise
+        except (SQLAlchemyError, OSError) as exc:
+            await session.rollback()
+            raise HTTPException(
+                status.HTTP_503_SERVICE_UNAVAILABLE,
+                "Database is unavailable. Configure DATABASE_URL in Vercel and run migrations.",
+            ) from exc
         except Exception:
             await session.rollback()
             raise

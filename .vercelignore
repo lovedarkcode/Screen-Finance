@@ -1,0 +1,17 @@
+.git
+.venv
+venv
+__pycache__
+*.pyc
+
+backend/.env
+frontend/.env
+
+data
+backend/app/tests
+backend/app/**/__pycache__
+frontend/node_modules
+frontend/dist
+
+docker-compose.yml
+/assest hunter.png

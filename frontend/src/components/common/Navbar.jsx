@@ -36,7 +36,14 @@ const Navbar = () => {
     <header className="sticky top-0 z-40 border-b border-[#1f2129] bg-[#0d0e13]/95 backdrop-blur">
       <div className="mx-auto max-w-[1440px] px-6 h-14 flex items-center gap-6">
         <Link to="/" className="flex items-center gap-2 shrink-0">
-          <img src="/assest hunter.png" alt="Asset Hunter Logo" className="w-6 h-6 rounded object-contain" />
+          <span className="w-8 h-8 rounded-md bg-white border border-[#2a2d36] overflow-hidden flex items-center justify-center">
+            <img
+              src="/assest-hunter.png"
+              alt="Asset Hunter Logo"
+              className="w-full h-full object-cover scale-[2.8]"
+              style={{ objectPosition: '50% 34%' }}
+            />
+          </span>
           <span className="font-semibold text-[15px] text-gray-100">Assest Hunter</span>
         </Link>
 

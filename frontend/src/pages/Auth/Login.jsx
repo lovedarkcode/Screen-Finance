@@ -45,7 +45,14 @@ const Login = () => {
   return (
     <div className="space-y-6">
       <div className="text-center flex flex-col items-center">
-        <img src="/assest hunter.png" alt="Asset Hunter Logo" className="w-16 h-16 rounded-xl mb-3 shadow-lg object-contain" />
+        <span className="w-16 h-16 rounded-xl mb-3 shadow-lg bg-white border border-[#2a2d36] overflow-hidden flex items-center justify-center">
+          <img
+            src="/assest-hunter.png"
+            alt="Asset Hunter Logo"
+            className="w-full h-full object-cover scale-[2.8]"
+            style={{ objectPosition: '50% 34%' }}
+          />
+        </span>
         <h1 className="text-2xl font-semibold text-gray-100">Welcome back</h1>
         <p className="mt-1 text-sm text-gray-400">Sign in to your Assest Hunter account</p>
       </div>
