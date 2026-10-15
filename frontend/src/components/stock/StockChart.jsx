@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { ChevronDown, ExternalLink } from 'lucide-react'
 import stockService from '@/services/stock.service'
@@ -13,6 +13,13 @@ export default function StockChart({ symbol }) {
   const [attempt, setAttempt] = useState(0)
   const [state, setState] = useState({ data: [], loading: true, error: '' })
   const gradient = useId()
+  const more = useRef(null)
+  useEffect(() => {
+    const close = event => { if (more.current && (event.key === 'Escape' || !more.current.contains(event.target))) more.current.open = false }
+    document.addEventListener('pointerdown', close)
+    document.addEventListener('keydown', close)
+    return () => { document.removeEventListener('pointerdown', close); document.removeEventListener('keydown', close) }
+  }, [])
   useEffect(() => {
     let live = true
     stockService.getChart(symbol, range).then(data => {
@@ -28,7 +35,7 @@ export default function StockChart({ symbol }) {
   }
   return <section className="stock-section stock-band" id="price-chart"><div className="stock-container">
     <SectionTitle extra={<div className="stock-chart-ranges" aria-label="Chart timeframe">{RANGES.map(item => <button key={item} aria-pressed={range === item} onClick={() => select(item)}>{item}</button>)}
-      <details className="stock-range-more"><summary aria-label="More chart timeframes">{MORE.includes(range) && range}<ChevronDown size={12} /></summary><div>{MORE.map(item => <button key={item} aria-pressed={range === item} onClick={event => { select(item); event.currentTarget.closest('details').open = false }}>{item}</button>)}</div></details>
+      <details ref={more} className="stock-range-more"><summary aria-label="More chart timeframes">{MORE.includes(range) && range}<ChevronDown size={12} /></summary><div>{MORE.map(item => <button key={item} aria-pressed={range === item} onClick={event => { select(item); event.currentTarget.closest('details').open = false }}>{item}</button>)}</div></details>
     </div>}><span>Price Chart</span><a className="stock-heading-link" target="_blank" rel="noreferrer" href={`https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}/chart/`}><ExternalLink size={13} />Advanced chart</a></SectionTitle>
     <div className="stock-chart" aria-busy={state.loading}>
       {state.loading && <span className="stock-chart-loading" role="status">Loading price history…</span>}

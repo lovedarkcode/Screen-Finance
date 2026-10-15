@@ -9,9 +9,9 @@ export default function StockFinancials({ quarters, loading, error }) {
   const [tab, setTab] = useState('Results')
   const data = quarters?.chart || []
   const eps = tab === 'Earnings Per Share'
-  const series = eps ? [['eps', 'Earnings Per Share', '#b7b4e7']] : SERIES
+  const series = eps ? [['eps', 'Earnings Per Share', '#b7b4e7']] : SERIES.map(([key, label, color]) => [key, key === 'totalIncome' ? quarters?.incomeLabel || label : label, color])
   const available = data.some(row => series.some(([key]) => row[key] != null))
-  return <article className="stock-panel" id="financials"><SectionTitle>Financial Result (Amount in ₹ Lakhs)</SectionTitle>
+  return <article className="stock-panel" id="financials"><SectionTitle>Financial Result ({eps ? 'EPS in ₹' : 'Amount in ₹ Lakhs'})</SectionTitle>
     <div className="stock-financial-tabs" role="group" aria-label="Financial chart"><button aria-pressed={!eps} onClick={() => setTab('Results')}>Results</button><button aria-pressed={eps} onClick={() => setTab('Earnings Per Share')}>Earnings Per Share</button></div>
     <div className="stock-chart-legend">{series.map(([, label, color]) => <span key={label}><i style={{ background: color }} />{label}</span>)}</div>
     <div className="stock-financial-chart">{loading ? <div className="sk sk-panel" /> : error ? <EmptyState error>Financial results are temporarily unavailable.</EmptyState> : !available ? <EmptyState>No financial data available</EmptyState> : <ResponsiveContainer width="100%" height="100%"><BarChart data={data} margin={{ top: 5, right: 4, left: -18, bottom: 5 }}>

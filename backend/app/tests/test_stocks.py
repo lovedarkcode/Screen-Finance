@@ -1,5 +1,7 @@
 """Tests for /api/v1/stocks endpoints."""
 from fastapi.testclient import TestClient
+from types import SimpleNamespace
+import pandas as pd
 
 from app.api.v1 import stocks as stock_api
 from app.main import app
@@ -54,20 +56,8 @@ def test_search_filters_to_nse_and_bse(monkeypatch) -> None:
 
 
 def test_get_quarters_has_columns_and_rows(monkeypatch) -> None:
-    async def fake_summary(symbol: str, modules: list[str]) -> dict:
-        return {
-            "incomeStatementHistoryQuarterly": {
-                "incomeStatementHistory": [
-                    {
-                        "endDate": {"raw": 1767139200},
-                        "totalRevenue": {"raw": 10_000_000_000},
-                        "netIncome": {"raw": 2_000_000_000},
-                    }
-                ]
-            }
-        }
-
-    monkeypatch.setattr(stock_api, "_summary", fake_summary)
+    frame = pd.DataFrame({pd.Timestamp("2025-12-31"): {"Total Revenue": 10_000_000_000, "Net Income": 2_000_000_000}})
+    monkeypatch.setattr(stock_api, "_fetch_yfinance_ticker", lambda symbol: SimpleNamespace(quarterly_income_stmt=frame))
 
     response = client.get("/api/v1/stocks/TEST.NS/quarters")
 
@@ -75,3 +65,4 @@ def test_get_quarters_has_columns_and_rows(monkeypatch) -> None:
     body = response.json()
     assert body["columns"] == ["Dec 2025"]
     assert body["rows"][0]["label"] == "Revenue"
+    assert body["chart"][0]["totalIncome"] == 100_000

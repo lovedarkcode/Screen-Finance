@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import {
   Shield,
   Train,
@@ -37,6 +37,7 @@ const SECTOR_ICONS = {
 
 const ScreenerPage = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [sectors, setSectors] = useState([])
   const [activeSector, setActiveSector] = useState(null)
   const [stocks, setStocks] = useState([])
@@ -56,7 +57,7 @@ const ScreenerPage = () => {
       setWatchlistSymbols(watchlistData?.items || [])
       
       if (sectorsData.length > 0) {
-        setActiveSector(sectorsData[0])
+        setActiveSector(sectorsData.find(sector => sector.id === searchParams.get('sector')) || sectorsData[0])
       }
     } catch (err) {
       toast.error('Failed to load sectors metadata')

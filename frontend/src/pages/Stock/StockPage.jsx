@@ -63,7 +63,7 @@ function StockDetail({ symbol }) {
       {sections.about && <StockCompany stock={data.stock} about={data.overview?.about} loading={!data.overview && !errors.overview} error={errors.overview} />}
       {sections.peers && <StockPeers peers={data.peers} loading={!data.peers && !errors.peers} error={errors.peers} />}
       {sections.insights && <section className="stock-section" id="insights"><div className="stock-container"><SectionTitle>Asset Hunter Insights</SectionTitle>
-        {data.overview?.insights?.length ? <><ul className="stock-insights">{data.overview.insights.map(item => <li key={item}>{item}</li>)}</ul><p className="stock-source-note">Computed from provider fundamentals. These highlights are not an AI-generated summary.</p></> : <EmptyState>No computed highlights available</EmptyState>}
+        {data.overview?.insights?.length ? <><ul className="stock-insights">{data.overview.insights.map(item => <li key={item}>{item}</li>)}</ul><p className="stock-source-note">Computed from the latest available company fundamentals.</p></> : <EmptyState>No computed highlights available</EmptyState>}
       </div></section>}
       <footer className="stock-source-footer stock-container">Market data: Yahoo Finance / yfinance · Prices may be delayed. Availability varies by company.</footer>
     </main>}

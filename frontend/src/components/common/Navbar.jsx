@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Star, Briefcase, Bell, ChevronDown, BarChart3, LogOut, User as UserIcon } from 'lucide-react'
+import { Star, Briefcase, Bell, ChevronDown, LogOut, User as UserIcon } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 import SearchBar from './SearchBar'

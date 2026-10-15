@@ -332,6 +332,8 @@ def _overview_metrics(info: dict, history: Any) -> list[dict]:
     if history is not None and not history.empty:
         high, low = _number(history["High"].max()), _number(history["Low"].min())
     debt = _number(info.get("debtToEquity"))
+    roe = _number(info.get("returnOnEquity"))
+    margin = _number(info.get("operatingMargins"))
     fields = [
         ("marketCap", "Market Cap", info.get("marketCap"), "crore"),
         ("peRatio", "P/E Ratio", info.get("trailingPE"), "number"),
@@ -341,8 +343,8 @@ def _overview_metrics(info: dict, history: Any) -> list[dict]:
         ("allTimeLow", "All Time Low", low, "inr"),
         ("debtToEquity", "Debt/Equity", debt / 100 if debt is not None else None, "number"),
         ("bookValue", "Book Value", info.get("bookValue"), "inr"),
-        ("roe", "Return on Equity", (_number(info.get("returnOnEquity")) or 0) * 100 if info.get("returnOnEquity") is not None else None, "percent"),
-        ("operatingMargin", "Operating Margin", (_number(info.get("operatingMargins")) or 0) * 100 if info.get("operatingMargins") is not None else None, "percent"),
+        ("roe", "Return on Equity", roe * 100 if roe is not None else None, "percent"),
+        ("operatingMargin", "Operating Margin", margin * 100 if margin is not None else None, "percent"),
         ("revenue", "Revenue", info.get("totalRevenue"), "crore"),
         ("priceToBook", "Price to Book", info.get("priceToBook"), "number"),
     ]
@@ -487,7 +489,7 @@ async def get_metrics(symbol: str) -> list[dict[str, str]]:
         {"label": "ROE", "value": _fmt_percent(info.get("returnOnEquity"), ratio=True)},
         {"label": "EPS", "value": _fmt_inr(info.get("trailingEps"))},
         {"label": "Price to book value", "value": _fmt(info.get("priceToBook"))},
-        {"label": "Debt to equity", "value": _fmt(info.get("debtToEquity"))},
+        {"label": "Debt to equity", "value": _fmt(_number(info.get("debtToEquity")) / 100 if _number(info.get("debtToEquity")) is not None else None)},
         {"label": "Revenue", "value": _fmt_crore(info.get("totalRevenue"))},
         {"label": "Operating Margin", "value": _fmt_percent(info.get("operatingMargins"), ratio=True)},
     ]
@@ -561,6 +563,7 @@ async def get_quarters(symbol: str) -> dict[str, Any]:
         limit=6,
     )
     table["chart"] = _quarterly_chart(df)
+    table["incomeLabel"] = "Total Revenue"
     return table
 
 

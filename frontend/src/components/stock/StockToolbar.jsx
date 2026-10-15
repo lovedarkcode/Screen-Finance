@@ -45,7 +45,7 @@ export default function StockToolbar({ stock, theme, setTheme, sections, setSect
   }
   return <>
     <header className="stock-toolbar"><div className="stock-container stock-toolbar-inner">
-      <Link className="stock-brand" to="/screens"><img src="/assest-hunter.png" alt="" /><span>Asset Hunter</span></Link>
+      <Link className="stock-brand" to="/screens"><span className="stock-brand-mark"><img src="/assest-hunter.png" alt="" /></span><span>Asset Hunter</span></Link>
       <span className="stock-header-divider" />
       {stock && scrolled && <div className="stock-compact-quote"><strong>{stock.baseSymbol || stock.symbol}</strong><strong>{money(stock.price)}</strong><PriceChange value={stock.changePercent} /></div>}
       <button className="stock-search-trigger" onClick={() => setSearchOpen(true)} aria-label="Search stocks and sectors"><Search size={15} /><span>Search equity stocks, sectors …</span></button>
