@@ -21,8 +21,7 @@ function StockDetail({ symbol }) {
   const [errors, setErrors] = useState({})
   const [attempt, setAttempt] = useState(0)
   const { theme, setTheme } = useOutletContext()
-  const [sections, setSections] = useState(() => ({ ...DEFAULT_SECTIONS, ...readPreference('asset-hunter-stock-sections', {}) }))
-  useEffect(() => { localStorage.setItem('asset-hunter-stock-sections', JSON.stringify(sections)) }, [sections])
+  const [sections] = useState(() => ({ ...DEFAULT_SECTIONS, ...readPreference('asset-hunter-stock-sections', {}) }))
   useEffect(() => {
     let live = true
     stockService.getStock(symbol).then(stock => {
@@ -44,7 +43,7 @@ function StockDetail({ symbol }) {
   }, [symbol, attempt])
   const missing = errors.stock?.response?.status === 404
   return <div className="stock-detail" data-stock-theme={theme}>
-    <StockToolbar stock={data.stock} theme={theme} setTheme={setTheme} sections={sections} setSections={setSections} />
+    <StockToolbar stock={data.stock} theme={theme} setTheme={setTheme} />
     {errors.stock ? <main className="stock-error-page"><h1>{missing ? 'Stock not found' : 'Market data unavailable'}</h1>
       <p>{missing ? `The ticker “${symbol}” doesn't match an available listed stock.` : 'We couldn’t reach the market data provider. Please try again.'}</p>
       {!missing && <button className="stock-button" onClick={() => { setErrors({}); setData({}); setAttempt(value => value + 1) }}>Try again</button>}

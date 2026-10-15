@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Briefcase, Layers, LogOut, Moon, Search, Star, Sun, UserRound } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Briefcase, LogOut, Moon, Search, Star, Sun, UserRound } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout, selectUser } from '@/store/authSlice'
 import stockService from '@/services/stock.service'
 import { StockModal, PriceChange } from './StockUI'
-import { DEFAULT_SECTIONS, SECTIONS, money } from './stock-format'
+import { money } from './stock-format'
 
-export default function StockToolbar({ stock, theme, setTheme, sections, setSections }) {
+export default function StockToolbar({ stock, theme, setTheme }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(selectUser)
   const [accountOpen, setAccountOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const [manageOpen, setManageOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [search, setSearch] = useState({ items: [], loading: false, error: '' })
   const [sectors, setSectors] = useState(null)
@@ -54,7 +53,7 @@ export default function StockToolbar({ stock, theme, setTheme, sections, setSect
       <nav className="market-navigation" aria-label="Main navigation"><NavLink to="/feed">Feed</NavLink><NavLink to="/screens">Screens</NavLink></nav>
       {stock && scrolled && <div className="stock-compact-quote"><strong>{stock.baseSymbol || stock.symbol}</strong><strong>{money(stock.price)}</strong><PriceChange value={stock.changePercent} /></div>}
       <button className="stock-search-trigger" onClick={() => setSearchOpen(true)} aria-label="Search stocks and sectors"><Search size={15} /><span>Search equity stocks, sectors …</span></button>
-      <div className="stock-header-actions">{sections && <button className="stock-button stock-manage" aria-label="Manage sections" onClick={() => setManageOpen(true)}><Layers size={15} /><span>Manage sections</span></button>}
+      <div className="stock-header-actions">
         <button className="stock-icon-button stock-theme-button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>{theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}</button>
         <button className="stock-icon-button stock-theme-button" aria-label="Account and saved lists" onClick={() => setAccountOpen(true)}><UserRound size={17} /></button>
       </div>
@@ -73,10 +72,5 @@ export default function StockToolbar({ stock, theme, setTheme, sections, setSect
       </div> : <div className="stock-sector-list"><p>{sectors === null ? 'Loading sectors…' : sectors.length ? 'Browse sectors' : 'Sector data is unavailable. Use stock search or the Screener.'}</p>{(sectors || []).map(sector => <button key={sector.id} onClick={() => { setSearchOpen(false); navigate(`/screens?sector=${encodeURIComponent(sector.id)}`) }}>{sector.name}</button>)}</div>}
       <Link className="stock-search-footer" to="/screens" onClick={() => setSearchOpen(false)}><ArrowLeft size={14} /> Back to Screener</Link>
     </StockModal>
-    {sections && <StockModal open={manageOpen} onOpenChange={setManageOpen} theme={theme} title="Manage Sections" description="Toggle which sections appear on this page" drawer>
-      <div className="stock-section-list">{SECTIONS.map(([id, title, description]) => <button key={id} role="switch" aria-checked={sections[id]} onClick={() => setSections(value => ({ ...value, [id]: !value[id] }))}>
-        <span className="stock-section-icon"><Layers size={15} /></span><span><strong>{title}</strong><small>{description}</small></span><span className={`stock-switch ${sections[id] ? 'is-checked' : ''}`} />
-      </button>)}</div><div className="stock-drawer-footer"><button className="stock-button" onClick={() => setSections({ ...DEFAULT_SECTIONS })}>Reset to Default</button><button className="stock-button stock-primary" onClick={() => setManageOpen(false)}>Done</button></div>
-    </StockModal>}
   </>
 }
