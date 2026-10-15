@@ -71,6 +71,16 @@
 .stock-drawer-footer { display: flex; gap: 8px; border-top: 1px solid var(--stock-subtle); padding: 15px; }
 .stock-drawer-footer button { flex: 1; padding: 9px; border-radius: 30px; }
 .stock-section { padding: 30px 0; border-bottom: 1px solid var(--stock-subtle); }
+.stock-summary { padding: 26.25px 0; }
+.stock-identity { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.stock-identity h1 { font-size: 22.5px; line-height: 33.75px; font-weight: 600; }
+.stock-industry { display: inline-flex; font-size: 10px; color: var(--stock-muted); background: var(--stock-secondary-surface); border: 1px solid var(--stock-subtle); border-radius: 20px; padding: 1px 10px; }
+.stock-classification { display: flex; gap: 12px; color: var(--stock-muted); font-size: 11.25px; margin-top: 3px; }
+.stock-price-row { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 18.75px; }
+.stock-price { font-size: 28.125px; font-weight: 700; line-height: 33.75px; }
+.stock-price-row > a { display: inline-flex; align-items: center; gap: 5px; font-weight: 500; }
+.stock-price-row > a:hover { color: var(--stock-accent); }
+.stock-timestamp { font-size: 12px; margin-top: 4px !important; }
 .stock-band { background: var(--stock-card); }
 .stock-band-alt { background: var(--stock-surface); }
 .stock-section-heading { display: flex; align-items: flex-start; gap: 15px; justify-content: space-between; margin-bottom: 18.75px; }
