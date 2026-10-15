@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from math import isfinite
 from typing import Any
 from urllib.parse import quote
@@ -20,8 +20,19 @@ YAHOO_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 YAHOO_SUMMARY_URL = "https://query1.finance.yahoo.com/v10/finance/quoteSummary/{symbol}"
 INDIAN_SUFFIXES = (".NS", ".BO")
 PERIODS = {
+    "1D": "1d",
+    "1W": "5d",
     "1M": "1mo",
+    "3M": "3mo",
     "6M": "6mo",
+    "1Y": "1y",
+    "3Y": "3y",
+    "5Y": "5y",
+    "10Y": "10y",
+    "15Y": "max",
+    "20Y": "max",
+    "25Y": "max",
+    "30Y": "max",
     "1Yr": "1y",
     "3Yr": "3y",
     "5Yr": "5y",
@@ -105,7 +116,10 @@ async def _quote(symbol: str) -> dict[str, Any]:
         raise HTTPException(status_code=404, detail=f"Live quote not found for {symbol}")
     item = result[0].get("meta", {})
     price = _number(item.get("regularMarketPrice"))
-    previous = _number(item.get("chartPreviousClose") or item.get("previousClose"))
+    closes = ((result[0].get("indicators", {}).get("quote") or [{}])[0].get("close") or [])
+    previous = _number(item.get("previousClose"))
+    if previous is None:
+        previous = _number(closes[-2]) if len(closes) >= 2 else _number(item.get("chartPreviousClose"))
     change = None
     change_percent = None
     if change is None and price is not None and previous not in (None, 0):
@@ -120,7 +134,7 @@ async def _quote(symbol: str) -> dict[str, Any]:
         "price": price,
         "change": change,
         "changePercent": change_percent,
-        "date": datetime.now(UTC).isoformat(),
+        "date": datetime.fromtimestamp(item["regularMarketTime"], UTC).isoformat() if item.get("regularMarketTime") else None,
         "marketStatus": item.get("marketState") or "Live/Delayed",
         "exchange": _exchange(symbol),
         "country": "India",
@@ -295,6 +309,10 @@ async def get_stock(symbol: str) -> dict[str, Any]:
         return await _quote(normalized)
     except HTTPException:
         raise
+    except httpx.HTTPStatusError as exc:
+        if exc.response.status_code == 404:
+            raise HTTPException(status_code=404, detail=f"Stock not found: {symbol}") from exc
+        raise HTTPException(status_code=502, detail="Market data provider unavailable") from exc
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"Could not load live quote for {symbol}") from exc
 
@@ -391,12 +409,18 @@ async def get_metrics(symbol: str) -> list[dict[str, str]]:
 @router.get("/{symbol}/chart")
 async def get_chart(symbol: str, range: str = "1Yr") -> list[dict[str, Any]]:
     normalized = _normalize_symbol(symbol)
-    period = PERIODS.get(range, "1y")
+    if range not in PERIODS:
+        raise HTTPException(status_code=422, detail="Unsupported chart timeframe")
+    period = PERIODS[range]
     interval = "1d"
-    if range in ("5Yr", "10Yr", "Max"):
+    if range in ("5Yr", "10Yr", "Max", "5Y", "10Y"):
         interval = "1wk"
-    elif range == "3Yr":
-        interval = "1d"
+    elif range in ("15Y", "20Y", "25Y", "30Y"):
+        interval = "1mo"
+    elif range == "1D":
+        interval = "1m"
+    elif range == "1W":
+        interval = "30m"
         
     try:
         data = await _get_json(
@@ -413,13 +437,18 @@ async def get_chart(symbol: str, range: str = "1Yr") -> list[dict[str, Any]]:
     volumes = quote_data.get("volume") or []
 
     rows = []
-    for timestamp, close, volume in zip(timestamps, closes, volumes):
-        if close is not None:
+    cutoff = (datetime.now(UTC) - timedelta(days=int(range[:-1]) * 365.25)).timestamp() if range in ("15Y", "20Y", "25Y", "30Y") else 0
+    for index, timestamp in enumerate(timestamps):
+        close = _number(closes[index]) if index < len(closes) else None
+        volume = _number(volumes[index]) if index < len(volumes) else None
+        if close is not None and timestamp >= cutoff:
             rows.append(
                 {
                     "month": datetime.fromtimestamp(timestamp, UTC).strftime("%d %b %Y"),
-                    "price": _number(close),
-                    "volume": int(volume or 0),
+                    "date": datetime.fromtimestamp(timestamp, UTC).isoformat(),
+                    "timestamp": timestamp,
+                    "price": close,
+                    "volume": int(volume) if volume is not None and volume >= 0 else None,
                 }
             )
     return rows

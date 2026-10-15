@@ -4,7 +4,7 @@ import StockHeader from '@/components/stock/StockHeader'
 import StockToolbar from '@/components/stock/StockToolbar'
 import { StockSkeleton } from '@/components/stock/StockUI'
 import { DEFAULT_SECTIONS, readPreference } from '@/components/stock/stock-format'
-import Overview from './Overview'
+import StockChart from '@/components/stock/StockChart'
 import stockService from '@/services/stock.service'
 import '@/components/stock/stock-detail.css'
 
@@ -24,7 +24,6 @@ function StockDetail({ symbol }) {
       setErrors({})
       const jobs = {
         metrics: () => stockService.getMetrics(symbol),
-        chart: () => stockService.getChart(symbol, '6M'),
         quarters: () => stockService.getQuarters(symbol),
         about: () => stockService.getAbout(symbol),
         peers: () => stockService.getPeers(symbol),
@@ -45,7 +44,7 @@ function StockDetail({ symbol }) {
       <Link className="stock-button stock-primary" to="/screens">Go to Screener</Link>
     </main> : !data.stock ? <StockSkeleton /> : <main>
       <StockHeader stock={data.stock} profile={data.about} />
-      <div className="stock-container stock-section"><Overview metrics={data.metrics || []} chartData={data.chart || []} stock={data.stock} /></div>
+      {sections.priceChart && <StockChart symbol={symbol} />}
     </main>}
   </div>
 }

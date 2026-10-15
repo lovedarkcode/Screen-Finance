@@ -1,173 +1,46 @@
-import { useState, useEffect } from 'react'
-import {
-  ComposedChart,
-  Line,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts'
-import { ChevronDown, TriangleAlert } from 'lucide-react'
+import { useEffect, useId, useState } from 'react'
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { ChevronDown, ExternalLink } from 'lucide-react'
 import stockService from '@/services/stock.service'
+import { EmptyState, SectionTitle } from './StockUI'
+import { money } from './stock-format'
 
-const RANGES = ['1M', '6M', '1Yr', '3Yr', '5Yr', '10Yr', 'Max']
+const RANGES = ['1D', '1W', '1M', '3M', '6M', '1Y', '5Y']
+const MORE = ['10Y', '15Y', '20Y', '25Y', '30Y']
 
-const StockChart = ({ symbol, exchange = 'NSE/BSE', initialData = [] }) => {
-  const [range, setRange] = useState('1Yr')
-  const [data, setData] = useState(initialData)
-  const [loading, setLoading] = useState(false)
-  const [showPrice, setShowPrice] = useState(true)
-  const [showVolume, setShowVolume] = useState(true)
-
-  // Update data when initialData changes (e.g. symbol changes)
+export default function StockChart({ symbol }) {
+  const [range, setRange] = useState('6M')
+  const [attempt, setAttempt] = useState(0)
+  const [state, setState] = useState({ data: [], loading: true, error: '' })
+  const gradient = useId()
   useEffect(() => {
-    setData(initialData)
-    setRange('1Yr')
-  }, [initialData])
-
-  useEffect(() => {
-    // If range is 1Yr and data is already set to initialData, skip first fetch
-    if (range === '1Yr' && data === initialData) {
-      return
-    }
-
-    if (!symbol) return
-
-    let active = true
-    const fetchChart = async () => {
-      setLoading(true)
-      try {
-        const res = await stockService.getChart(symbol, range)
-        if (active) {
-          setData(res)
-        }
-      } catch (err) {
-        console.error('Error fetching chart data:', err)
-      } finally {
-        if (active) {
-          setLoading(false)
-        }
-      }
-    }
-
-    fetchChart()
-    return () => {
-      active = false
-    }
-  }, [range, symbol])
-
-  return (
-    <div className="bg-[#14161c] border border-[#1f2129] rounded-lg p-3">
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-1 bg-[#1a1c23] rounded-md p-0.5">
-          {RANGES.map((r) => (
-            <button
-              key={r}
-              disabled={loading}
-              onClick={() => setRange(r)}
-              className={`px-2 py-1 text-[11px] font-medium rounded transition-colors ${range === r
-                ? 'bg-[#262833] text-white'
-                : 'text-gray-400 hover:text-gray-200 disabled:opacity-50'
-                }`}
-            >
-              {r}
-            </button>
-          ))}
-        </div>
-        <div className="flex items-center gap-1 text-[11px]">
-
-
-        </div>
-      </div>
-
-      <div className={`h-[230px] transition-opacity duration-200 ${loading ? 'opacity-50' : 'opacity-100'}`}>
-        {!data || data.length === 0 ? (
-          <div className="flex h-full items-center justify-center text-[12px] text-gray-500">
-            No live price history available.
-          </div>
-        ) : (
-          <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={data} margin={{ top: 10, right: 5, bottom: 0, left: -10 }}>
-              <CartesianGrid stroke="#1f2129" strokeDasharray="2 4" vertical={false} />
-              <XAxis
-                dataKey="month"
-                tick={{ fill: '#6b7280', fontSize: 10 }}
-                axisLine={{ stroke: '#1f2129' }}
-                tickLine={false}
-              />
-              <YAxis
-                yAxisId="price"
-                orientation="right"
-                tick={{ fill: '#6b7280', fontSize: 10 }}
-                axisLine={false}
-                tickLine={false}
-                domain={['dataMin - 10', 'dataMax + 5']}
-              />
-              <YAxis
-                yAxisId="volume"
-                orientation="left"
-                tick={{ fill: '#6b7280', fontSize: 10 }}
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(v) => `${v / 1_000_000}M`}
-              />
-              <Tooltip
-                contentStyle={{
-                  background: '#1a1c23',
-                  border: '1px solid #262833',
-                  borderRadius: 6,
-                  fontSize: 12,
-                }}
-                labelStyle={{ color: '#e5e7eb' }}
-              />
-              {showVolume && (
-                <Bar
-                  yAxisId="volume"
-                  dataKey="volume"
-                  fill="#2a2d36"
-                  barSize={10}
-                  radius={[2, 2, 0, 0]}
-                />
-              )}
-              {showPrice && (
-                <Line
-                  yAxisId="price"
-                  type="monotone"
-                  dataKey="price"
-                  stroke="#818cf8"
-                  strokeWidth={2}
-                  dot={false}
-                />
-              )}
-            </ComposedChart>
-          </ResponsiveContainer>
-        )}
-      </div>
-
-      <div className="flex items-center gap-4 mt-2 text-[11px] text-gray-400">
-        <label className="flex items-center gap-1.5 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={showPrice}
-            onChange={(e) => setShowPrice(e.target.checked)}
-            className="w-3 h-3 accent-indigo-500"
-          />
-          Price on {exchange}
-        </label>
-        <label className="flex items-center gap-1.5 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={showVolume}
-            onChange={(e) => setShowVolume(e.target.checked)}
-            className="w-3 h-3 accent-gray-400"
-          />
-          Volume
-        </label>
-      </div>
+    let live = true
+    stockService.getChart(symbol, range).then(data => {
+      if (live) setState({ data, loading: false, error: '' })
+    }).catch(() => { if (live) setState({ data: [], loading: false, error: 'Price history is temporarily unavailable.' }) })
+    return () => { live = false }
+  }, [symbol, range, attempt])
+  const select = (next) => { setRange(next); setState(value => ({ ...value, loading: true, error: '' })) }
+  const date = (value) => {
+    const parsed = new Date(value)
+    if (!Number.isFinite(parsed.getTime())) return value
+    return new Intl.DateTimeFormat('en-IN', range === '1D' ? { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false } : { timeZone: 'Asia/Kolkata', day: 'numeric', month: 'short', ...(range.endsWith('Y') ? { year: '2-digit' } : {}) }).format(parsed)
+  }
+  return <section className="stock-section stock-band" id="price-chart"><div className="stock-container">
+    <SectionTitle extra={<div className="stock-chart-ranges" aria-label="Chart timeframe">{RANGES.map(item => <button key={item} aria-pressed={range === item} onClick={() => select(item)}>{item}</button>)}
+      <details className="stock-range-more"><summary aria-label="More chart timeframes">{MORE.includes(range) && range}<ChevronDown size={12} /></summary><div>{MORE.map(item => <button key={item} aria-pressed={range === item} onClick={event => { select(item); event.currentTarget.closest('details').open = false }}>{item}</button>)}</div></details>
+    </div>}><span>Price Chart</span><a className="stock-heading-link" target="_blank" rel="noreferrer" href={`https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}/chart/`}><ExternalLink size={13} />Advanced chart</a></SectionTitle>
+    <div className="stock-chart" aria-busy={state.loading}>
+      {state.loading && <span className="stock-chart-loading" role="status">Loading price history…</span>}
+      {state.error ? <EmptyState error onRetry={() => { setState(value => ({ ...value, loading: true })); setAttempt(value => value + 1) }}>{state.error}</EmptyState> : !state.loading && !state.data.length ? <EmptyState>No price data available</EmptyState> : state.data.length ? <ResponsiveContainer width="100%" height="100%">
+        <AreaChart data={state.data} margin={{ top: 12, right: 25, left: 0, bottom: 0 }} style={{ opacity: state.loading ? .45 : 1 }}>
+          <defs><linearGradient id={gradient} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="var(--stock-accent)" stopOpacity={.13} /><stop offset="100%" stopColor="var(--stock-accent)" stopOpacity={0} /></linearGradient></defs>
+          <XAxis dataKey="date" ticks={Array.from({ length: Math.min(6, state.data.length) }, (_, i) => state.data[Math.round(i * (state.data.length - 1) / Math.max(1, Math.min(6, state.data.length) - 1))].date)} tickFormatter={date} tick={{ fill: 'var(--stock-muted)', fontSize: 10 }} axisLine={false} tickLine={false} minTickGap={20} />
+          <YAxis tick={{ fill: 'var(--stock-muted)', fontSize: 10 }} tickFormatter={value => money(value).replace('.00', '')} axisLine={false} tickLine={false} domain={['auto', 'auto']} tickCount={5} width={60} />
+          <Tooltip labelFormatter={date} formatter={value => [money(value), 'Price']} contentStyle={{ background: 'var(--stock-bg)', border: '1px solid var(--stock-border)', borderRadius: 9, color: 'var(--stock-text)', fontSize: 11 }} labelStyle={{ color: 'var(--stock-text)' }} cursor={{ stroke: 'var(--stock-muted)', strokeWidth: 1 }} />
+          <Area type="monotone" dataKey="price" stroke="var(--stock-accent)" strokeWidth={1.8} fill={`url(#${gradient})`} dot={false} activeDot={{ r: 3.5, stroke: 'var(--stock-text)', strokeWidth: 1.5 }} isAnimationActive={false} />
+        </AreaChart>
+      </ResponsiveContainer> : <div className="sk sk-chart" />}
     </div>
-  )
+  </div></section>
 }
-
-export default StockChart

@@ -83,6 +83,19 @@
 .stock-timestamp { font-size: 12px; margin-top: 4px !important; }
 .stock-band { background: var(--stock-card); }
 .stock-band-alt { background: var(--stock-surface); }
+.stock-heading-link { display: inline-flex; align-items: center; gap: 5px; font-size: 13.125px; margin-left: 12px; font-weight: 500; }
+.stock-heading-link:hover { color: var(--stock-accent); }
+.stock-chart-ranges { display: flex; align-items: center; gap: 3px; background: var(--stock-surface); border-radius: 12px; padding: 2px; flex-shrink: 0; margin-top: 5px; }
+.stock-chart-ranges button, .stock-range-more summary { border: 0; border-radius: 9px; padding: 3px 11px; color: var(--stock-muted); background: transparent; font-size: 11.25px; font-weight: 500; }
+.stock-chart-ranges button:hover { color: var(--stock-text); }
+.stock-chart-ranges button[aria-pressed="true"] { background: var(--stock-accent); color: var(--stock-bg); }
+.stock-range-more { position: relative; }
+.stock-range-more summary { display: flex; gap: 3px; align-items: center; list-style: none; cursor: pointer; }
+.stock-range-more summary::-webkit-details-marker { display: none; }
+.stock-range-more > div { position: absolute; top: 32px; right: 0; min-width: 85px; padding: 5px; display: grid; gap: 2px; border: 1px solid var(--stock-border); border-radius: 10px; background: var(--stock-card); box-shadow: var(--stock-shadow); z-index: 5; }
+.stock-chart { height: 290px; position: relative; padding-top: 12px; }
+.stock-chart .stock-empty { height: 100%; }
+.stock-chart-loading { position: absolute; top: 0; right: 10px; z-index: 2; font-size: 10px; color: var(--stock-muted); }
 .stock-section-heading { display: flex; align-items: flex-start; gap: 15px; justify-content: space-between; margin-bottom: 18.75px; }
 .stock-section-heading h2 { font-size: 18.75px; font-weight: 600; line-height: 28.125px; position: relative; padding-left: 11.25px; }
 .stock-section-heading h2::before { content: ''; height: 15px; width: 3.75px; position: absolute; left: 0; top: 6px; background: var(--stock-accent); border-radius: 4px; opacity: .7; }
@@ -106,6 +119,8 @@
 @keyframes stock-pulse { 50% { opacity: .4; } }
 @media (max-width: 1100px) { .stock-compact-quote { display: none; } }
 @media (max-width: 767px) {
+  .stock-chart { height: 300px; } .stock-chart-ranges { gap: 0; margin-top: 0; } .stock-chart-ranges button, .stock-range-more summary { padding: 3px 10px; font-size: 10px; }
+  .stock-heading-link { margin-left: 8px; font-size: 11px; }
   .stock-toolbar-inner { gap: 12px; } .stock-brand { font-size: 17px; } .stock-brand img { width: 30px; height: 30px; }
   .stock-search-trigger { width: 30px; height: 30px; padding: 7px; flex-shrink: 0; } .stock-search-trigger span, .stock-header-divider { display: none; }
   .stock-header-actions { gap: 8px; margin-left: 0; } .stock-brand { margin-right: auto; }
