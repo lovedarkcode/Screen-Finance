@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Layers, Moon, Search, Sun } from 'lucide-react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { ArrowLeft, ArrowRight, Briefcase, Layers, LogOut, Moon, Search, Star, Sun, UserRound } from 'lucide-react'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout, selectUser } from '@/store/authSlice'
 import stockService from '@/services/stock.service'
 import { StockModal, PriceChange } from './StockUI'
 import { DEFAULT_SECTIONS, SECTIONS, money } from './stock-format'
 
 export default function StockToolbar({ stock, theme, setTheme, sections, setSections }) {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const user = useSelector(selectUser)
+  const [accountOpen, setAccountOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [manageOpen, setManageOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -46,13 +51,19 @@ export default function StockToolbar({ stock, theme, setTheme, sections, setSect
   return <>
     <header className="stock-toolbar"><div className="stock-container stock-toolbar-inner">
       <Link className="stock-brand" to="/screens"><span className="stock-brand-mark"><img src="/assest-hunter.png" alt="" /></span><span>Asset Hunter</span></Link>
-      <span className="stock-header-divider" />
+      <nav className="market-navigation" aria-label="Main navigation"><NavLink to="/feed">Feed</NavLink><NavLink to="/screens">Screens</NavLink></nav>
       {stock && scrolled && <div className="stock-compact-quote"><strong>{stock.baseSymbol || stock.symbol}</strong><strong>{money(stock.price)}</strong><PriceChange value={stock.changePercent} /></div>}
       <button className="stock-search-trigger" onClick={() => setSearchOpen(true)} aria-label="Search stocks and sectors"><Search size={15} /><span>Search equity stocks, sectors …</span></button>
-      <div className="stock-header-actions"><button className="stock-button stock-manage" aria-label="Manage sections" onClick={() => setManageOpen(true)}><Layers size={15} /><span>Manage sections</span></button>
+      <div className="stock-header-actions">{sections && <button className="stock-button stock-manage" aria-label="Manage sections" onClick={() => setManageOpen(true)}><Layers size={15} /><span>Manage sections</span></button>}
         <button className="stock-icon-button stock-theme-button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>{theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}</button>
+        <button className="stock-icon-button stock-theme-button" aria-label="Account and saved lists" onClick={() => setAccountOpen(true)}><UserRound size={17} /></button>
       </div>
     </div></header>
+    <StockModal open={accountOpen} onOpenChange={setAccountOpen} theme={theme} title={user?.name || 'Your Asset Hunter'} description={user?.email || 'Manage your saved stocks and investments.'}>
+      <div className="market-account-links"><Link to="/watchlist" onClick={() => setAccountOpen(false)}><Star size={17} />Watchlist<ArrowRight size={15} /></Link><Link to="/portfolio" onClick={() => setAccountOpen(false)}><Briefcase size={17} />Portfolio<ArrowRight size={15} /></Link>
+        {user ? <button onClick={async () => { await dispatch(logout()); setAccountOpen(false); navigate('/login', { replace: true }) }}><LogOut size={17} />Sign out</button> : <Link to="/login">Sign in<ArrowRight size={15} /></Link>}
+      </div>
+    </StockModal>
     <StockModal open={searchOpen} onOpenChange={setSearchOpen} theme={theme} title="Search stocks or sectors" description="Find a company by its name, symbol or sector.">
       <form className="stock-search-form" onSubmit={e => { e.preventDefault(); if (search.items[0] && query.trim().length >= 2) select(search.items[0].symbol) }}>
         <Search size={19} /><input aria-label="Search company or symbol" autoComplete="off" placeholder="Search company or symbol…" value={query} onChange={e => { setQuery(e.target.value); setSearch({ items: [], loading: e.target.value.trim().length >= 2, error: '' }) }} /><button className="stock-icon-button" aria-label="Search"><ArrowRight size={19} /></button>
@@ -62,10 +73,10 @@ export default function StockToolbar({ stock, theme, setTheme, sections, setSect
       </div> : <div className="stock-sector-list"><p>{sectors === null ? 'Loading sectors…' : sectors.length ? 'Browse sectors' : 'Sector data is unavailable. Use stock search or the Screener.'}</p>{(sectors || []).map(sector => <button key={sector.id} onClick={() => { setSearchOpen(false); navigate(`/screens?sector=${encodeURIComponent(sector.id)}`) }}>{sector.name}</button>)}</div>}
       <Link className="stock-search-footer" to="/screens" onClick={() => setSearchOpen(false)}><ArrowLeft size={14} /> Back to Screener</Link>
     </StockModal>
-    <StockModal open={manageOpen} onOpenChange={setManageOpen} theme={theme} title="Manage Sections" description="Toggle which sections appear on this page" drawer>
+    {sections && <StockModal open={manageOpen} onOpenChange={setManageOpen} theme={theme} title="Manage Sections" description="Toggle which sections appear on this page" drawer>
       <div className="stock-section-list">{SECTIONS.map(([id, title, description]) => <button key={id} role="switch" aria-checked={sections[id]} onClick={() => setSections(value => ({ ...value, [id]: !value[id] }))}>
         <span className="stock-section-icon"><Layers size={15} /></span><span><strong>{title}</strong><small>{description}</small></span><span className={`stock-switch ${sections[id] ? 'is-checked' : ''}`} />
       </button>)}</div><div className="stock-drawer-footer"><button className="stock-button" onClick={() => setSections({ ...DEFAULT_SECTIONS })}>Reset to Default</button><button className="stock-button stock-primary" onClick={() => setManageOpen(false)}>Done</button></div>
-    </StockModal>
+    </StockModal>}
   </>
 }

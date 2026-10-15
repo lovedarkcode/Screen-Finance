@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useOutletContext, useParams } from 'react-router-dom'
 import StockHeader from '@/components/stock/StockHeader'
 import StockToolbar from '@/components/stock/StockToolbar'
 import { StockSkeleton } from '@/components/stock/StockUI'
@@ -20,9 +20,8 @@ function StockDetail({ symbol }) {
   const [data, setData] = useState({})
   const [errors, setErrors] = useState({})
   const [attempt, setAttempt] = useState(0)
-  const [theme, setTheme] = useState(() => readPreference('asset-hunter-stock-theme', 'dark'))
+  const { theme, setTheme } = useOutletContext()
   const [sections, setSections] = useState(() => ({ ...DEFAULT_SECTIONS, ...readPreference('asset-hunter-stock-sections', {}) }))
-  useEffect(() => { localStorage.setItem('asset-hunter-stock-theme', JSON.stringify(theme)) }, [theme])
   useEffect(() => { localStorage.setItem('asset-hunter-stock-sections', JSON.stringify(sections)) }, [sections])
   useEffect(() => {
     let live = true
