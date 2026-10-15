@@ -44,7 +44,7 @@ const Navbar = () => {
               style={{ objectPosition: '50% 34%' }}
             />
           </span>
-          <span className="font-semibold text-[15px] text-gray-100">Assest Hunter</span>
+          <span className="font-semibold text-[15px] text-gray-100">Asset Hunter</span>
         </Link>
 
         <nav className="flex items-center gap-5 text-[13px] font-medium text-gray-300">

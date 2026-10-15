@@ -7,6 +7,9 @@ import AIInsightCard from '@/components/stock/AIInsightCard'
 import NewsCard from '@/components/stock/NewsCard'
 import Overview from './Overview'
 import stockService from '@/services/stock.service'
+import StockToolbar from '@/components/stock/StockToolbar'
+import { DEFAULT_SECTIONS, readPreference } from '@/components/stock/stock-format'
+import '@/components/stock/stock-detail.css'
 
 const TABS = [
   'Overview', 'Chart', 'Analysis', 'Peers', 'Quarters',
@@ -23,6 +26,10 @@ const StockPage = () => {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [theme, setTheme] = useState(() => readPreference('asset-hunter-stock-theme', 'dark'))
+  const [sections, setSections] = useState(() => ({ ...DEFAULT_SECTIONS, ...readPreference('asset-hunter-stock-sections', {}) }))
+  useEffect(() => { localStorage.setItem('asset-hunter-stock-theme', JSON.stringify(theme)) }, [theme])
+  useEffect(() => { localStorage.setItem('asset-hunter-stock-sections', JSON.stringify(sections)) }, [sections])
 
   useEffect(() => {
     let cancelled = false
@@ -127,6 +134,9 @@ const StockPage = () => {
   }
 
   return (
+    <div className="stock-detail" data-stock-theme={theme}>
+    <StockToolbar stock={data.stock} theme={theme} setTheme={setTheme} sections={sections} setSections={setSections} />
+    <div className="stock-container stock-section">
     <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-4">
       <div>
         <StockHeader stock={data.stock} />
@@ -179,6 +189,8 @@ const StockPage = () => {
         <AIInsightCard summary={data.summary.summary} keyPoints={data.summary.keyPoints} />
         <NewsCard about={data.about} related={data.peers} />
       </aside>
+    </div>
+    </div>
     </div>
   )
 }
