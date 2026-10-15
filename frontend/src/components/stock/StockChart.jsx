@@ -27,7 +27,7 @@ export default function StockChart({ symbol }) {
     }).catch(() => { if (live) setState({ data: [], loading: false, error: 'Price history is temporarily unavailable.' }) })
     return () => { live = false }
   }, [symbol, range, attempt])
-  const select = (next) => { setRange(next); setState(value => ({ ...value, loading: true, error: '' })) }
+  const select = (next) => { if (next === range) return; setRange(next); setState(value => ({ ...value, loading: true, error: '' })) }
   const date = (value) => {
     const parsed = new Date(value)
     if (!Number.isFinite(parsed.getTime())) return value

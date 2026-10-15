@@ -11,7 +11,7 @@ export default function StockToolbar({ stock, theme, setTheme, sections, setSect
   const [manageOpen, setManageOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [search, setSearch] = useState({ items: [], loading: false, error: '' })
-  const [sectors, setSectors] = useState([])
+  const [sectors, setSectors] = useState(null)
   const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
     const scroll = () => setScrolled(window.scrollY > 160)
@@ -22,7 +22,7 @@ export default function StockToolbar({ stock, theme, setTheme, sections, setSect
   useEffect(() => {
     if (!searchOpen) return
     let live = true
-    stockService.getSectors().then(value => { if (live) setSectors(value) }).catch(() => {})
+    stockService.getSectors().then(value => { if (live) setSectors(value) }).catch(() => { if (live) setSectors([]) })
     return () => { live = false }
   }, [searchOpen])
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function StockToolbar({ stock, theme, setTheme, sections, setSect
       </form>
       {query.trim().length >= 2 ? <div className="stock-search-results" aria-live="polite">
         {search.loading ? <p>Searching companies…</p> : search.error ? <p role="alert">{search.error}</p> : search.items.length ? search.items.map(item => <button key={item.symbol} onClick={() => select(item.symbol)}><span><strong>{item.name}</strong><small>{item.symbol} · {item.exchange}</small></span><ArrowRight size={16} /></button>) : <p>No results found for “{query}”. Try a stock name or symbol.</p>}
-      </div> : <div className="stock-sector-list"><p>Browse sectors</p>{sectors.map(sector => <button key={sector.id} onClick={() => { setSearchOpen(false); navigate(`/screens?sector=${encodeURIComponent(sector.id)}`) }}>{sector.name}</button>)}</div>}
+      </div> : <div className="stock-sector-list"><p>{sectors === null ? 'Loading sectors…' : sectors.length ? 'Browse sectors' : 'Sector data is unavailable. Use stock search or the Screener.'}</p>{(sectors || []).map(sector => <button key={sector.id} onClick={() => { setSearchOpen(false); navigate(`/screens?sector=${encodeURIComponent(sector.id)}`) }}>{sector.name}</button>)}</div>}
       <Link className="stock-search-footer" to="/screens" onClick={() => setSearchOpen(false)}><ArrowLeft size={14} /> Back to Screener</Link>
     </StockModal>
     <StockModal open={manageOpen} onOpenChange={setManageOpen} theme={theme} title="Manage Sections" description="Toggle which sections appear on this page" drawer>

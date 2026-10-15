@@ -59,7 +59,7 @@ function StockDetail({ symbol }) {
       {(sections.shareholding || sections.financials) && <section className="stock-section stock-band-alt"><div className="stock-container"><div className={`stock-panel-grid ${!sections.shareholding || !sections.financials ? 'stock-single-panel' : ''}`}>
         {sections.shareholding && <StockShareholding data={data.shareholding} loading={!data.shareholding && !errors.shareholding} error={errors.shareholding} />}
         {sections.financials && <StockFinancials quarters={data.quarters} loading={!data.quarters && !errors.quarters} error={errors.quarters} />}
-      </div>{sections.financials && <StockStatements symbol={symbol} quarters={data.quarters} />}</div></section>}
+      </div>{sections.financials && <StockStatements symbol={symbol} quarters={errors.quarters ? { error: true } : data.quarters} />}</div></section>}
       {sections.about && <StockCompany stock={data.stock} about={data.overview?.about} loading={!data.overview && !errors.overview} error={errors.overview} />}
       {sections.peers && <StockPeers peers={data.peers} loading={!data.peers && !errors.peers} error={errors.peers} />}
       {sections.insights && <section className="stock-section" id="insights"><div className="stock-container"><SectionTitle>Asset Hunter Insights</SectionTitle>
