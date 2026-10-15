@@ -96,6 +96,20 @@
 .stock-metric-options { position: absolute; right: 0; top: calc(100% + 6px); width: min(360px, 85vw); max-height: 310px; overflow-y: auto; padding: 6px; z-index: 10; border: 1px solid var(--stock-border); background: var(--stock-card); border-radius: 12px; box-shadow: var(--stock-shadow); }
 .stock-metric-options button { display: flex; align-items: center; justify-content: space-between; width: 100%; text-align: left; border: 0; border-radius: 7px; padding: 8px 10px; background: transparent; color: var(--stock-secondary); font-size: 12px; }
 .stock-metric-options button:hover { background: var(--stock-surface); } .stock-metric-options p { padding: 10px; font-size: 12px; color: var(--stock-muted); }
+.stock-section-heading h2 small { font-size: 12px; font-weight: 600; }
+.stock-range-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; }
+.stock-range-card { padding: 15px; background: var(--stock-surface); border: 1px solid var(--stock-subtle); border-radius: 15px; }
+.stock-range-card p { font-size: 11.25px; color: var(--stock-muted); margin-bottom: 8px; }
+.stock-range-card strong { font-size: 12px; font-weight: 500; }
+.stock-range-card > div { display: flex; align-items: center; gap: 12px; }
+.stock-range-card > div strong { font-size: 11.25px; font-weight: 600; }
+.stock-range-track { position: relative; display: block; flex: 1; height: 5px; background: var(--stock-card); border-radius: 10px; }
+.stock-range-track > span { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; border-radius: 50%; background: var(--stock-accent); border: 1px solid var(--stock-surface); }
+.stock-session-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 18.75px; }
+.stock-session-grid p { margin-bottom: 3px; }
+.stock-returns-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px; }
+.stock-return-card { padding: 11.25px 15px; background: var(--stock-card); border: 1px solid var(--stock-subtle); border-radius: 15px; display: flex; align-items: center; flex-direction: column; gap: 4px; }
+.stock-return-card > span:first-child { font-size: 10px; color: var(--stock-muted); }
 .stock-heading-link { display: inline-flex; align-items: center; gap: 5px; font-size: 13.125px; margin-left: 12px; font-weight: 500; }
 .stock-heading-link:hover { color: var(--stock-accent); }
 .stock-chart-ranges { display: flex; align-items: center; gap: 3px; background: var(--stock-surface); border-radius: 12px; padding: 2px; flex-shrink: 0; margin-top: 5px; }
@@ -132,7 +146,9 @@
 @keyframes stock-pulse { 50% { opacity: .4; } }
 @media (max-width: 1100px) { .stock-compact-quote { display: none; } }
 @media (min-width: 640px) and (max-width: 1023px) { .stock-metric-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 640px) and (max-width: 1023px) { .stock-returns-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
 @media (max-width: 767px) {
+  .stock-range-grid { grid-template-columns: 1fr; gap: 30px; }
   .stock-metric-toolbar { margin-top: 0; } .stock-metric-search { flex: 1; min-width: 0; } .stock-metric-search input { width: 100%; }
   .stock-chart { height: 300px; } .stock-chart-ranges { gap: 0; margin-top: 0; } .stock-chart-ranges button, .stock-range-more summary { padding: 3px 10px; font-size: 10px; }
   .stock-heading-link { margin-left: 8px; font-size: 11px; }
@@ -142,5 +158,5 @@
   .stock-manage { padding: 7px; } .stock-manage span { display: none; } .stock-section-heading { flex-wrap: wrap; }
   .stock-modal { top: 12%; padding: 18px; } .stock-drawer { top: 0; padding: 0; }
 }
-@media (max-width: 639px) { .stock-metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stock-metric-toolbar { width: 100%; } }
+@media (max-width: 639px) { .stock-metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stock-metric-toolbar { width: 100%; } .stock-session-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stock-returns-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (prefers-reduced-motion: reduce) { .stock-detail *, .stock-detail *::after { animation: none !important; transition: none !important; } }

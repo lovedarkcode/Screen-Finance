@@ -6,6 +6,7 @@ import { StockSkeleton } from '@/components/stock/StockUI'
 import { DEFAULT_SECTIONS, readPreference } from '@/components/stock/stock-format'
 import StockChart from '@/components/stock/StockChart'
 import StockMetrics from '@/components/stock/StockMetrics'
+import { PriceRange, ReturnsPerformance } from '@/components/stock/StockPerformance'
 import stockService from '@/services/stock.service'
 import '@/components/stock/stock-detail.css'
 
@@ -46,6 +47,8 @@ function StockDetail({ symbol }) {
       <StockHeader stock={data.stock} profile={data.overview?.about} />
       {sections.priceChart && <StockChart symbol={symbol} />}
       {sections.keyMetrics && <StockMetrics metrics={data.overview?.metrics} loading={!data.overview && !errors.overview} error={errors.overview} />}
+      {sections.priceRange && <PriceRange stock={data.stock} data={data.overview?.priceRange} loading={!data.overview && !errors.overview} error={errors.overview} />}
+      {sections.returns && <ReturnsPerformance data={data.overview?.returns} loading={!data.overview && !errors.overview} error={errors.overview} />}
     </main>}
   </div>
 }
