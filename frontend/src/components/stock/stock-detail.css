@@ -83,6 +83,19 @@
 .stock-timestamp { font-size: 12px; margin-top: 4px !important; }
 .stock-band { background: var(--stock-card); }
 .stock-band-alt { background: var(--stock-surface); }
+.stock-metric-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
+.stock-metric-card { background: var(--stock-card); border: 1px solid var(--stock-subtle); border-radius: 15px; padding: 15px; min-height: 70px; position: relative; }
+.stock-metric-card > div { font-size: 11.25px; color: var(--stock-muted); margin-bottom: 4px; }
+.stock-metric-card strong { font-weight: 600; }
+.stock-metric-card > button { position: absolute; top: 7px; right: 7px; border: 0; padding: 3px; background: var(--stock-surface); color: var(--stock-loss); border-radius: 50%; }
+.stock-metric-toolbar { position: relative; display: flex; gap: 8px; align-items: center; padding: 7px 10px; border-radius: 15px; background: var(--stock-card); border: 1px solid var(--stock-subtle); margin-top: -5px; }
+.stock-metric-search { display: flex; align-items: center; gap: 8px; background: var(--stock-bg); border: 1px solid var(--stock-border); border-radius: 30px; padding: 6px 11px; color: var(--stock-muted); }
+.stock-metric-search input { width: 170px; min-width: 0; font-size: 12px; outline: none; border: 0; background: transparent; color: var(--stock-text); }
+.stock-edit { color: var(--stock-accent); background: var(--stock-accent-surface); border-color: var(--stock-accent-border); white-space: nowrap; border-radius: 30px; font-weight: 600 !important; }
+.stock-edit.is-editing { color: var(--stock-loss); border-color: var(--stock-loss); }
+.stock-metric-options { position: absolute; right: 0; top: calc(100% + 6px); width: min(360px, 85vw); max-height: 310px; overflow-y: auto; padding: 6px; z-index: 10; border: 1px solid var(--stock-border); background: var(--stock-card); border-radius: 12px; box-shadow: var(--stock-shadow); }
+.stock-metric-options button { display: flex; align-items: center; justify-content: space-between; width: 100%; text-align: left; border: 0; border-radius: 7px; padding: 8px 10px; background: transparent; color: var(--stock-secondary); font-size: 12px; }
+.stock-metric-options button:hover { background: var(--stock-surface); } .stock-metric-options p { padding: 10px; font-size: 12px; color: var(--stock-muted); }
 .stock-heading-link { display: inline-flex; align-items: center; gap: 5px; font-size: 13.125px; margin-left: 12px; font-weight: 500; }
 .stock-heading-link:hover { color: var(--stock-accent); }
 .stock-chart-ranges { display: flex; align-items: center; gap: 3px; background: var(--stock-surface); border-radius: 12px; padding: 2px; flex-shrink: 0; margin-top: 5px; }
@@ -118,7 +131,9 @@
 .stock-error-page p { color: var(--stock-muted); }
 @keyframes stock-pulse { 50% { opacity: .4; } }
 @media (max-width: 1100px) { .stock-compact-quote { display: none; } }
+@media (min-width: 640px) and (max-width: 1023px) { .stock-metric-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 767px) {
+  .stock-metric-toolbar { margin-top: 0; } .stock-metric-search { flex: 1; min-width: 0; } .stock-metric-search input { width: 100%; }
   .stock-chart { height: 300px; } .stock-chart-ranges { gap: 0; margin-top: 0; } .stock-chart-ranges button, .stock-range-more summary { padding: 3px 10px; font-size: 10px; }
   .stock-heading-link { margin-left: 8px; font-size: 11px; }
   .stock-toolbar-inner { gap: 12px; } .stock-brand { font-size: 17px; } .stock-brand img { width: 30px; height: 30px; }
@@ -127,4 +142,5 @@
   .stock-manage { padding: 7px; } .stock-manage span { display: none; } .stock-section-heading { flex-wrap: wrap; }
   .stock-modal { top: 12%; padding: 18px; } .stock-drawer { top: 0; padding: 0; }
 }
+@media (max-width: 639px) { .stock-metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stock-metric-toolbar { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .stock-detail *, .stock-detail *::after { animation: none !important; transition: none !important; } }

@@ -1,6 +1,14 @@
 import api from './api'
 
 const stockService = {
+  getOverview: async (symbol) => {
+    const response = await api.get(`/stocks/${symbol}/overview`, { timeout: 45000 })
+    return response.data
+  },
+  getShareholding: async (symbol) => {
+    const response = await api.get(`/stocks/${symbol}/shareholding`, { timeout: 30000 })
+    return response.data
+  },
   searchStocks: async (query, limit = 8) => {
     const response = await api.get('/stocks', { params: { q: query, limit } })
     return response.data

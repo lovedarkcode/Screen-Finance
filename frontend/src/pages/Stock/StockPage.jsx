@@ -5,6 +5,7 @@ import StockToolbar from '@/components/stock/StockToolbar'
 import { StockSkeleton } from '@/components/stock/StockUI'
 import { DEFAULT_SECTIONS, readPreference } from '@/components/stock/stock-format'
 import StockChart from '@/components/stock/StockChart'
+import StockMetrics from '@/components/stock/StockMetrics'
 import stockService from '@/services/stock.service'
 import '@/components/stock/stock-detail.css'
 
@@ -23,9 +24,8 @@ function StockDetail({ symbol }) {
       setData({ stock })
       setErrors({})
       const jobs = {
-        metrics: () => stockService.getMetrics(symbol),
+        overview: () => stockService.getOverview(symbol),
         quarters: () => stockService.getQuarters(symbol),
-        about: () => stockService.getAbout(symbol),
         peers: () => stockService.getPeers(symbol),
       }
       for (const [key, fetch] of Object.entries(jobs)) {
@@ -43,8 +43,9 @@ function StockDetail({ symbol }) {
       {!missing && <button className="stock-button" onClick={() => { setErrors({}); setData({}); setAttempt(value => value + 1) }}>Try again</button>}
       <Link className="stock-button stock-primary" to="/screens">Go to Screener</Link>
     </main> : !data.stock ? <StockSkeleton /> : <main>
-      <StockHeader stock={data.stock} profile={data.about} />
+      <StockHeader stock={data.stock} profile={data.overview?.about} />
       {sections.priceChart && <StockChart symbol={symbol} />}
+      {sections.keyMetrics && <StockMetrics metrics={data.overview?.metrics} loading={!data.overview && !errors.overview} error={errors.overview} />}
     </main>}
   </div>
 }

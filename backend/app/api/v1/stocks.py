@@ -327,6 +327,81 @@ def _fetch_yfinance_ticker(symbol: str) -> yf.Ticker:
     return ticker
 
 
+def _overview_metrics(info: dict, history: Any) -> list[dict]:
+    high = low = None
+    if history is not None and not history.empty:
+        high, low = _number(history["High"].max()), _number(history["Low"].min())
+    debt = _number(info.get("debtToEquity"))
+    fields = [
+        ("marketCap", "Market Cap", info.get("marketCap"), "crore"),
+        ("peRatio", "P/E Ratio", info.get("trailingPE"), "number"),
+        ("eps", "EPS", info.get("trailingEps"), "inr"),
+        ("faceValue", "Face Value", info.get("faceValue"), "inr"),
+        ("allTimeHigh", "All Time High", high, "inr"),
+        ("allTimeLow", "All Time Low", low, "inr"),
+        ("debtToEquity", "Debt/Equity", debt / 100 if debt is not None else None, "number"),
+        ("bookValue", "Book Value", info.get("bookValue"), "inr"),
+        ("roe", "Return on Equity", (_number(info.get("returnOnEquity")) or 0) * 100 if info.get("returnOnEquity") is not None else None, "percent"),
+        ("operatingMargin", "Operating Margin", (_number(info.get("operatingMargins")) or 0) * 100 if info.get("operatingMargins") is not None else None, "percent"),
+        ("revenue", "Revenue", info.get("totalRevenue"), "crore"),
+        ("priceToBook", "Price to Book", info.get("priceToBook"), "number"),
+    ]
+    return [{"id": key, "label": label, "value": _number(value), "unit": unit} for key, label, value, unit in fields]
+
+
+def _history_returns(history: Any) -> list[dict]:
+    result = []
+    for label, days in [("1 Week", 7), ("1 Month", 30), ("3 Months", 90), ("6 Months", 182), ("1 Year", 365), ("3 Years", 1096), ("5 Years", 1826)]:
+        value = None
+        if history is not None and not history.empty:
+            closes = history["Close"].dropna()
+            if not closes.empty:
+                earlier = closes.loc[closes.index <= closes.index[-1] - timedelta(days=days)]
+                if not earlier.empty and earlier.iloc[-1] > 0:
+                    value = _number((closes.iloc[-1] / earlier.iloc[-1] - 1) * 100)
+        result.append({"label": label, "value": value})
+    return result
+
+
+def _load_overview(symbol: str) -> dict:
+    ticker = yf.Ticker(symbol)
+    info = ticker.info or {}
+    try:
+        history = ticker.history(period="max", auto_adjust=True)
+    except Exception:
+        history = None
+    ceo = next((officer.get("name") for officer in info.get("companyOfficers", []) if "ceo" in officer.get("title", "").lower() or "chief executive" in officer.get("title", "").lower()), None)
+    metrics = _overview_metrics(info, history)
+    raw = {item["id"]: item["value"] for item in metrics}
+    highlights = []
+    if raw["roe"] is not None:
+        highlights.append(f"Return on equity is {raw['roe']:.2f}% based on the latest available financial data.")
+    if raw["debtToEquity"] is not None:
+        highlights.append(f"Debt to equity is {raw['debtToEquity']:.2f} times.")
+    if raw["operatingMargin"] is not None:
+        highlights.append(f"Operating margin is {raw['operatingMargin']:.2f}%.")
+    return {
+        "metrics": metrics,
+        "priceRange": {"dayLow": _number(info.get("dayLow")), "dayHigh": _number(info.get("dayHigh")), "week52Low": _number(info.get("fiftyTwoWeekLow")), "week52High": _number(info.get("fiftyTwoWeekHigh")), "open": _number(info.get("open")), "previousClose": _number(info.get("previousClose")), "volume": _number(info.get("volume")), "vwap": None},
+        "returns": _history_returns(history),
+        "about": {"description": info.get("longBusinessSummary"), "sector": info.get("sector"), "industry": info.get("industry"), "headquarters": ", ".join(str(info[key]) for key in ("city", "state") if info.get(key)), "founded": info.get("founded"), "ceo": ceo, "website": info.get("website")},
+        "insights": highlights,
+        "source": "Yahoo Finance / yfinance",
+        "historyAsOf": history.index[-1].isoformat() if history is not None and not history.empty else None,
+    }
+
+
+@router.get("/{symbol}/overview")
+async def get_overview(symbol: str) -> dict:
+    normalized = _normalize_symbol(symbol)
+    if not _is_indian_equity(normalized):
+        raise HTTPException(status_code=400, detail="Use an Indian exchange symbol")
+    try:
+        return await run_in_threadpool(_load_overview, normalized)
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail="Company fundamentals temporarily unavailable") from exc
+
+
 def _statement_table_from_df(
     df: Any,
     title: str,
