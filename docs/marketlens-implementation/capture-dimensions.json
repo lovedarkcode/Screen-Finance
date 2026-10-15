@@ -1,0 +1,35 @@
+{
+  "note": "Final screenshots at native CSS viewport widths.",
+  "files": [
+    {
+      "file": "asset-hunter-AEROFLEX-desktop-dark.png",
+      "width": 1440,
+      "height": 2769
+    },
+    {
+      "file": "asset-hunter-AEROFLEX-mobile-dark.png",
+      "width": 390,
+      "height": 4073
+    },
+    {
+      "file": "asset-hunter-TCS-desktop-dark.png",
+      "width": 1440,
+      "height": 2712
+    },
+    {
+      "file": "asset-hunter-TCS-desktop-light.png",
+      "width": 1440,
+      "height": 2712
+    },
+    {
+      "file": "asset-hunter-TCS-mobile-dark.png",
+      "width": 390,
+      "height": 4067
+    },
+    {
+      "file": "asset-hunter-TCS-mobile-light.png",
+      "width": 390,
+      "height": 4067
+    }
+  ]
+}

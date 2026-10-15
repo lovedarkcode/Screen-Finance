@@ -1,0 +1,13 @@
+{
+  "durationSeconds": 55.02,
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "ticker": "AEROFLEX",
+  "quoteAsOf": "15 Oct 2026, 16:00 IST",
+  "marketContext": "After Indian cash-market hours",
+  "newFetchXhrRequests": 0,
+  "requests": [],
+  "limitation": "No claim about trading-hours polling or server cache TTL"
+}

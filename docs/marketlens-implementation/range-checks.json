@@ -1,0 +1,50 @@
+[
+  {
+    "range": "1D",
+    "status": 200
+  },
+  {
+    "range": "1W",
+    "status": 200
+  },
+  {
+    "range": "1M",
+    "status": 200
+  },
+  {
+    "range": "3M",
+    "status": 200
+  },
+  {
+    "range": "6M",
+    "status": 200
+  },
+  {
+    "range": "1Y",
+    "status": 200
+  },
+  {
+    "range": "5Y",
+    "status": 200
+  },
+  {
+    "range": "10Y",
+    "status": 200
+  },
+  {
+    "range": "15Y",
+    "status": 200
+  },
+  {
+    "range": "20Y",
+    "status": 200
+  },
+  {
+    "range": "25Y",
+    "status": 200
+  },
+  {
+    "range": "30Y",
+    "status": 200
+  }
+]

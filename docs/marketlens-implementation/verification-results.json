@@ -1,0 +1,19 @@
+{
+  "frontendBuild": "passed",
+  "targetedStockUiLint": "passed",
+  "repositoryWideLint": "existing errors remain",
+  "backendStockTests": {
+    "passed": 11
+  },
+  "liveTimeframeRequests": {
+    "passed": 12,
+    "total": 12
+  },
+  "browserInteractionChecks": {
+    "passed": 15
+  },
+  "uncaughtBrowserErrors": [],
+  "claude": "deferred by owner",
+  "newPackagesInstalled": false,
+  "frontendUrl": "http://localhost:5173/stock/TCS.NS"
+}

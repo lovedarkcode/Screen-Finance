@@ -1,0 +1,17 @@
+[
+  "Manage sections hides the price chart",
+  "Section visibility persists through reload",
+  "Theme persists through reload",
+  "Metric can be removed",
+  "Search navigates through the existing symbol route",
+  "Escape dismisses the search dialog",
+  "All twelve chart ranges return successfully",
+  "Missing-stock recovery uses the existing Screener route",
+  "Provider failure is distinct from not-found and retry recovers",
+  "Missing ownership data never invents percentages",
+  "Missing financial data keeps a clear empty state",
+  "Sector search opens the existing Screener with the selected sector",
+  "Peer rows navigate to the corresponding stock",
+  "Clicking the already-selected chart range does not leave a stuck loader",
+  "A failed quarterly statement shows an error instead of an endless loader"
+]

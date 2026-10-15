@@ -1,0 +1,15 @@
+{
+  "url": "https://marketlens.nseindia.com/stocks/AEROFLEX",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "text": "Stock not found\n\nThe ticker \"AEROFLEX\" doesn't match any listed stock.\n\nGo to Screener",
+  "buttons": [
+    {
+      "text": "Go to Screener",
+      "aria": null
+    }
+  ],
+  "inputs": []
+}

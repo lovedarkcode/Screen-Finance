@@ -1,0 +1,5 @@
+{
+  "stockpulse-theme": "dark",
+  "nse_ratio_preferences": "[]",
+  "stockDetail_sectionVisibility": "{\"priceChart\":true,\"keyMetrics\":true,\"priceRange\":true,\"returns\":true,\"financials\":true,\"shareholding\":true,\"about\":true,\"peerComparison\":true}"
+}

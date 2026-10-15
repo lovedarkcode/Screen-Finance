@@ -1,0 +1,71 @@
+{
+  "url": "https://marketlens.nseindia.com/screener",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "text": "BETA\nSearch equity stocks , sectors...\nShow Filters\nBuild Your Query\nLakhs\nCrores\nBillions\nSettings\nExport\nCOMPANY\n\t\nSECTOR\n\t\nSUB SECTOR\n\t\nMARKET CAP\n\t\n1D RETURN\n\t\n1W RETURN\n\t\n1M RETURN\n\t\nVOLUME\n\t\nPE RATIO\n\n\nReliance Industries Limited\nRELIANCE\n\tPetroleum Products\tEnergy\t16,44,203.45 Cr\t\n+3.44%\n\t\n+3.14%\n\t\n-1.64%\n\t2,34,56,219\t17.91\n\nBharti Airtel Limited\nBHARTIARTL\n\tTelecom - Services\tTelecommunication\t11,56,988.90 Cr\t\n+3.31%\n\t\n+2.74%\n\t\n+1.29%\n\t1,13,15,521\t30.96\n\nHDFC Bank Limited\nHDFCBANK\n\tBanks\tFinancial Services\t11,20,700.75 Cr\t\n+2.27%\n\t\n+5.00%\n\t\n+1.44%\n\t3,73,65,177\t13.93\n\nICICI Bank Limited\nICICIBANK\n\tBanks\tFinancial Services\t9,97,558.41 Cr\t\n+3.8%\n\t\n+2.99%\n\t\n+2.89%\n\t1,75,51,899\t17.41\n\nState Bank of India\nSBIN\n\tBanks\tFinancial Services\t8,86,153.61 Cr\t\n+0.53%\n\t\n+2.13%\n\t\n-0.83%\n\t86,07,715\t10.25\n\nTata Consultancy Services Limited\nTCS\n\tIT - Software\tInformation Technology\t8,50,250.57 Cr\t\n+1.96%\n\t\n+13.20%\n\t\n+4.40%\n\t91,50,523\t15.83\n\nBajaj Finance Limited\nBAJFINANCE\n\tFinance\tFinancial Services\t6,00,960.24 Cr\t\n+0.86%\n\t\n+0.97%\n\t\n-4.35%\n\t1,08,02,450\t29.63\n\nLarsen & Toubro Limited\nLT\n\tConstruction\tIndustrials\t4,99,725.06 Cr\t\n-0.27%\n\t\n+0.19%\n\t\n-5.68%\n\t24,52,067\t25.77\n\nLife Insurance Corporation Of India\nLICI\n\tInsurance\tFinancial Services\t4,98,409.82 Cr\t\n0%\n\t\n+3.89%\n\t\n+0.64%\n\t99,13,102\t8.30\n\nInfosys Limited\nINFY\n\tIT - Software\tInformation Technology\t4,50,468.70 Cr\t\n+2.02%\n\t\n+11.33%\n\t\n+3.06%\n\t1,60,12,759\t14.21\n\nHindustan Unilever Limited\nHINDUNILVR\n\tDiversified FMCG\tFast Moving Consumer Goods\t4,45,740.96 Cr\t\n+0.08%\n\t\n+2.85%\n\t\n-2.12%\n\t13,08,283\t29.43\n\nKotak Mahindra Bank Limited\nKOTAKBANK\n\tBanks\tFinancial Services\t4,45,615.34 Cr\t\n+2.26%\n\t\n+2.98%\n\t\n+9.31%\n\t3,27,10,771\t21.52\n\nSun Pharmaceutical Industries Limited\nSUNPHARMA\n\tPharmaceuticals & Biotechnology\tHealthcare\t4,23,242.69 Cr\t\n+1.01%\n\t\n+0.24%\n\t\n-3.87%\n\t13,76,380\t35.06\n\nAdani Ports and Special Economic Zone Limited\nADANIPORTS\n\tTransport Infrastructure\tServices\t4,01,626.15 Cr\t\n-0.31%\n\t\n+2.06%\n\t\n+1.72%\n\t22,48,348\t30.96\n\nAxis Bank Limited\nAXISBANK\n\tBanks\tFinancial Services\t4,01,053.97 Cr\t\n+1.85%\n\t\n+3.45%\n\t\n+5.32%\n\t87,94,655\t14.22\n\nTitan Company Limited\nTITAN\n\tConsumer Durables\tConsumer Discretionary\t3,95,579.76 Cr\t\n+0.27%\n\t\n+2.21%\n\t\n-8.24%\n\t5,33,115\t69.16\n\nAdani Power Limited\nADANIPOWER\n\tPower\tUtilities\t3,78,944.25 Cr\t\n+0.69%\n\t\n+4.52%\n\t\n-2.72%\n\t1,45,57,604\t24.68\n\nHCL Technologies Limited\nHCLTECH\n\tIT - Software\tInformation Technology\t3,69,058.45 Cr\t\n+2.49%\n\t\n+15.56%\n\t\n+8.48%\n\t80,01,609\t19.63\n\nAdani Enterprises Limited\nADANIENT\n\tMetals & Minerals Trading\tCommodities\t3,65,426.15 Cr\t\n-0.83%\n\t\n+4.01%\n\t\n-7.81%\n\t8,35,205\t48.55\n\nMaruti Suzuki India Limited\nMARUTI\n\tAutomobiles\tConsumer Discretionary\t3,59,833.75 Cr\t\n+2.39%\n\t\n+1.93%\n\t\n-6.43%\n\t5,13,644\t24.66\n\nM&M\nM&M\n\tPassenger Cars & Utility Vehicles\tM&M\t3,55,860.65 Cr\t\n+2.43%\n\t\n+4.02%\n\t\n-5.54%\n\t26,58,568\t17.60\n\nITC Limited\nITC\n\tDiversified FMCG\tFast Moving Consumer Goods\t3,30,680.35 Cr\t\n+0.92%\n\t\n+3.49%\n\t\n+2.29%\n\t2,27,84,367\t16.20\n\nHindustan Aeronautics Limited\nHAL\n\tAerospace & Defense\tIndustrials\t3,28,368.53 Cr\t\n-0.47%\n\t\n+5.65%\n\t\n+4.58%\n\t8,02,602\t34.93\n\nUltraTech Cement Limited\nULTRACEMCO\n\tCement & Cement Products\tCommodities\t3,20,080.52 Cr\t\n+0.62%\n\t\n+4.18%\n\t\n+1.54%\n\t3,49,518\t36.96\n\nETERNAL LIMITED\nETERNAL\n\tRetailing\tConsumer Discretionary\t3,11,706.33 Cr\t\n+2.22%\n\t\n+1.24%\n\t\n+2.46%\n\t1,85,03,817\t704.28\n\nNTPC Limited\nNTPC\n\tPower\tUtilities\t3,05,105.60 Cr\t\n+0.3%\n\t\n+1.60%\n\t\n-4.51%\n\t1,00,94,653\t10.64\n\nJSW Steel Limited\nJSWSTEEL\n\tFerrous Metals\tCommodities\t2,93,552.29 Cr\t\n+2.06%\n\t\n+2.14%\n\t\n-2.34%\n\t15,47,603\t10.28\n\nBajaj Auto Limited\nBAJAJ-AUTO\n\tAutomobiles\tConsumer Discretionary\t2,85,383.79 Cr\t\n+1.32%\n\t\n+7.76%\n\t\n-9.09%\n\t2,10,415\t24.54\n\nOil & Natural Gas Corporation Limited\nONGC\n\tOil\tEnergy\t2,82,603.39 Cr\t\n-0.38%\n\t\n+2.20%\n\t\n-4.79%\n\t64,58,211\t6.25\n\nBharat Electronics Limited\nBEL\n\tAerospace & Defense\tIndustrials\t2,78,063.99 Cr\t\n-0.51%\n\t\n+3.57%\n\t\n-0.65%\n\t91,00,694\t45.18\n\nBajaj Finserv Limited\nBAJAJFINSV\n\tFinance\tFinancial Services\t2,77,477.03 Cr\t\n+0.6%\n\t\n+1.41%\n\t\n-6.66%\n\t9,70,226\t13.63\n\nCoal India Limited\nCOALINDIA\n\tConsumable Fuels\tEnergy\t2,57,602.04 Cr\t\n+0.24%\n\t\n+2.11%\n\t\n-0.30%\n\t74,17,715\t8.07\n\nNestle India Limited\nNESTLEIND\n\tFood Products\tFast Moving Consumer Goods\t2,46,014.34 Cr\t\n-7.76%\n\t\n-3.28%\n\t\n-6.33%\n\t77,66,212\t67.50\n\nDivi's Laboratories Limited\nDIVISLAB\n\tPharmaceuticals & Biotechnology\tHealthcare\t2,39,718.13 Cr\t\n+0.08%\n\t\n-3.54%\n\t\n-1.83%\n\t6,45,244\t84.27\n\nPower Grid Corporation of India Limited\nPOWERGRID\n\tPower\tUtilities\t2,32,375.59 Cr\t\n+0.36%\n\t\n+2.13%\n\t\n-4.93%\n\t1,27,75,276\t14.66\n\nAsian Paints Limited\nASIANPAINT\n\tConsumer Durables\tConsumer Discretionary\t2,25,411.48 Cr\t\n+0.23%\n\t\n+1.66%\n\t\n-2.20%\n\t8,33,000\t47.12\n\nHindustan Zinc Limited\nHINDZINC\n\tNon - Ferrous Metals\tCommodities\t2,24,364.44 Cr\t\n-1.67%\n\t\n-0.14%\n\t\n-5.33%\n\t34,27,307\t13.61\n\nShriram Finance Limited\nSHRIRAMFIN\n\tFinance\tFinancial Services\t2,22,080.39 Cr\t\n-0.65%\n\t\n+2.89%\n\t\n-3.67%\n\t23,32,139\t20.54\n\nAvenue Supermarts Limited\nDMART\n\tRetailing\tConsumer Discretionary\t2,20,376.25 Cr\t\n-1.07%\n\t\n-5.76%\n\t\n-8.20%\n\t4,36,451\t70.83\n\nTata Steel Limited\nTATASTEEL\n\tFerrous Metals\tCommodities\t2,20,209.42 Cr\t\n+1.09%\n\t\n+2.58%\n\t\n-3.95%\n\t1,78,81,415\t19.40\n\nAdani Green Energy Limited\nADANIGREEN\n\tPower\tUtilities\t2,15,302.40 Cr\t\n-0.86%\n\t\n+5.78%\n\t\n+4.15%\n\t9,62,137\t98.78\n\nHindalco Industries Limited\nHINDALCO\n\tNon - Ferrous Metals\tCommodities\t2,00,868.34 Cr\t\n+1.29%\n\t\n+0.42%\n\t\n-6.76%\n\t57,12,476\t12.36\n\nEicher Motors Limited\nEICHERMOT\n\tAutomobiles\tConsumer Discretionary\t1,98,341.93 Cr\t\n+2.01%\n\t\n+6.76%\n\t\n-3.05%\n\t4,18,885\t34.06\n\nGrasim Industries Limited\nGRASIM\n\tCement & Cement Products\tCommodities\t1,96,396.38 Cr\t\n+0.45%\n\t\n+1.02%\n\t\n-8.99%\n\t3,27,872\t17.41\n\nTVS Motor Company Limited\nTVSMOTOR\n\tAutomobiles\tConsumer Discretionary\t1,90,985.02 Cr\t\n+1.27%\n\t\n+4.70%\n\t\n-0.74%\n\t5,86,537\t52.92\n\nInterGlobe Aviation Limited\nINDIGO\n\tTransport Services\tServices\t1,84,760.90 Cr\t\n+1.27%\n\t\n-0.72%\n\t\n+0.05%\n\t5,21,141\t0.00\n\nIndian Oil Corporation Limited\nIOC\n\tPetroleum Products\tEnergy\t1,81,923.91 Cr\t\n+0.81%\n\t\n+2.04%\n\t\n-2.42%\n\t68,63,555\t4.99\n\nSolar Industries India Limited\nSOLARINDS\n\tChemicals & Petrochemicals\tCommodities\t1,79,767.54 Cr\t\n-1.51%\n\t\n-0.02%\n\t\n+3.20%\n\t1,32,606\t88.64\n\nTorrent Pharmaceuticals Limited\nTORNTPHARM\n\tPharmaceuticals & Biotechnology\tHealthcare\t1,74,364.43 Cr\t\n+0.09%\n\t\n-0.71%\n\t\n-5.48%\n\t1,59,755\t81.91\n\nWipro Limited\nWIPRO\n\tIT - Software\tInformation Technology\t1,72,402.49 Cr\t\n+1.83%\n\t\n+9.89%\n\t\n+2.38%\n\t1,20,24,850\t12.74\n,\nShowing 1–50 of 100 stocks\n1\n2",
+  "buttons": [
+    {
+      "text": "BETA",
+      "aria": null
+    },
+    {
+      "text": "",
+      "aria": "Switch to light mode"
+    },
+    {
+      "text": "Show Filters",
+      "aria": null
+    },
+    {
+      "text": "Build Your Query",
+      "aria": null
+    },
+    {
+      "text": "Lakhs",
+      "aria": null
+    },
+    {
+      "text": "Crores",
+      "aria": null
+    },
+    {
+      "text": "Billions",
+      "aria": null
+    },
+    {
+      "text": "Settings",
+      "aria": null
+    },
+    {
+      "text": "Export",
+      "aria": null
+    },
+    {
+      "text": "",
+      "aria": "Expand query builder"
+    },
+    {
+      "text": "",
+      "aria": null
+    },
+    {
+      "text": "1",
+      "aria": null
+    },
+    {
+      "text": "2",
+      "aria": null
+    },
+    {
+      "text": "",
+      "aria": null
+    }
+  ],
+  "inputs": [
+    {
+      "placeholder": "Search equity stocks…"
+    }
+  ]
+}
