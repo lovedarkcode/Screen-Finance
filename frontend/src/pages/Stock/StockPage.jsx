@@ -9,6 +9,8 @@ import StockMetrics from '@/components/stock/StockMetrics'
 import { PriceRange, ReturnsPerformance } from '@/components/stock/StockPerformance'
 import StockShareholding from '@/components/stock/StockShareholding'
 import StockFinancials from '@/components/stock/StockFinancials'
+import StockCompany from '@/components/stock/StockCompany'
+import { EmptyState, SectionTitle } from '@/components/stock/StockUI'
 import stockService from '@/services/stock.service'
 import '@/components/stock/stock-detail.css'
 
@@ -56,6 +58,11 @@ function StockDetail({ symbol }) {
         {sections.shareholding && <StockShareholding data={data.shareholding} loading={!data.shareholding && !errors.shareholding} error={errors.shareholding} />}
         {sections.financials && <StockFinancials quarters={data.quarters} loading={!data.quarters && !errors.quarters} error={errors.quarters} />}
       </div></div></section>}
+      {sections.about && <StockCompany stock={data.stock} about={data.overview?.about} loading={!data.overview && !errors.overview} error={errors.overview} />}
+      {sections.insights && <section className="stock-section" id="insights"><div className="stock-container"><SectionTitle>Asset Hunter Insights</SectionTitle>
+        {data.overview?.insights?.length ? <><ul className="stock-insights">{data.overview.insights.map(item => <li key={item}>{item}</li>)}</ul><p className="stock-source-note">Computed from provider fundamentals. These highlights are not an AI-generated summary.</p></> : <EmptyState>No computed highlights available</EmptyState>}
+      </div></section>}
+      <footer className="stock-source-footer stock-container">Market data: Yahoo Finance / yfinance · Prices may be delayed. Availability varies by company.</footer>
     </main>}
   </div>
 }
