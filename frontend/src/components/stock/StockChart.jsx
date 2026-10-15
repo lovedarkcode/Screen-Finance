@@ -8,7 +8,7 @@ import { money } from './stock-format'
 const RANGES = ['1D', '1W', '1M', '3M', '6M', '1Y', '5Y']
 const MORE = ['10Y', '15Y', '20Y', '25Y', '30Y']
 
-export default function StockChart({ symbol }) {
+export default function StockChart({ symbol, title = 'Price Chart' }) {
   const [range, setRange] = useState('6M')
   const [attempt, setAttempt] = useState(0)
   const [state, setState] = useState({ data: [], loading: true, error: '' })
@@ -36,7 +36,7 @@ export default function StockChart({ symbol }) {
   return <section className="stock-section stock-band" id="price-chart"><div className="stock-container">
     <SectionTitle extra={<div className="stock-chart-ranges" aria-label="Chart timeframe">{RANGES.map(item => <button key={item} aria-pressed={range === item} onClick={() => select(item)}>{item}</button>)}
       <details ref={more} className="stock-range-more"><summary aria-label="More chart timeframes">{MORE.includes(range) && range}<ChevronDown size={12} /></summary><div>{MORE.map(item => <button key={item} aria-pressed={range === item} onClick={event => { select(item); event.currentTarget.closest('details').open = false }}>{item}</button>)}</div></details>
-    </div>}><span>Price Chart</span><a className="stock-heading-link" target="_blank" rel="noreferrer" href={`https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}/chart/`}><ExternalLink size={13} />Advanced chart</a></SectionTitle>
+    </div>}><span>{title}</span><a className="stock-heading-link" target="_blank" rel="noreferrer" href={`https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}/chart/`}><ExternalLink size={13} />Advanced chart</a></SectionTitle>
     <div className="stock-chart" aria-busy={state.loading}>
       {state.loading && <span className="stock-chart-loading" role="status">Loading price history…</span>}
       {state.error ? <EmptyState error onRetry={() => { setState(value => ({ ...value, loading: true })); setAttempt(value => value + 1) }}>{state.error}</EmptyState> : !state.loading && !state.data.length ? <EmptyState>No price data available</EmptyState> : state.data.length ? <ResponsiveContainer width="100%" height="100%">
