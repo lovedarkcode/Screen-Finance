@@ -440,6 +440,18 @@ def _statement_table_from_df(
     return {"title": title, "unit": "Figures in INR Crore", "columns": columns, "rows": table_rows}
 
 
+def _quarterly_chart(df: Any) -> list[dict]:
+    if df is None or df.empty:
+        return []
+    result = []
+    for date in list(df.columns)[:5]:
+        def cell(key: str) -> float | None:
+            return _number(df.loc[key, date]) if key in df.index else None
+        revenue = cell("Total Revenue")
+        result.append({"date": date.strftime("%d %b %Y"), "totalIncome": revenue / 100_000 if revenue is not None else None, "profitBeforeTax": cell("Pretax Income") / 100_000 if cell("Pretax Income") is not None else None, "netProfitLoss": cell("Net Income") / 100_000 if cell("Net Income") is not None else None, "eps": cell("Diluted EPS") if cell("Diluted EPS") is not None else cell("Basic EPS")})
+    return result
+
+
 @router.get("/{symbol}/metrics")
 async def get_metrics(symbol: str) -> list[dict[str, str]]:
     normalized = _normalize_symbol(symbol)
@@ -537,7 +549,7 @@ async def get_quarters(symbol: str) -> dict[str, Any]:
         df = ticker.quarterly_income_stmt
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"Could not load quarters for {symbol}") from exc
-    return _statement_table_from_df(
+    table = _statement_table_from_df(
         df,
         "Quarterly Results",
         [
@@ -548,6 +560,31 @@ async def get_quarters(symbol: str) -> dict[str, Any]:
         ],
         limit=6,
     )
+    table["chart"] = _quarterly_chart(df)
+    return table
+
+
+def _load_shareholding(symbol: str) -> list[dict]:
+    # The provider exposes a current snapshot, not historical promoter reports.
+    holders = yf.Ticker(symbol).major_holders
+    if holders is None or holders.empty or "Value" not in holders.columns:
+        return []
+    insiders = _number(holders["Value"].get("insidersPercentHeld"))
+    institutions = _number(holders["Value"].get("institutionsPercentHeld"))
+    if insiders is None or institutions is None or min(insiders, institutions) < 0 or insiders + institutions > 1:
+        return []
+    return [{"label": "Latest available", "periodEnd": None, "source": "Yahoo Finance ownership snapshot", "holdings": [{"name": "Insiders", "value": round(insiders * 100, 4)}, {"name": "Institutions", "value": round(institutions * 100, 4)}, {"name": "Other holders", "value": round((1 - insiders - institutions) * 100, 4)}]}]
+
+
+@router.get("/{symbol}/shareholding")
+async def get_shareholding(symbol: str) -> list[dict]:
+    normalized = _normalize_symbol(symbol)
+    if not _is_indian_equity(normalized):
+        raise HTTPException(status_code=400, detail="Use an Indian exchange symbol")
+    try:
+        return await run_in_threadpool(_load_shareholding, normalized)
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail="Ownership data temporarily unavailable") from exc
 
 
 @router.get("/{symbol}/profit-loss")

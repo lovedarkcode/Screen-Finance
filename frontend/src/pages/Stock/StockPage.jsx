@@ -7,6 +7,7 @@ import { DEFAULT_SECTIONS, readPreference } from '@/components/stock/stock-forma
 import StockChart from '@/components/stock/StockChart'
 import StockMetrics from '@/components/stock/StockMetrics'
 import { PriceRange, ReturnsPerformance } from '@/components/stock/StockPerformance'
+import StockShareholding from '@/components/stock/StockShareholding'
 import stockService from '@/services/stock.service'
 import '@/components/stock/stock-detail.css'
 
@@ -28,6 +29,7 @@ function StockDetail({ symbol }) {
         overview: () => stockService.getOverview(symbol),
         quarters: () => stockService.getQuarters(symbol),
         peers: () => stockService.getPeers(symbol),
+        shareholding: () => stockService.getShareholding(symbol),
       }
       for (const [key, fetch] of Object.entries(jobs)) {
         fetch().then(value => { if (live) setData(previous => ({ ...previous, [key]: value })) })
@@ -49,6 +51,7 @@ function StockDetail({ symbol }) {
       {sections.keyMetrics && <StockMetrics metrics={data.overview?.metrics} loading={!data.overview && !errors.overview} error={errors.overview} />}
       {sections.priceRange && <PriceRange stock={data.stock} data={data.overview?.priceRange} loading={!data.overview && !errors.overview} error={errors.overview} />}
       {sections.returns && <ReturnsPerformance data={data.overview?.returns} loading={!data.overview && !errors.overview} error={errors.overview} />}
+      {sections.shareholding && <section className="stock-section stock-band-alt"><div className="stock-container"><StockShareholding data={data.shareholding} loading={!data.shareholding && !errors.shareholding} error={errors.shareholding} /></div></section>}
     </main>}
   </div>
 }
