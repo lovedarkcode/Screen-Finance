@@ -699,6 +699,24 @@ async def get_peers(symbol: str) -> list[dict[str, Any]]:
     sector = info.get("sector")
     if not sector or sector == "N/A":
         return []
-    search = await list_stocks(sector, 6)
-    return [item for item in search["items"] if item["symbol"] != normalized]
+    pool = next((group["symbols"] for group in SECTORS.values() if normalized in group["symbols"]), None)
+    if pool is None:
+        sector_ids = {"technology": "it", "financial services": "banking", "energy": "energy", "basic materials": "production", "healthcare": "pharma", "consumer cyclical": "auto", "industrials": "production", "utilities": "energy"}
+        group = SECTORS.get(sector_ids.get(sector.lower(), ""))
+        pool = group["symbols"] if group else []
+    symbols = [normalized] + [item for item in pool if item != normalized][:5]
+
+    async def peer_quote(peer: str) -> dict | None:
+        try:
+            quote_data = await _quote(peer)
+        except Exception:
+            return None
+        try:
+            peer_info = await run_in_threadpool(lambda: _fetch_yfinance_ticker(peer).info)
+        except Exception:
+            peer_info = {}
+        return {**quote_data, "marketCap": _number(peer_info.get("marketCap")), "peRatio": _number(peer_info.get("trailingPE"))}
+
+    rows = await asyncio.gather(*(peer_quote(peer) for peer in symbols))
+    return [row for row in rows if row is not None]
 
