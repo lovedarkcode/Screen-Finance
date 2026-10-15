@@ -8,6 +8,7 @@ import StockChart from '@/components/stock/StockChart'
 import StockMetrics from '@/components/stock/StockMetrics'
 import { PriceRange, ReturnsPerformance } from '@/components/stock/StockPerformance'
 import StockShareholding from '@/components/stock/StockShareholding'
+import StockFinancials from '@/components/stock/StockFinancials'
 import stockService from '@/services/stock.service'
 import '@/components/stock/stock-detail.css'
 
@@ -51,7 +52,10 @@ function StockDetail({ symbol }) {
       {sections.keyMetrics && <StockMetrics metrics={data.overview?.metrics} loading={!data.overview && !errors.overview} error={errors.overview} />}
       {sections.priceRange && <PriceRange stock={data.stock} data={data.overview?.priceRange} loading={!data.overview && !errors.overview} error={errors.overview} />}
       {sections.returns && <ReturnsPerformance data={data.overview?.returns} loading={!data.overview && !errors.overview} error={errors.overview} />}
-      {sections.shareholding && <section className="stock-section stock-band-alt"><div className="stock-container"><StockShareholding data={data.shareholding} loading={!data.shareholding && !errors.shareholding} error={errors.shareholding} /></div></section>}
+      {(sections.shareholding || sections.financials) && <section className="stock-section stock-band-alt"><div className="stock-container"><div className={`stock-panel-grid ${!sections.shareholding || !sections.financials ? 'stock-single-panel' : ''}`}>
+        {sections.shareholding && <StockShareholding data={data.shareholding} loading={!data.shareholding && !errors.shareholding} error={errors.shareholding} />}
+        {sections.financials && <StockFinancials quarters={data.quarters} loading={!data.quarters && !errors.quarters} error={errors.quarters} />}
+      </div></div></section>}
     </main>}
   </div>
 }
