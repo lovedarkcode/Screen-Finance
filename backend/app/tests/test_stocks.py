@@ -30,19 +30,29 @@ def test_get_stock_returns_indian_live_quote_shape(monkeypatch) -> None:
     assert body["currency"] == "INR"
 
 
-def test_get_non_indian_symbol_returns_400() -> None:
+def test_get_us_symbol_returns_quote(monkeypatch) -> None:
+    async def fake_json(url, params):
+        return {"chart": {"result": [{"meta": {"exchangeName": "NMS", "currency": "USD", "regularMarketPrice": 200, "previousClose": 198, "exchangeTimezoneName": "America/New_York"}}]}}
+    monkeypatch.setattr(stock_api, "_get_json", fake_json)
     response = client.get("/api/v1/stocks/AAPL")
+    assert response.status_code == 200
+    assert response.json()["exchange"] == "NASDAQ"
+    assert response.json()["currency"] == "USD"
+    assert response.json()["timeZone"] == "America/New_York"
 
-    assert response.status_code == 400
 
-
-def test_search_filters_to_nse_and_bse(monkeypatch) -> None:
+def test_search_includes_indian_and_us_equities(monkeypatch) -> None:
     async def fake_json(url: str, params: dict | None = None) -> dict:
         return {
             "quotes": [
                 {"symbol": "TEST.NS", "longname": "Test NSE Ltd."},
                 {"symbol": "TEST.BO", "longname": "Test BSE Ltd."},
-                {"symbol": "AAPL", "longname": "Apple Inc."},
+                {"symbol": "AAPL", "longname": "Apple Inc.", "exchange": "NMS", "quoteType": "EQUITY"},
+                {"symbol": "BRK-B", "exchange": "NYQ", "quoteType": "EQUITY"},
+                {"symbol": "AAPL", "exchange": "NMS", "quoteType": "EQUITY"},
+                {"symbol": "VOD.L", "exchange": "LSE", "quoteType": "EQUITY"},
+                {"symbol": "SPY", "exchange": "PCX", "quoteType": "ETF"},
+                {"symbol": "BTC-USD", "exchange": "CCC", "quoteType": "CRYPTOCURRENCY"},
             ]
         }
 
@@ -52,7 +62,9 @@ def test_search_filters_to_nse_and_bse(monkeypatch) -> None:
 
     assert response.status_code == 200
     symbols = [item["symbol"] for item in response.json()["items"]]
-    assert symbols == ["TEST.NS", "TEST.BO"]
+    assert symbols == ["TEST.NS", "TEST.BO", "AAPL", "BRK-B"]
+    assert response.json()["items"][2]["currency"] == "USD"
+    assert response.json()["items"][3]["baseSymbol"] == "BRK-B"
 
 
 def test_get_quarters_has_columns_and_rows(monkeypatch) -> None:

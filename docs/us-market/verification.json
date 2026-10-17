@@ -1,0 +1,27 @@
+{
+  "passed": [
+    "Indian quotes retain rupees",
+    "US company search opens its analysis route",
+    "US quote uses dollars and exchange label",
+    "US timestamp uses the exchange timezone",
+    "US market cap uses billions/trillions and EPS uses dollars",
+    "Price chart axes show dollars",
+    "US intraday labels use New York time",
+    "US financial chart labels millions in USD",
+    "US EPS chart keeps the currency",
+    "Statements retain USD units and values",
+    "US peer monetary values use dollars",
+    "Single-letter US symbol is searchable",
+    "Share-class symbols survive search and routing",
+    "Mixed-market watchlist uses each stock currency",
+    "ADR quote stays USD while financial chart uses reporting currency",
+    "ADR revenue retains its reporting currency",
+    "US analysis fits 1440px in dark mode",
+    "US analysis fits 390px in dark mode",
+    "US analysis fits 1440px in light mode",
+    "US analysis fits 390px in light mode",
+    "No browser runtime errors"
+  ],
+  "errors": [],
+  "fixtureData": true
+}

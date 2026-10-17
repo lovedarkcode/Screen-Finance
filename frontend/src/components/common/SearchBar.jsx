@@ -1,3 +1,4 @@
+import { money } from '@/components/stock/stock-format'
 import { SearchInput } from '@/components/ui/search-input'
 import { Button } from '@/components/ui/button'
 import { useEffect, useRef, useState } from 'react'
@@ -25,7 +26,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     const trimmed = query.trim()
-    if (trimmed.length < 2) return
+    if (trimmed.length < 1) return
     let live = true
     const timeout = window.setTimeout(async () => {
       setLoading(true)
@@ -38,7 +39,7 @@ const SearchBar = () => {
       } catch {
         if (!live) return
         setResults([])
-        setError('Live NSE/BSE search is unavailable.')
+        setError('Indian and US stock search is unavailable.')
         setOpen(true)
       } finally {
         if (live) setLoading(false)
@@ -57,12 +58,12 @@ const SearchBar = () => {
   return (
     <div ref={wrapperRef} className="relative flex-1 max-w-xl">
       <SearchInput
-        aria-label="Search live NSE/BSE company or symbol"
+        aria-label="Search Indian and US company or symbol"
         wrapperClassName="w-full sm:w-full"
         value={query}
         onChange={(event) => { setQuery(event.target.value); setResults([]); setError(''); setOpen(false); setLoading(false) }}
         onFocus={() => results.length > 0 && setOpen(true)}
-        placeholder="Search live NSE/BSE company or symbol..."
+        placeholder="Search Indian and US company or symbol..."
         className="pr-10"
       />
       <kbd className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-500 border border-[#33363f] rounded px-1.5 py-0.5">
@@ -72,7 +73,7 @@ const SearchBar = () => {
       {open && (
         <div className="absolute z-50 mt-2 w-full overflow-hidden rounded-md border border-[#262833] bg-[#14161c] shadow-xl">
           {loading && (
-            <div className="px-3 py-2 text-[12px] text-gray-500">Searching Indian exchanges...</div>
+            <div className="px-3 py-2 text-[12px] text-gray-500">Searching Indian and US exchanges...</div>
           )}
           {!loading && error && (
             <div className="px-3 py-2 text-[12px] text-red-300">{error}</div>
@@ -97,7 +98,7 @@ const SearchBar = () => {
               </span>
               {stock.price && (
                 <span className="shrink-0 text-[12px] font-semibold text-gray-200">
-                  {stock.currencySymbol || 'INR'} {Number(stock.price).toLocaleString('en-IN')}
+                  {money(stock.price, stock.currency)}
                 </span>
               )}
             </Button>

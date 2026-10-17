@@ -56,7 +56,7 @@ export default function Watchlist() {
             <h2 className="truncate text-sm font-semibold"><Link to={`/stock/${encodeURIComponent(stock.symbol)}`} className="after:absolute after:inset-0 focus-visible:after:outline-2 focus-visible:after:outline-ring">{stock.name}</Link></h2>
             <p className="mt-1 text-xs text-muted-foreground">{stock.symbol}{stock.exchange && ` · ${stock.exchange}`}</p>
           </div><IconButton variant="ghost" className="relative z-10 size-8 text-muted-foreground hover:text-destructive" aria-label={`Remove ${stock.symbol} from watchlist`} disabled={pending.includes(stock.symbol)} onClick={() => remove(stock.symbol)}><Trash2 /></IconButton></div>
-          <div className="mt-6 flex flex-wrap items-baseline justify-between gap-2"><strong className="text-lg">{stock.price == null ? 'Live data unavailable' : money(stock.price)}</strong><PriceChange value={stock.changePercent} badge /></div>
+          <div className="mt-6 flex flex-wrap items-baseline justify-between gap-2"><strong className="text-lg">{stock.price == null ? 'Live data unavailable' : money(stock.price, stock.currency)}</strong><PriceChange value={stock.changePercent} badge /></div>
           <ArrowUpRight className="mt-4 size-4 self-end text-muted-foreground" aria-hidden="true" />
         </Card>)}
       </div>}

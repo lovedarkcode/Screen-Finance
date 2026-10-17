@@ -3,6 +3,8 @@ const { chromium } = require(process.env.PLAYWRIGHT_PATH || 'C:/Program Files/Py
 const assert = require('node:assert/strict')
 const fs = require('node:fs/promises')
 const path = require('node:path')
+const baseURL = process.env.APP_URL || 'http://127.0.0.1:5173'
+const outputDir = process.env.UI_VERIFY_OUTPUT_DIR || __dirname
 
 async function main() {
   const browser = await chromium.launch({ headless: true })
@@ -44,7 +46,7 @@ async function main() {
     const page = await context.newPage()
     page.on('pageerror', error => errors.push(error.message))
     page.on('console', msg => { if (msg.type() === 'error' && /validateDOMNesting|cannot be a descendant|cannot contain|Encountered two children/.test(msg.text())) errors.push(msg.text()) })
-    const go = route => page.goto(`http://127.0.0.1:5173${route}`, { waitUntil: 'networkidle' })
+    const go = route => page.goto(`${baseURL}${route}`, { waitUntil: 'networkidle' })
     await go('/stock/ALPHA.NS')
     check('Price, financial and ownership charts render', await page.locator('.recharts-surface').count() >= 3)
     await Promise.all([page.waitForResponse(response => response.url().includes('range=1W')), page.getByRole('button', { name: '1W', exact: true }).click()])
@@ -103,11 +105,11 @@ async function main() {
         for (const route of ['/feed', '/screens?sector=it', '/stock/ALPHA.NS', '/watchlist']) {
           await go(route)
           check(`No overflow ${route} ${theme} ${width}`, await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth))
-          await page.screenshot({ path: path.join(__dirname, `${route.split('/')[1].split('?')[0]}-${theme}-${width}.png`), fullPage: true })
+          await page.screenshot({ path: path.join(outputDir, `${route.split('/')[1].split('?')[0]}-${theme}-${width}.png`), fullPage: true })
           if (route === '/stock/ALPHA.NS') {
             await page.getByRole('button', { name: 'Search stocks and sectors' }).click()
             await page.getByRole('dialog').waitFor()
-            await page.screenshot({ path: path.join(__dirname, `search-${theme}-${width}.png`), fullPage: true })
+            await page.screenshot({ path: path.join(outputDir, `search-${theme}-${width}.png`), fullPage: true })
             await page.keyboard.press('Escape')
           }
         }
@@ -139,7 +141,7 @@ async function main() {
     await page.getByRole('button', { name: 'Sign in', exact: true }).click()
     await page.getByText('Password is required', { exact: true }).waitFor()
     check('ChaiUI field links validation errors', await page.getByLabel('Password', { exact: true }).getAttribute('aria-invalid') === 'true' && !!await page.getByLabel('Password', { exact: true }).getAttribute('aria-describedby'))
-    await page.screenshot({ path: path.join(__dirname, 'login-390.png'), fullPage: true })
+    await page.screenshot({ path: path.join(outputDir, 'login-390.png'), fullPage: true })
     await page.getByLabel('Email', { exact: true }).fill('ui@example.test')
     await page.getByLabel('Password', { exact: true }).fill('example-password')
     await page.getByRole('button', { name: 'Sign in', exact: true }).click()
@@ -154,7 +156,7 @@ async function main() {
     await page.waitForURL('**/feed')
     check('Registration submits original fields', authRequests[1].name === 'UI Review' && authRequests[1].email === 'new@example.test')
     check('No runtime or DOM nesting errors', errors.length === 0)
-    await fs.writeFile(path.join(__dirname, 'chaiui-verification.json'), JSON.stringify({ passed, errors, fixtureData: true }, null, 2))
+    await fs.writeFile(path.join(outputDir, 'chaiui-verification.json'), JSON.stringify({ passed, errors, fixtureData: true }, null, 2))
     console.log(`${passed.length} ChaiUI browser checks passed`)
   } finally { await browser.close() }
 }

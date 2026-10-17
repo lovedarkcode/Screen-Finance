@@ -34,7 +34,7 @@ export default function StockToolbar({ stock, theme, setTheme }) {
     return () => { live = false }
   }, [searchOpen])
   useEffect(() => {
-    if (!searchOpen || query.trim().length < 2) return
+    if (!searchOpen || query.trim().length < 1) return
     let live = true
     const timer = setTimeout(async () => {
       setSearch({ items: [], loading: true, error: '' })
@@ -55,8 +55,8 @@ export default function StockToolbar({ stock, theme, setTheme }) {
     <header className="stock-toolbar"><div className="stock-container stock-toolbar-inner">
       <Link className="stock-brand" to="/screens"><span className="stock-brand-mark"><img src="/assest-hunter.png" alt="" /></span><span>Asset Hunter</span></Link>
       <nav className="market-navigation" aria-label="Main navigation"><NavLink to="/feed">Feed</NavLink><NavLink to="/screens">Screens</NavLink></nav>
-      {stock && scrolled && <div className="stock-compact-quote"><strong>{stock.baseSymbol || stock.symbol}</strong><strong>{money(stock.price)}</strong><PriceChange value={stock.changePercent} /></div>}
-      <Button variant="outline" size="sm" className="stock-search-trigger" onClick={() => setSearchOpen(true)} aria-label="Search stocks and sectors"><Search size={15} /><span>Search equity stocks, sectors …</span></Button>
+      {stock && scrolled && <div className="stock-compact-quote"><strong>{stock.baseSymbol || stock.symbol}</strong><strong>{money(stock.price, stock.currency)}</strong><PriceChange value={stock.changePercent} /></div>}
+      <Button variant="outline" size="sm" className="stock-search-trigger" onClick={() => setSearchOpen(true)} aria-label="Search stocks and sectors"><Search size={15} /><span>Search Indian &amp; US stocks …</span></Button>
       <div className="stock-header-actions">
         <IconButton variant="ghost" className="stock-icon-button stock-theme-button" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>{theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}</IconButton>
         <IconButton variant="ghost" className="stock-icon-button stock-theme-button" aria-label="Account and saved lists" onClick={() => setAccountOpen(true)}><UserRound size={17} /></IconButton>
@@ -67,12 +67,12 @@ export default function StockToolbar({ stock, theme, setTheme }) {
         {user ? <Button variant="ghost" size="sm" onClick={async () => { await dispatch(logout()); setAccountOpen(false); navigate('/login', { replace: true }) }}><LogOut size={17} />Sign out</Button> : <Link to="/login">Sign in<ArrowRight size={15} /></Link>}
       </div>
     </StockModal>
-    <StockModal open={searchOpen} onOpenChange={setSearchOpen} theme={theme} title="Search stocks or sectors" description="Find a company by its name, symbol or sector." initialFocus={searchInput}>
-      <form className="stock-search-form" onSubmit={e => { e.preventDefault(); if (search.items[0] && query.trim().length >= 2) select(search.items[0].symbol) }}>
-        <SearchInput ref={searchInput} wrapperClassName="flex-1 sm:w-auto" aria-label="Search company or symbol" autoComplete="off" placeholder="Search company or symbol…" value={query} onChange={e => { setQuery(e.target.value); setSearch({ items: [], loading: e.target.value.trim().length >= 2, error: '' }) }} /><IconButton type="submit" variant="ghost" className="stock-icon-button" aria-label="Search"><ArrowRight size={19} /></IconButton>
+    <StockModal open={searchOpen} onOpenChange={setSearchOpen} theme={theme} title="Search stocks or sectors" description="Find NSE/BSE and US companies by name or symbol, or browse Indian sectors." initialFocus={searchInput}>
+      <form className="stock-search-form" onSubmit={e => { e.preventDefault(); if (search.items[0] && query.trim().length >= 1) select(search.items[0].symbol) }}>
+        <SearchInput ref={searchInput} wrapperClassName="flex-1 sm:w-auto" aria-label="Search company or symbol" autoComplete="off" placeholder="Try Apple, AAPL, or TCS.NS…" value={query} onChange={e => { setQuery(e.target.value); setSearch({ items: [], loading: e.target.value.trim().length >= 1, error: '' }) }} /><IconButton type="submit" variant="ghost" className="stock-icon-button" aria-label="Search"><ArrowRight size={19} /></IconButton>
       </form>
-      {query.trim().length >= 2 ? <div className="stock-search-results" aria-live="polite">
-        {search.loading ? <p>Searching companies…</p> : search.error ? <p role="alert">{search.error}</p> : search.items.length ? search.items.map(item => <Button variant="ghost" size="sm" key={item.symbol} onClick={() => select(item.symbol)}><span><strong>{item.name}</strong><small>{item.symbol} · {item.exchange}</small></span><ArrowRight size={16} /></Button>) : <p>No results found for “{query}”. Try a stock name or symbol.</p>}
+      {query.trim().length >= 1 ? <div className="stock-search-results" aria-live="polite">
+        {search.loading ? <p>Searching companies…</p> : search.error ? <p role="alert">{search.error}</p> : search.items.length ? search.items.map(item => <Button variant="ghost" size="sm" key={item.symbol} onClick={() => select(item.symbol)}><span><strong>{item.name}</strong><small>{item.symbol} · {item.exchange} · {item.currency}</small></span><ArrowRight size={16} /></Button>) : <p>No results found for “{query}”. Try a stock name or symbol.</p>}
       </div> : <div className="stock-sector-list"><p>{sectors === null ? 'Loading sectors…' : sectors.length ? 'Browse sectors' : 'Sector data is unavailable. Use stock search or the Screener.'}</p>{(sectors || []).map(sector => <Button variant="ghost" size="sm" key={sector.id} onClick={() => { setSearchOpen(false); navigate(`/screens?sector=${encodeURIComponent(sector.id)}`) }}>{sector.name}</Button>)}</div>}
       <Link className="stock-search-footer" to="/screens" onClick={() => setSearchOpen(false)}><ArrowLeft size={14} /> Back to Screener</Link>
     </StockModal>

@@ -5,6 +5,7 @@ const assert = require('node:assert/strict')
 const fs = require('node:fs/promises')
 const path = require('node:path')
 const outputDir = process.env.UI_VERIFY_OUTPUT_DIR || __dirname
+const baseURL = process.env.APP_URL || 'http://localhost:5173'
 
 async function main() {
   const browser = await chromium.launch({ headless: true })
@@ -45,7 +46,7 @@ async function main() {
     })
     const page = await context.newPage(), errors = [], passed = []
     page.on('pageerror', error => errors.push(error.message))
-    const go = route => page.goto(`http://localhost:5173${route}`, { waitUntil: 'networkidle' })
+    const go = route => page.goto(`${baseURL}${route}`, { waitUntil: 'networkidle' })
     const check = (name, value) => { assert.ok(value, name); passed.push(name) }
     await go('/screens?sector=it')
     await page.locator('tbody tr').first().waitFor()

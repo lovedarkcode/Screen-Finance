@@ -5,10 +5,10 @@ import { Card } from '@/components/ui/card'
 import { useEffect, useState } from 'react'
 import { Check, Pencil, X } from 'lucide-react'
 import { EmptyState, SectionTitle } from './StockUI'
-import { money, number, readPreference } from './stock-format'
+import { largeMoney, money, number, readPreference } from './stock-format'
 
 const DEFAULT = ['marketCap', 'peRatio', 'eps', 'faceValue', 'allTimeHigh', 'allTimeLow', 'debtToEquity']
-const display = ({ value, unit }) => value == null ? '—' : unit === 'crore' ? `${money(value / 1e7)} Cr` : unit === 'inr' ? money(value) : `${number(value)}${unit === 'percent' ? '%' : ''}`
+const display = ({ value, unit, currency }) => value == null ? '—' : ['crore', 'compact'].includes(unit) ? largeMoney(value, currency) : ['inr', 'currency'].includes(unit) ? money(value, currency) : `${number(value)}${unit === 'percent' ? '%' : ''}`
 
 export default function StockMetrics({ metrics = [], loading, error }) {
   const [selected, setSelected] = useState(() => {

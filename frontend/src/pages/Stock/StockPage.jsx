@@ -51,13 +51,13 @@ function StockDetail({ symbol }) {
       <Button asChild variant="solid"><Link to="/screens">Go to Screener</Link></Button>
     </main> : !data.stock ? <StockSkeleton /> : <main>
       <StockHeader stock={data.stock} profile={data.overview?.about} />
-      {sections.priceChart && <StockChart symbol={symbol} />}
+      {sections.priceChart && <StockChart symbol={data.stock.symbol} currency={data.stock.currency} timeZone={data.stock.timeZone} />}
       {sections.keyMetrics && <StockMetrics metrics={data.overview?.metrics} loading={!data.overview && !errors.overview} error={errors.overview} />}
       {sections.priceRange && <PriceRange stock={data.stock} data={data.overview?.priceRange} loading={!data.overview && !errors.overview} error={errors.overview} />}
       {sections.returns && <ReturnsPerformance data={data.overview?.returns} loading={!data.overview && !errors.overview} error={errors.overview} />}
       {(sections.shareholding || sections.financials) && <section className="stock-section stock-band-alt"><div className="stock-container"><div className={`stock-panel-grid ${!sections.shareholding || !sections.financials ? 'stock-single-panel' : ''}`}>
         {sections.shareholding && <StockShareholding data={data.shareholding} loading={!data.shareholding && !errors.shareholding} error={errors.shareholding} />}
-        {sections.financials && <StockFinancials quarters={data.quarters} loading={!data.quarters && !errors.quarters} error={errors.quarters} />}
+        {sections.financials && <StockFinancials quarters={data.quarters} currency={data.stock.currency} loading={!data.quarters && !errors.quarters} error={errors.quarters} />}
       </div>{sections.financials && <StockStatements symbol={symbol} quarters={errors.quarters ? { error: true } : data.quarters} />}</div></section>}
       {sections.about && <StockCompany stock={data.stock} about={data.overview?.about} loading={!data.overview && !errors.overview} error={errors.overview} />}
       {sections.peers && <StockPeers peers={data.peers} loading={!data.peers && !errors.peers} error={errors.peers} />}

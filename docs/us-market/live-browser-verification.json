@@ -1,0 +1,13 @@
+{
+  "passed": [
+    "Live Apple quote uses USD",
+    "Live fundamentals use dollar market values",
+    "Live quarterly financials use USD millions",
+    "Live financial statements contain USD values",
+    "Live US company search opens Microsoft analysis",
+    "No browser runtime errors with real data"
+  ],
+  "errors": [],
+  "marketDataFixtures": false,
+  "authenticationFixture": true
+}
