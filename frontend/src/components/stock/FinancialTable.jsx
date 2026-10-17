@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/button'
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
 import { useState } from 'react'
 
 const FinancialTable = ({ title, unit, columns = [], rows = [] }) => {
@@ -17,12 +19,12 @@ const FinancialTable = ({ title, unit, columns = [], rows = [] }) => {
               <p className="text-[9px] text-gray-500">{unit || 'Live provider data'}</p>
             </div>
             {columns.length > 0 && rows.length > 0 && (
-              <button 
+              <Button variant="ghost" size="sm"
                 onClick={() => setIsOpen(true)}
                 className="text-[10px] font-semibold text-indigo-400 hover:text-indigo-300 px-1.5 py-0.5 rounded bg-indigo-500/10 transition-colors"
               >
                 VIEW MORE
-              </button>
+              </Button>
             )}
           </div>
 
@@ -32,35 +34,35 @@ const FinancialTable = ({ title, unit, columns = [], rows = [] }) => {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-[10px]">
-                <thead>
-                  <tr className="text-gray-500 border-b border-[#1f2129]">
-                    <th className="text-left font-medium py-1"></th>
+              <Table className="w-full text-[10px]">
+                <TableHeader>
+                  <TableRow className="text-gray-500 border-b border-[#1f2129]">
+                    <TableHead className="text-left font-medium py-1"></TableHead>
                     {displayedColumns.map((c) => (
-                      <th key={c} className="text-right font-medium py-1 pl-2 whitespace-nowrap">
+                      <TableHead key={c} className="text-right font-medium py-1 pl-2 whitespace-nowrap">
                         {c}
-                      </th>
+                      </TableHead>
                     ))}
-                  </tr>
-                </thead>
-                <tbody>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
                   {rows.map((row) => {
                     const displayedValues = isRatios ? row.values : row.values.slice(-visibleLimit)
                     return (
-                      <tr key={row.label} className="border-b border-[#1f2129] last:border-0 hover:bg-[#181a21]/30">
-                        <td className="py-1 text-gray-400 truncate max-w-[90px]" title={row.label}>
+                      <TableRow key={row.label} className="border-b border-[#1f2129] last:border-0 hover:bg-[#181a21]/30">
+                        <TableCell className="py-1 text-gray-400 truncate max-w-[90px]" title={row.label}>
                           {row.label}
-                        </td>
+                        </TableCell>
                         {displayedValues.map((v, i) => (
-                          <td key={i} className="py-1 text-right text-gray-200 pl-2 whitespace-nowrap font-mono">
+                          <TableCell key={i} className="py-1 text-right text-gray-200 pl-2 whitespace-nowrap font-mono">
                             {v}
-                          </td>
+                          </TableCell>
                         ))}
-                      </tr>
+                      </TableRow>
                     )
                   })}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </div>
           )}
         </div>
@@ -81,39 +83,39 @@ const FinancialTable = ({ title, unit, columns = [], rows = [] }) => {
                 <h3 className="text-base font-bold text-white">{title}</h3>
                 <p className="text-xs text-gray-500">{unit || 'Figures in INR Crore'}</p>
               </div>
-              <button 
+              <Button variant="ghost" size="sm"
                 onClick={() => setIsOpen(false)}
                 className="text-gray-400 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg bg-[#1a1c23] border border-[#262833] transition-colors"
               >
                 CLOSE
-              </button>
+              </Button>
             </div>
             
             <div className="p-6 overflow-y-auto bg-[#0f1115]">
-              <table className="w-full text-xs border-collapse">
-                <thead>
-                  <tr className="text-gray-400 border-b border-[#1f2129]">
-                    <th className="text-left font-semibold py-3 px-3">Metric</th>
+              <Table className="w-full text-xs border-collapse">
+                <TableHeader>
+                  <TableRow className="text-gray-400 border-b border-[#1f2129]">
+                    <TableHead className="text-left font-semibold py-3 px-3">Metric</TableHead>
                     {columns.map((c) => (
-                      <th key={c} className="text-right font-semibold py-3 px-3">
+                      <TableHead key={c} className="text-right font-semibold py-3 px-3">
                         {c}
-                      </th>
+                      </TableHead>
                     ))}
-                  </tr>
-                </thead>
-                <tbody>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
                   {rows.map((row) => (
-                    <tr key={row.label} className="border-b border-[#1f2129] last:border-0 hover:bg-[#181a21]/50 transition-colors">
-                      <td className="py-3 px-3 text-gray-300 font-medium">{row.label}</td>
+                    <TableRow key={row.label} className="border-b border-[#1f2129] last:border-0 hover:bg-[#181a21]/50 transition-colors">
+                      <TableCell className="py-3 px-3 text-gray-300 font-medium">{row.label}</TableCell>
                       {row.values.map((v, i) => (
-                        <td key={i} className="py-3 px-3 text-right text-gray-100 font-mono">
+                        <TableCell key={i} className="py-3 px-3 text-right text-gray-100 font-mono">
                           {v}
-                        </td>
+                        </TableCell>
                       ))}
-                    </tr>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </div>
           </div>
         </div>

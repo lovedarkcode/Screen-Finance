@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/button'
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
 import { FileText } from 'lucide-react'
 
 const QuarterlyTable = ({ quarters = { columns: [], rows: [] } }) => {
@@ -11,9 +13,9 @@ const QuarterlyTable = ({ quarters = { columns: [], rows: [] } }) => {
           <h2 className="text-base font-semibold text-white">{quarters.title || 'Quarterly Results'}</h2>
           <p className="text-[11px] text-gray-500">{quarters.unit || 'Live provider data'}</p>
         </div>
-        <button className="text-[11px] font-medium text-indigo-400 hover:text-indigo-300">
+        <Button variant="ghost" size="sm" className="text-[11px] font-medium text-indigo-400 hover:text-indigo-300">
           VIEW CONSOLIDATED
-        </button>
+        </Button>
       </div>
 
       {columns.length === 0 || rows.length === 0 ? (
@@ -22,41 +24,41 @@ const QuarterlyTable = ({ quarters = { columns: [], rows: [] } }) => {
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full text-[12px]">
-            <thead>
-              <tr className="text-gray-400 border-b border-[#1f2129]">
-                <th className="text-left font-medium py-2 px-4 sticky left-0 bg-[#14161c]"></th>
+          <Table className="w-full text-[12px]">
+            <TableHeader>
+              <TableRow className="text-gray-400 border-b border-[#1f2129]">
+                <TableHead className="text-left font-medium py-2 px-4 sticky left-0 bg-[#14161c]"></TableHead>
                 {columns.map((c) => (
-                  <th key={c} className="text-right font-medium py-2 px-3 whitespace-nowrap">
+                  <TableHead key={c} className="text-right font-medium py-2 px-3 whitespace-nowrap">
                     {c}
-                  </th>
+                  </TableHead>
                 ))}
-              </tr>
-            </thead>
-            <tbody>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {rows.map((row) => (
-                <tr
+                <TableRow
                   key={row.label}
                   className="border-b border-[#1f2129] last:border-0 hover:bg-[#181a21]"
                 >
-                  <td className="py-2 px-4 text-gray-300 sticky left-0 bg-[#14161c]">{row.label}</td>
+                  <TableCell className="py-2 px-4 text-gray-300 sticky left-0 bg-[#14161c]">{row.label}</TableCell>
                   {row.values.map((v, i) => (
-                    <td key={i} className="py-2 px-3 text-right text-gray-200 whitespace-nowrap">
+                    <TableCell key={i} className="py-2 px-3 text-right text-gray-200 whitespace-nowrap">
                       {v}
-                    </td>
+                    </TableCell>
                   ))}
-                </tr>
+                </TableRow>
               ))}
-              <tr className="hover:bg-[#181a21]">
-                <td className="py-2 px-4 text-gray-300 sticky left-0 bg-[#14161c]">Source document</td>
+              <TableRow className="hover:bg-[#181a21]">
+                <TableCell className="py-2 px-4 text-gray-300 sticky left-0 bg-[#14161c]">Source document</TableCell>
                 {columns.map((c) => (
-                  <td key={c} className="py-2 px-3 text-right">
+                  <TableCell key={c} className="py-2 px-3 text-right">
                     <FileText className="w-3.5 h-3.5 text-gray-500 inline" />
-                  </td>
+                  </TableCell>
                 ))}
-              </tr>
-            </tbody>
-          </table>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
       )}
     </section>

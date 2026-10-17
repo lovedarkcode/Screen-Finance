@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
 import { Link, useOutletContext, useParams } from 'react-router-dom'
 import StockHeader from '@/components/stock/StockHeader'
@@ -46,8 +47,8 @@ function StockDetail({ symbol }) {
     <StockToolbar stock={data.stock} theme={theme} setTheme={setTheme} />
     {errors.stock ? <main className="stock-error-page"><h1>{missing ? 'Stock not found' : 'Market data unavailable'}</h1>
       <p>{missing ? `The ticker “${symbol}” doesn't match an available listed stock.` : 'We couldn’t reach the market data provider. Please try again.'}</p>
-      {!missing && <button className="stock-button" onClick={() => { setErrors({}); setData({}); setAttempt(value => value + 1) }}>Try again</button>}
-      <Link className="stock-button stock-primary" to="/screens">Go to Screener</Link>
+      {!missing && <Button variant="outline" size="sm" className="stock-button" onClick={() => { setErrors({}); setData({}); setAttempt(value => value + 1) }}>Try again</Button>}
+      <Button asChild variant="solid"><Link to="/screens">Go to Screener</Link></Button>
     </main> : !data.stock ? <StockSkeleton /> : <main>
       <StockHeader stock={data.stock} profile={data.overview?.about} />
       {sections.priceChart && <StockChart symbol={symbol} />}

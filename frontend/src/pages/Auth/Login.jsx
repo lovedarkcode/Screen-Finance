@@ -1,11 +1,14 @@
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Field as ChaiField } from '@/components/ui/field'
+import { Spinner } from '@/components/ui/spinner'
 import { useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import toast from 'react-hot-toast'
-import { Loader2 } from 'lucide-react'
+import { useToast } from '@/components/ui/toast'
 
 import { clearAuthError, loginUser, selectAuth } from '@/store/authSlice'
 import GoogleButton from '@/components/auth/GoogleButton'
@@ -16,9 +19,9 @@ const schema = z.object({
 })
 
 const Login = () => {
+  const toast = useToast()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const location = useLocation()
   const { status, error } = useSelector(selectAuth)
   const isSubmitting = status === 'loading'
 
@@ -35,10 +38,10 @@ const Login = () => {
   const onSubmit = async (values) => {
     const result = await dispatch(loginUser(values))
     if (loginUser.fulfilled.match(result)) {
-      toast.success(`Welcome back, ${result.payload.user.name}`)
+      toast(`Welcome back, ${result.payload.user.name}`, { tone: 'success' })
       navigate(redirectTo, { replace: true })
     } else {
-      toast.error(result.payload || 'Login failed')
+      toast(result.payload || 'Login failed', { tone: 'danger' })
     }
   }
 
@@ -90,14 +93,14 @@ const Login = () => {
 
         {error && <p className="text-sm text-red-400">{error}</p>}
 
-        <button
+        <Button variant="solid" size="lg" iconRight={null}
           type="submit"
           disabled={isSubmitting}
-          className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-indigo-500 hover:bg-indigo-400 disabled:opacity-60 disabled:cursor-not-allowed px-4 py-2.5 text-sm font-medium text-white transition-colors"
+          className="w-full"
         >
-          {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
+          {isSubmitting && <Spinner label="Signing in" />}
           Sign in
-        </button>
+        </Button>
       </form>
 
       <p className="text-center text-sm text-gray-400">
@@ -111,17 +114,9 @@ const Login = () => {
 }
 
 const Field = ({ label, error, rightSlot, ...inputProps }) => (
-  <label className="block">
-    <div className="flex items-center justify-between mb-1.5">
-      <span className="text-xs font-medium text-gray-300">{label}</span>
-      {rightSlot}
-    </div>
-    <input
-      {...inputProps}
-      className="w-full rounded-md border border-[#2a2d36] bg-[#15171c] px-3 py-2 text-sm text-gray-100 placeholder-gray-500 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/40 transition"
-    />
-    {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
-  </label>
+  <ChaiField label={label} error={error} aside={rightSlot}>
+    <Input {...inputProps} />
+  </ChaiField>
 )
 
 export default Login

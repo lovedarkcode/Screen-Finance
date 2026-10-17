@@ -4,6 +4,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_PATH || 'C:/Program Files/Py
 const assert = require('node:assert/strict')
 const fs = require('node:fs/promises')
 const path = require('node:path')
+const outputDir = process.env.UI_VERIFY_OUTPUT_DIR || __dirname
 
 async function main() {
   const browser = await chromium.launch({ headless: true })
@@ -102,7 +103,7 @@ async function main() {
     quotesFail = true
     await go('/screens?sector=it')
     await page.getByText('Sector quotes are temporarily unavailable.').waitFor()
-    await page.screenshot({ path: path.join(__dirname, 'screens-error-390.png'), fullPage: true })
+    await page.screenshot({ path: path.join(outputDir, 'screens-error-390.png'), fullPage: true })
     quotesFail = false
     await page.getByRole('button', { name: 'Try again' }).click()
     await page.locator('tbody tr').first().waitFor()
@@ -130,7 +131,7 @@ async function main() {
     await page.getByText('Market news is temporarily unavailable.').waitFor()
     check('News error isolated from market quotes', await page.locator('.market-movers-table tbody tr').count() > 0)
     check('No browser runtime errors', errors.length === 0)
-    await fs.writeFile(path.join(__dirname, 'verification.json'), JSON.stringify({ passed, runtimeErrors: errors, fixtureData: true }, null, 2))
+    await fs.writeFile(path.join(outputDir, 'verification.json'), JSON.stringify({ passed, runtimeErrors: errors, fixtureData: true }, null, 2))
     console.log(`${passed.length} browser checks passed`)
   } finally { await browser.close() }
 }

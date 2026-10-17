@@ -1,3 +1,6 @@
+import { Segmented } from '@/components/ui/segmented'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
 import { useEffect, useState } from 'react'
 import stockService from '@/services/stock.service'
 import { EmptyState } from './StockUI'
@@ -19,8 +22,8 @@ export default function StockStatements({ symbol, quarters }) {
   }, [open, symbol])
   const table = active === 'quarters' ? quarters : tables[active]
   return <details className="stock-statements" onToggle={event => setOpen(event.currentTarget.open)}><summary>Financial statements</summary>
-    {open && <><div className="stock-report-tabs" role="group" aria-label="Financial statement">{TABLES.map(([id, label]) => <button key={id} aria-pressed={active === id} onClick={() => setActive(id)}>{label}</button>)}</div>
-      {!table ? <div className="sk sk-card" /> : table.error ? <EmptyState error>Statement data is temporarily unavailable.</EmptyState> : !table.rows?.length ? <EmptyState>No statement data available</EmptyState> : <div className="stock-statement-scroll"><p className="stock-source-note">{table.unit}</p><table className="stock-statement-table"><thead><tr><th>Metric</th>{table.columns.map(column => <th key={column}>{column}</th>)}</tr></thead><tbody>{table.rows.map(row => <tr key={row.label}><th>{row.label}</th>{row.values.map((value, index) => <td key={index}>{String(value).replace('INR ', '₹').replace('N/A', '—')}</td>)}</tr>)}</tbody></table></div>}
+    {open && <><Segmented className="stock-report-tabs" label="Financial statement" value={active} onChange={setActive} options={TABLES.map(([value, label]) => ({ value, label }))} />
+      {!table ? <Skeleton className="sk sk-card" /> : table.error ? <EmptyState error>Statement data is temporarily unavailable.</EmptyState> : !table.rows?.length ? <EmptyState>No statement data available</EmptyState> : <div className="stock-statement-scroll"><p className="stock-source-note">{table.unit}</p><Table className="stock-statement-table"><TableHeader><TableRow><TableHead>Metric</TableHead>{table.columns.map(column => <TableHead key={column}>{column}</TableHead>)}</TableRow></TableHeader><TableBody>{table.rows.map(row => <TableRow key={row.label}><TableHead scope="row">{row.label}</TableHead>{row.values.map((value, index) => <TableCell key={index}>{String(value).replace('INR ', '₹').replace('N/A', '—')}</TableCell>)}</TableRow>)}</TableBody></Table></div>}
     </>}
   </details>
 }

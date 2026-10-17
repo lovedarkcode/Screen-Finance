@@ -1,8 +1,9 @@
 import { Link, Outlet } from 'react-router-dom'
+import { Card, CardBody } from '@/components/ui/card'
 
 const Authlayout = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d0e13] text-gray-200">
+    <div className="dark min-h-screen flex flex-col bg-background text-foreground" data-stock-theme="dark">
       <header className="border-b border-[#1f2129]">
         <div className="mx-auto max-w-[1440px] px-6 h-14 flex items-center">
           <Link to="/" className="flex items-center gap-2">
@@ -20,9 +21,9 @@ const Authlayout = () => {
       </header>
 
       <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-sm">
+        <Card className="w-full max-w-md"><CardBody className="p-6 sm:p-8">
           <Outlet />
-        </div>
+        </CardBody></Card>
       </main>
 
       <footer className="text-center text-xs text-gray-500 py-4">

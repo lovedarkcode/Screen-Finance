@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { Toaster } from 'react-hot-toast'
+import { ToastProvider } from '@/components/ui/toast'
 
 import AppRoutes from './Routes'
 import { fetchCurrentUser } from './store/authSlice'
@@ -25,15 +25,11 @@ const AuthBootstrap = ({ children }) => {
 function App() {
   return (
     <BrowserRouter>
-      <AuthBootstrap>
-        <AppRoutes />
-      </AuthBootstrap>
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style: { background: '#15171c', color: '#e6e7eb', border: '1px solid #2a2d36' },
-        }}
-      />
+      <ToastProvider>
+        <AuthBootstrap>
+          <AppRoutes />
+        </AuthBootstrap>
+      </ToastProvider>
     </BrowserRouter>
   )
 }

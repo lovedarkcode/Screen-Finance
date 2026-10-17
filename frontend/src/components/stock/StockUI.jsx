@@ -1,4 +1,8 @@
-import { Dialog } from '@base-ui/react/dialog'
+import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Dialog } from '@/components/ui/dialog'
+import { IconButton } from '@/components/ui/icon-button'
+import { Chip } from '@/components/ui/chip'
 import { TrendingDown, TrendingUp, X } from 'lucide-react'
 import { percent } from './stock-format'
 
@@ -7,32 +11,28 @@ export function SectionTitle({ children, extra }) {
 }
 
 export function EmptyState({ children, error, onRetry }) {
-  return <div className="stock-empty" role={error ? 'alert' : 'status'}><p>{children}</p>{onRetry && <button className="stock-button" onClick={onRetry}>Try again</button>}</div>
+  return <div className="stock-empty" role={error ? 'alert' : 'status'}><p>{children}</p>{onRetry && <Button variant="outline" size="sm" className="stock-button" onClick={onRetry}>Try again</Button>}</div>
 }
 
 export function PriceChange({ value, absolute, badge = false }) {
   const Icon = value < 0 ? TrendingDown : TrendingUp
-  return <span className={`stock-change ${value == null ? '' : value < 0 ? 'is-loss' : 'is-gain'} ${badge ? 'stock-badge' : ''}`}>
+  const Tag = badge ? Chip : 'span'
+  return <Tag {...(badge ? { tone: value == null ? 'default' : value < 0 ? 'danger' : 'success' } : {})} className={`stock-change ${value == null ? '' : value < 0 ? 'is-loss' : 'is-gain'} ${badge ? 'stock-badge' : ''}`}>
     {value != null && <Icon size={14} />}{absolute != null && `${absolute > 0 ? '+' : ''}${absolute.toFixed(2)} `}{absolute != null ? `(${percent(value)})` : percent(value)}
-  </span>
+  </Tag>
 }
 
-export function StockModal({ open, onOpenChange, theme, title, description, drawer, children }) {
-  return <Dialog.Root open={open} onOpenChange={onOpenChange}>
-    <Dialog.Portal><Dialog.Backdrop className="stock-backdrop" />
-      <Dialog.Popup className={`stock-detail stock-modal ${drawer ? 'stock-drawer' : ''}`} data-stock-theme={theme}>
-        <div className="stock-modal-heading"><div><Dialog.Title>{title}</Dialog.Title>{description && <Dialog.Description>{description}</Dialog.Description>}</div>
-          <Dialog.Close className="stock-icon-button" aria-label="Close"><X size={18} /></Dialog.Close>
-        </div>{children}
-      </Dialog.Popup>
-    </Dialog.Portal>
-  </Dialog.Root>
+export function StockModal({ open, onOpenChange, theme, title, description, initialFocus, children }) {
+  return <Dialog open={open} onClose={() => onOpenChange(false)} title={title} description={description} initialFocus={initialFocus} className="stock-detail stock-chai-dialog" data-stock-theme={theme}>
+    <IconButton variant="ghost" className="absolute right-4 top-4" aria-label="Close" onClick={() => onOpenChange(false)}><X size={18} /></IconButton>
+    <div className="mt-5">{children}</div>
+  </Dialog>
 }
 
 export function StockSkeleton() {
   return <div aria-busy="true" aria-label="Loading stock details" className="stock-skeleton">
-    <div className="stock-container"><div className="sk sk-title" /><div className="sk sk-label" /><div className="sk sk-price" /><div className="sk sk-label" /></div>
-    <div className="stock-band"><div className="stock-container"><div className="sk sk-title" /><div className="sk sk-chart" /></div></div>
-    <div className="stock-container stock-metric-grid">{Array.from({ length: 10 }, (_, i) => <div className="sk sk-card" key={i} />)}</div>
+    <div className="stock-container"><Skeleton className="sk sk-title" /><Skeleton className="sk sk-label" /><Skeleton className="sk sk-price" /><Skeleton className="sk sk-label" /></div>
+    <div className="stock-band"><div className="stock-container"><Skeleton className="sk sk-title" /><Skeleton className="sk sk-chart" /></div></div>
+    <div className="stock-container stock-metric-grid">{Array.from({ length: 10 }, (_, i) => <Skeleton className="sk sk-card" key={i} />)}</div>
   </div>
 }

@@ -1,8 +1,8 @@
-import React from 'react'
+import { Spinner } from '@/components/ui/spinner'
 
 const Loader = () => {
   return (
-    <div>Loader</div>
+    <div className="flex justify-center p-8"><Spinner /></div>
   )
 }
 

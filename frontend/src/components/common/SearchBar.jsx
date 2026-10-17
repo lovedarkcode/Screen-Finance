@@ -1,6 +1,7 @@
+import { SearchInput } from '@/components/ui/search-input'
+import { Button } from '@/components/ui/button'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search } from 'lucide-react'
 import stockService from '@/services/stock.service'
 
 const SearchBar = () => {
@@ -24,30 +25,27 @@ const SearchBar = () => {
 
   useEffect(() => {
     const trimmed = query.trim()
-    if (trimmed.length < 2) {
-      setResults([])
-      setError('')
-      setOpen(false)
-      return
-    }
-
+    if (trimmed.length < 2) return
+    let live = true
     const timeout = window.setTimeout(async () => {
       setLoading(true)
       setError('')
       try {
         const data = await stockService.searchStocks(trimmed)
+        if (!live) return
         setResults(data.items || [])
         setOpen(true)
       } catch {
+        if (!live) return
         setResults([])
         setError('Live NSE/BSE search is unavailable.')
         setOpen(true)
       } finally {
-        setLoading(false)
+        if (live) setLoading(false)
       }
     }, 250)
 
-    return () => window.clearTimeout(timeout)
+    return () => { live = false; window.clearTimeout(timeout) }
   }, [query])
 
   const selectStock = (stock) => {
@@ -58,14 +56,14 @@ const SearchBar = () => {
 
   return (
     <div ref={wrapperRef} className="relative flex-1 max-w-xl">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-      <input
-        type="text"
+      <SearchInput
+        aria-label="Search live NSE/BSE company or symbol"
+        wrapperClassName="w-full sm:w-full"
         value={query}
-        onChange={(event) => setQuery(event.target.value)}
+        onChange={(event) => { setQuery(event.target.value); setResults([]); setError(''); setOpen(false); setLoading(false) }}
         onFocus={() => results.length > 0 && setOpen(true)}
         placeholder="Search live NSE/BSE company or symbol..."
-        className="w-full pl-9 pr-10 py-2 text-sm bg-[#1a1c23] border border-[#262833] rounded-md text-gray-300 placeholder-gray-500 focus:outline-none focus:border-indigo-500/60"
+        className="pr-10"
       />
       <kbd className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-gray-500 border border-[#33363f] rounded px-1.5 py-0.5">
         /
@@ -83,7 +81,7 @@ const SearchBar = () => {
             <div className="px-3 py-2 text-[12px] text-gray-500">No listed company found</div>
           )}
           {!loading && !error && results.map((stock) => (
-            <button
+            <Button variant="ghost" size="sm"
               key={stock.symbol}
               type="button"
               onClick={() => selectStock(stock)}
@@ -102,7 +100,7 @@ const SearchBar = () => {
                   {stock.currencySymbol || 'INR'} {Number(stock.price).toLocaleString('en-IN')}
                 </span>
               )}
-            </button>
+            </Button>
           ))}
         </div>
       )}

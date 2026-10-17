@@ -1,6 +1,7 @@
+import { Button } from '@/components/ui/button'
 import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import toast from 'react-hot-toast'
+import { useToast } from '@/components/ui/toast'
 import { googleLogin } from '@/store/authSlice'
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
@@ -17,6 +18,7 @@ const waitForGoogleScript = (timeout = 5000) =>
   })
 
 const GoogleButton = ({ onSuccess, label = 'Continue with Google' }) => {
+  const toast = useToast()
   const dispatch = useDispatch()
   const buttonRef = useRef(null)
   const onSuccessRef = useRef(onSuccess)
@@ -44,10 +46,10 @@ const GoogleButton = ({ onSuccess, label = 'Continue with Google' }) => {
               if (!response?.credential) return
               const result = await dispatch(googleLogin(response.credential))
               if (googleLogin.fulfilled.match(result)) {
-                toast.success('Signed in with Google')
+                toast('Signed in with Google', { tone: 'success' })
                 onSuccessRef.current?.(result.payload)
               } else {
-                toast.error(result.payload || 'Google sign-in failed')
+                toast(result.payload || 'Google sign-in failed', { tone: 'danger' })
               }
             },
           })
@@ -70,11 +72,11 @@ const GoogleButton = ({ onSuccess, label = 'Continue with Google' }) => {
     return () => {
       cancelled = true
     }
-  }, [configured, dispatch])
+  }, [configured, dispatch, toast])
 
   if (!configured) {
     return (
-      <button
+      <Button variant="ghost" size="sm"
         type="button"
         disabled
         title="Set VITE_GOOGLE_CLIENT_ID in frontend/.env to enable Google sign-in"
@@ -82,7 +84,7 @@ const GoogleButton = ({ onSuccess, label = 'Continue with Google' }) => {
       >
         <GoogleIcon />
         {label} (configure VITE_GOOGLE_CLIENT_ID)
-      </button>
+      </Button>
     )
   }
 

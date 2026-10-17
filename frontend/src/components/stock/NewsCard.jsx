@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 const NewsCard = ({ about, related = [] }) => {
   const website = about?.website && about.website !== 'N/A' ? about.website : ''
 
@@ -35,9 +36,9 @@ const NewsCard = ({ about, related = [] }) => {
           </div>
         </div>
 
-        <button className="w-full mt-4 py-2 text-[11px] font-semibold text-indigo-300 border border-indigo-500/30 rounded-md hover:bg-indigo-500/10">
+        <Button variant="ghost" size="sm" className="w-full mt-4 py-2 text-[11px] font-semibold text-indigo-300 border border-indigo-500/30 rounded-md hover:bg-indigo-500/10">
           VIEW COMPANY PROFILE
-        </button>
+        </Button>
       </div>
 
       <div className="bg-[#14161c] border border-[#1f2129] rounded-lg p-4">
@@ -71,9 +72,9 @@ const NewsCard = ({ about, related = [] }) => {
             })}
           </div>
         )}
-        <button className="w-full mt-3 text-[11px] font-semibold text-indigo-400 hover:text-indigo-300 text-right">
+        <Button variant="ghost" size="sm" className="w-full mt-3 text-[11px] font-semibold text-indigo-400 hover:text-indigo-300 text-right">
           VIEW MORE
-        </button>
+        </Button>
       </div>
     </>
   )

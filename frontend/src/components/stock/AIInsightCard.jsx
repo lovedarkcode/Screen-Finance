@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 const AIInsightCard = ({ summary, keyPoints }) => {
   return (
     <div className="bg-[#14161c] border border-[#1f2129] rounded-lg p-4">
@@ -8,9 +9,9 @@ const AIInsightCard = ({ summary, keyPoints }) => {
         </span>
       </div>
       <p className="text-[12px] text-gray-400 leading-relaxed">{summary}</p>
-      <button className="text-[11px] font-medium text-indigo-400 hover:text-indigo-300 mt-2">
+      <Button variant="ghost" size="sm" className="text-[11px] font-medium text-indigo-400 hover:text-indigo-300 mt-2">
         READ MORE →
-      </button>
+      </Button>
 
       <div className="mt-5">
         <h4 className="text-sm font-semibold text-white mb-2">Key Points</h4>
@@ -22,9 +23,9 @@ const AIInsightCard = ({ summary, keyPoints }) => {
             </li>
           ))}
         </ul>
-        <button className="text-[11px] font-medium text-indigo-400 hover:text-indigo-300 mt-2">
+        <Button variant="ghost" size="sm" className="text-[11px] font-medium text-indigo-400 hover:text-indigo-300 mt-2">
           READ MORE →
-        </button>
+        </Button>
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Button } from '@/components/ui/button'
 
 const ForgotPassword = () => {
   return (
@@ -8,12 +9,9 @@ const ForgotPassword = () => {
         Password reset emails aren&apos;t hooked up yet. For now, please ask an admin to reset it
         for you, or sign in with Google instead.
       </p>
-      <Link
-        to="/login"
-        className="inline-block rounded-md bg-indigo-500 hover:bg-indigo-400 px-4 py-2 text-sm font-medium text-white transition-colors"
-      >
+      <Button asChild variant="solid" iconRight={null}><Link to="/login">
         Back to sign in
-      </Link>
+      </Link></Button>
     </div>
   )
 }
