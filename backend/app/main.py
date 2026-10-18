@@ -21,10 +21,10 @@ logger = logging.getLogger("screen-finance")
 async def lifespan(app: FastAPI):
     try:
         async with engine.connect() as conn:
-            await conn.execute(text("SELECT 1"))
-        logger.info("Postgres connection OK (%s)", engine.url.render_as_string(hide_password=True))
+            database, schema = (await conn.execute(text("SELECT current_database(), current_schema()"))).one()
+        logger.info("Postgres connection OK: database=%s schema=%s host=%s port=%s", database, schema, engine.url.host, engine.url.port or 5432)
     except Exception as exc:
-        logger.warning("Postgres connection FAILED at startup: %s", exc)
+        logger.warning("Postgres connection FAILED at startup: %s", type(exc).__name__)
 
     yield
 
@@ -71,8 +71,8 @@ def create_app() -> FastAPI:
             async with engine.connect() as conn:
                 await conn.execute(text("SELECT 1"))
             return {"status": "ok", "database": "postgres"}
-        except Exception as exc:
-            return {"status": "error", "database": "postgres", "detail": str(exc)}
+        except Exception:
+            return {"status": "error", "database": "postgres", "detail": "Database connection unavailable"}
 
     return app
 

@@ -8,10 +8,8 @@ client = TestClient(app)
 
 def test_ai_summary() -> None:
     r = client.get("/api/v1/ai/summary/AAPL")
-    assert r.status_code == 200
-    body = r.json()
-    assert body["symbol"] == "AAPL"
-    assert isinstance(body["keyPoints"], list)
+    assert r.status_code == 401
+    assert client.post("/api/v1/ai/analyze", json={"symbol": "AAPL"}).status_code == 401
 
 
 def test_ai_chat() -> None:

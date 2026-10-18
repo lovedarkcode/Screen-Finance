@@ -1,0 +1,44 @@
+{
+  "isolatedAuthentication": true,
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "checks": [
+    {
+      "kind": "execute",
+      "market": "US",
+      "http": 200,
+      "matches": 6,
+      "universe_count": 8
+    },
+    {
+      "kind": "execute",
+      "market": "IN",
+      "http": 200,
+      "matches": 8,
+      "universe_count": 8
+    },
+    {
+      "kind": "search",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "http": 200,
+      "status": "success",
+      "matches": 2,
+      "detail": null
+    },
+    {
+      "kind": "search",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "http": 200,
+      "status": "success",
+      "matches": 0,
+      "detail": null
+    },
+    {
+      "kind": "search",
+      "model": "nvidia/nemotron-3-super-120b-a12b",
+      "http": 200,
+      "status": "success",
+      "matches": 6,
+      "detail": null
+    }
+  ]
+}

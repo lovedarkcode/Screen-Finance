@@ -1,0 +1,33 @@
+{
+  "isolatedAuthentication": true,
+  "checks": [
+    {
+      "kind": "execute",
+      "market": "US",
+      "http": 200,
+      "matches": 6,
+      "universe_count": 8
+    },
+    {
+      "kind": "execute",
+      "market": "IN",
+      "http": 200,
+      "matches": 8,
+      "universe_count": 8
+    },
+    {
+      "kind": "search",
+      "http": 503,
+      "status": null,
+      "matches": null,
+      "detail": "NVIDIA could not interpret the screen right now. Please retry, or use the editable financial filters."
+    },
+    {
+      "kind": "search",
+      "http": 503,
+      "status": null,
+      "matches": null,
+      "detail": "NVIDIA could not interpret the screen right now. Please retry, or use the editable financial filters."
+    }
+  ]
+}

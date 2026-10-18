@@ -1,0 +1,56 @@
+{
+    "market":  "IN",
+    "exchange":  null,
+    "exchanges":  [
+                      "NSE",
+                      "BSE"
+                  ],
+    "sector":  null,
+    "industry":  null,
+    "filters":  [
+                    {
+                        "field":  "roe",
+                        "operator":  "gt",
+                        "value":  15.0,
+                        "period":  "annual",
+                        "period_end":  null,
+                        "currency":  null
+                    },
+                    {
+                        "field":  "debt_to_equity",
+                        "operator":  "lt",
+                        "value":  1.0,
+                        "period":  "snapshot",
+                        "period_end":  null,
+                        "currency":  null
+                    },
+                    {
+                        "field":  "revenue_growth",
+                        "operator":  "gt",
+                        "value":  10.0,
+                        "period":  "annual",
+                        "period_end":  null,
+                        "currency":  null
+                    },
+                    {
+                        "field":  "net_profit_margin",
+                        "operator":  "gt",
+                        "value":  0.0,
+                        "period":  "annual",
+                        "period_end":  null,
+                        "currency":  null
+                    },
+                    {
+                        "field":  "pe",
+                        "operator":  "lt",
+                        "value":  30.0,
+                        "period":  "ttm",
+                        "period_end":  null,
+                        "currency":  null
+                    }
+                ],
+    "sort_by":  "market_cap",
+    "sort_period":  "snapshot",
+    "sort_desc":  true,
+    "limit":  20
+}

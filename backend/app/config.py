@@ -5,7 +5,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import List
 
-from pydantic import Field
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -40,6 +40,9 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=60 * 24)
 
     OPENAI_API_KEY: str | None = None
+    NVIDIA_API_KEY: SecretStr | None = None
+    NVIDIA_MODEL: str = "nvidia/nemotron-3-ultra-550b-a55b"
+    NVIDIA_SCREENER_MODEL: str | None = None
     FINNHUB_API_KEY: str | None = None
     ALPHA_VANTAGE_API_KEY: str | None = None
     POLYGON_API_KEY: str | None = None

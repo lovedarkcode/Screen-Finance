@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button'
 import { IconButton } from '@/components/ui/icon-button'
 import { SearchInput } from '@/components/ui/search-input'
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Briefcase, LogOut, Moon, Search, Star, Sun, UserRound } from 'lucide-react'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { ArrowLeft, ArrowRight, Briefcase, LogOut, Moon, Search, Sparkles, Star, Sun, UserRound } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout, selectUser } from '@/store/authSlice'
 import stockService from '@/services/stock.service'
@@ -12,6 +12,8 @@ import { money } from './stock-format'
 
 export default function StockToolbar({ stock, theme, setTheme }) {
   const navigate = useNavigate()
+  const { pathname, search: locationSearch } = useLocation()
+  const screenerOpen = pathname === '/feed' && new URLSearchParams(locationSearch).get('screener') === 'ai'
   const dispatch = useDispatch()
   const user = useSelector(selectUser)
   const [accountOpen, setAccountOpen] = useState(false)
@@ -54,7 +56,7 @@ export default function StockToolbar({ stock, theme, setTheme }) {
   return <>
     <header className="stock-toolbar"><div className="stock-container stock-toolbar-inner">
       <Link className="stock-brand" to="/screens"><span className="stock-brand-mark"><img src="/assest-hunter.png" alt="" /></span><span>Asset Hunter</span></Link>
-      <nav className="market-navigation" aria-label="Main navigation"><NavLink to="/feed">Feed</NavLink><NavLink to="/screens">Screens</NavLink></nav>
+      <nav className="market-navigation" aria-label="Main navigation"><NavLink to="/feed">Feed</NavLink><NavLink to="/screens">Screens</NavLink><Button variant={screenerOpen ? 'muted' : 'ghost'} size="sm" aria-pressed={screenerOpen} onClick={() => navigate(screenerOpen ? '/feed' : '/feed?screener=ai')}><Sparkles size={14} />AI Screener</Button></nav>
       {stock && scrolled && <div className="stock-compact-quote"><strong>{stock.baseSymbol || stock.symbol}</strong><strong>{money(stock.price, stock.currency)}</strong><PriceChange value={stock.changePercent} /></div>}
       <Button variant="outline" size="sm" className="stock-search-trigger" onClick={() => setSearchOpen(true)} aria-label="Search stocks and sectors"><Search size={15} /><span>Search Indian &amp; US stocks …</span></Button>
       <div className="stock-header-actions">

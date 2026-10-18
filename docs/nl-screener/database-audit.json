@@ -1,0 +1,2825 @@
+{
+  "stock_rows": 16,
+  "financial_rows": 173,
+  "markets": [
+    {
+      "market": "US",
+      "imported": 8
+    },
+    {
+      "market": "IN",
+      "imported": 8
+    }
+  ],
+  "sectors": [
+    {
+      "market": "US",
+      "sector": "Technology",
+      "imported": 3
+    },
+    {
+      "market": "US",
+      "sector": "Industrials",
+      "imported": 1
+    },
+    {
+      "market": "IN",
+      "sector": "Technology",
+      "imported": 2
+    },
+    {
+      "market": "IN",
+      "sector": "Industrials",
+      "imported": 1
+    },
+    {
+      "market": "US",
+      "sector": "Consumer Cyclical",
+      "imported": 2
+    },
+    {
+      "market": "IN",
+      "sector": "Financial Services",
+      "imported": 3
+    },
+    {
+      "market": "US",
+      "sector": "Financial Services",
+      "imported": 1
+    },
+    {
+      "market": "US",
+      "sector": "Communication Services",
+      "imported": 1
+    },
+    {
+      "market": "IN",
+      "sector": "Energy",
+      "imported": 1
+    },
+    {
+      "market": "IN",
+      "sector": "Communication Services",
+      "imported": 1
+    }
+  ],
+  "IN": {
+    "universe_count": 8,
+    "stocks": [
+      {
+        "symbol": "RELIANCE.NS",
+        "name": "Reliance Industries Limited",
+        "exchange": "NSE",
+        "market": "IN",
+        "sector": "Energy",
+        "industry": "Oil & Gas Refining & Marketing",
+        "currency": "INR",
+        "price": 1211.2,
+        "updated_at": "2026-10-17T15:02:10.396877+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 16390529482752.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "INR",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:10.396877+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 21.93408,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:10.396877+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 9.246064,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 807750000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 9040300000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity (2025-03-31)",
+                "value": 8432000000000.0,
+                "period": "Balance sheet ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:10.396877+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 9.591238,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 10572190000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue (2025-03-31)",
+                "value": 9646930000000.0,
+                "period": "FY ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "2026-03-31 vs 2025-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:10.396877+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 0.440251,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 3980000000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 9040300000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "Balance sheet ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:10.396877+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 7.640328,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 807750000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 10572190000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:10.396877+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "BHARTIARTL.NS",
+        "name": "Bharti Airtel Limited",
+        "exchange": "NSE",
+        "market": "IN",
+        "sector": "Communication Services",
+        "industry": "Telecom Services",
+        "currency": "INR",
+        "price": 1905.0,
+        "updated_at": "2026-10-17T15:02:37.576630+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 11884643221504.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "INR",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:37.576630+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 39.820232,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:37.576630+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 20.321511,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 266952000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 1490566000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity (2025-03-31)",
+                "value": 1136719000000.0,
+                "period": "Balance sheet ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:37.576630+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 21.960029,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 2109728000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue (2025-03-31)",
+                "value": 1729852000000.0,
+                "period": "FY ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "2026-03-31 vs 2025-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:37.576630+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 1.31099,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 1954117000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 1490566000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "Balance sheet ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:37.576630+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 12.653385,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 266952000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 2109728000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:37.576630+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "HDFCBANK.NS",
+        "name": "HDFC Bank Limited",
+        "exchange": "NSE",
+        "market": "IN",
+        "sector": "Financial Services",
+        "industry": "Banks - Regional",
+        "currency": "INR",
+        "price": 728.85,
+        "updated_at": "2026-10-17T15:02:17.110380+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 11237758861312.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "INR",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:17.110380+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 15.931147,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:17.110380+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 8.896499,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 704793400000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 8167395600000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity (2025-03-31)",
+                "value": 7676891400000.0,
+                "period": "Balance sheet ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:17.110380+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 4.733208,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 1925667800000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue (2025-03-31)",
+                "value": 1838641100000.0,
+                "period": "FY ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "2026-03-31 vs 2025-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:17.110380+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 0.813434,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 6643640400000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 8167395600000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "Balance sheet ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:17.110380+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 36.599947,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 704793400000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 1925667800000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:17.110380+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "ICICIBANK.NS",
+        "name": "ICICI Bank Limited",
+        "exchange": "NSE",
+        "market": "IN",
+        "sector": "Financial Services",
+        "industry": "Banks - Regional",
+        "currency": "INR",
+        "price": 1397.0,
+        "updated_at": "2026-10-17T15:02:25.262723+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 10029680820224.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "INR",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:25.262723+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 18.058428,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:25.262723+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 16.014889,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 542077028000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 3630604157000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity (2025-03-31)",
+                "value": 3139059061000.0,
+                "period": "Balance sheet ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:25.262723+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 9.13066,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 2234071181000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue (2025-03-31)",
+                "value": 2047152637000.0,
+                "period": "FY ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "2026-03-31 vs 2025-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:25.262723+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 0.571853,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 2076173410000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 3630604157000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "Balance sheet ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:25.262723+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 24.264089,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 542077028000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 2234071181000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:25.262723+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "TCS.NS",
+        "name": "Tata Consultancy Services Limited",
+        "exchange": "NSE",
+        "market": "IN",
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "currency": "INR",
+        "price": 2465.0,
+        "updated_at": "2026-10-17T15:02:12.528263+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 8918585573376.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "INR",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:12.528263+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 17.278845,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:12.528263+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 48.723737,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 492100000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 1072400000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity (2025-03-31)",
+                "value": 947560000000.0,
+                "period": "Balance sheet ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:12.528263+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 4.581238,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 2670210000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue (2025-03-31)",
+                "value": 2553240000000.0,
+                "period": "FY ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "2026-03-31 vs 2025-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:12.528263+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 0.105213,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 112830000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 1072400000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "Balance sheet ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:12.528263+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 18.429262,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 492100000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 2670210000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:12.528263+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "SBIN.NS",
+        "name": "State Bank of India",
+        "exchange": "NSE",
+        "market": "IN",
+        "sector": "Financial Services",
+        "industry": "Banks - Regional",
+        "currency": "INR",
+        "price": 962.6,
+        "updated_at": "2026-10-17T15:02:31.627889+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 8885536555008.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "INR",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:31.627889+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 10.317256,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:31.627889+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 15.380589,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 832987824000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 5961308694000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity (2025-03-31)",
+                "value": 4870367587000.0,
+                "period": "Balance sheet ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:31.627889+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 9.208471,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 3817091770000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue (2025-03-31)",
+                "value": 3495234156000.0,
+                "period": "FY ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "2026-03-31 vs 2025-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:31.627889+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 1.21935,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 7268922204000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 5961308694000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "Balance sheet ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:31.627889+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 21.822578,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 832987824000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 3817091770000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:31.627889+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "INFY.NS",
+        "name": "Infosys Limited",
+        "exchange": "NSE",
+        "market": "IN",
+        "sector": "Technology",
+        "industry": "Information Technology Services",
+        "currency": "INR",
+        "price": 1161.2,
+        "updated_at": "2026-10-17T15:02:14.731517+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 4703258673152.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "INR",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:14.731517+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 15.820163,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:14.731517+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 31.565909,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 3313000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 9786000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity (2025-03-31)",
+                "value": 11205000000.0,
+                "period": "Balance sheet ending 2025-03-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:14.731517+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 4.570213,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 20158000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue (2025-03-31)",
+                "value": 19277000000.0,
+                "period": "FY ending 2025-03-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "2026-03-31 vs 2025-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:14.731517+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 0.098815,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 967000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 9786000000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "Balance sheet ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:14.731517+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 16.435162,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 3313000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 20158000000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:14.731517+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "MTARTECH.NS",
+        "name": "MTAR Technologies Limited",
+        "exchange": "NSE",
+        "market": "IN",
+        "sector": "Industrials",
+        "industry": "Specialty Industrial Machinery",
+        "currency": "INR",
+        "price": 7054.5,
+        "updated_at": "2026-10-17T15:02:28.518663+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 216993546240.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "INR",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:28.518663+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 162.58354,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:28.518663+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 12.121134,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 940300000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 8225870000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity (2025-03-31)",
+                "value": 7289180000.0,
+                "period": "Balance sheet ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:28.518663+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 30.204801,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 8654010000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue (2025-03-31)",
+                "value": 6646460000.0,
+                "period": "FY ending 2025-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "2026-03-31 vs 2025-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:28.518663+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 0.457781,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 3765650000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 8225870000.0,
+                "period": "Balance sheet ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "Balance sheet ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:28.518663+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 10.865483,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 940300000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 8654010000.0,
+                "period": "FY ending 2026-03-31",
+                "currency": "INR"
+              }
+            ],
+            "period": "FY ending 2026-03-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2026-03-31",
+            "updated_at": "2026-10-17T15:02:28.518663+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      }
+    ]
+  },
+  "US": {
+    "universe_count": 8,
+    "stocks": [
+      {
+        "symbol": "NVDA",
+        "name": "NVIDIA Corporation",
+        "exchange": "NASDAQ",
+        "market": "US",
+        "sector": "Technology",
+        "industry": "Semiconductors",
+        "currency": "USD",
+        "price": 214.13,
+        "updated_at": "2026-10-17T15:01:15.978847+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 5170596937728.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "USD",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:01:15.978847+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 27.070797,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:01:15.978847+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 101.485082,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 120067000000.0,
+                "period": "FY ending 2026-01-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 157293000000.0,
+                "period": "Balance sheet ending 2026-01-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity (2025-01-31)",
+                "value": 79327000000.0,
+                "period": "Balance sheet ending 2025-01-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2026-01-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2026-01-31",
+            "updated_at": "2026-10-17T15:01:15.978847+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 65.473536,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 215938000000.0,
+                "period": "FY ending 2026-01-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue (2025-01-31)",
+                "value": 130497000000.0,
+                "period": "FY ending 2025-01-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "2026-01-31 vs 2025-01-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2026-01-31",
+            "updated_at": "2026-10-17T15:01:15.978847+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 0.070187,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 11040000000.0,
+                "period": "Balance sheet ending 2026-01-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 157293000000.0,
+                "period": "Balance sheet ending 2026-01-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "Balance sheet ending 2026-01-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2026-01-31",
+            "updated_at": "2026-10-17T15:01:15.978847+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 55.602534,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 120067000000.0,
+                "period": "FY ending 2026-01-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 215938000000.0,
+                "period": "FY ending 2026-01-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2026-01-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2026-01-31",
+            "updated_at": "2026-10-17T15:01:15.978847+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "AAPL",
+        "name": "Apple Inc.",
+        "exchange": "NASDAQ",
+        "market": "US",
+        "sector": "Technology",
+        "industry": "Consumer Electronics",
+        "currency": "USD",
+        "price": 343.46,
+        "updated_at": "2026-10-17T15:01:06.018859+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 5012516765696.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "USD",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:01:06.018859+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 39.38761,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:01:06.018859+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 171.42245,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 112010000000.0,
+                "period": "FY ending 2025-09-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 73733000000.0,
+                "period": "Balance sheet ending 2025-09-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity (2024-09-30)",
+                "value": 56950000000.0,
+                "period": "Balance sheet ending 2024-09-30",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-09-30",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2025-09-30",
+            "updated_at": "2026-10-17T15:01:06.018859+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 6.425512,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 416161000000.0,
+                "period": "FY ending 2025-09-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue (2024-09-30)",
+                "value": 391035000000.0,
+                "period": "FY ending 2024-09-30",
+                "currency": "USD"
+              }
+            ],
+            "period": "2025-09-30 vs 2024-09-30",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2025-09-30",
+            "updated_at": "2026-10-17T15:01:06.018859+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 1.33803,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 98657000000.0,
+                "period": "Balance sheet ending 2025-09-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 73733000000.0,
+                "period": "Balance sheet ending 2025-09-30",
+                "currency": "USD"
+              }
+            ],
+            "period": "Balance sheet ending 2025-09-30",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2025-09-30",
+            "updated_at": "2026-10-17T15:01:06.018859+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 26.915064,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 112010000000.0,
+                "period": "FY ending 2025-09-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 416161000000.0,
+                "period": "FY ending 2025-09-30",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-09-30",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2025-09-30",
+            "updated_at": "2026-10-17T15:01:06.018859+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "GOOGL",
+        "name": "Alphabet Inc.",
+        "exchange": "NASDAQ",
+        "market": "US",
+        "sector": "Communication Services",
+        "industry": "Internet Content & Information",
+        "currency": "USD",
+        "price": 340.59,
+        "updated_at": "2026-10-17T15:01:54.278873+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 4165393448960.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "USD",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:01:54.278873+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 17.089312,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:01:54.278873+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 35.704782,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 132170000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 415265000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity (2024-12-31)",
+                "value": 325084000000.0,
+                "period": "Balance sheet ending 2024-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:01:54.278873+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 15.090081,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 402836000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue (2024-12-31)",
+                "value": 350018000000.0,
+                "period": "FY ending 2024-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "2025-12-31 vs 2024-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:01:54.278873+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 0.142779,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 59291000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 415265000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "Balance sheet ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:01:54.278873+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 32.809878,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 132170000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 402836000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:01:54.278873+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "MSFT",
+        "name": "Microsoft Corporation",
+        "exchange": "NASDAQ",
+        "market": "US",
+        "sector": "Technology",
+        "industry": "Software - Infrastructure",
+        "currency": "USD",
+        "price": 529.05,
+        "updated_at": "2026-10-17T15:01:30.260766+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 3928485003264.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "USD",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:01:30.260766+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 29.473536,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:01:30.260766+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 34.038627,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 133749000000.0,
+                "period": "FY ending 2026-06-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 442387000000.0,
+                "period": "Balance sheet ending 2026-06-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity (2025-06-30)",
+                "value": 343479000000.0,
+                "period": "Balance sheet ending 2025-06-30",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2026-06-30",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2026-06-30",
+            "updated_at": "2026-10-17T15:01:30.260766+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 17.788687,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 331839000000.0,
+                "period": "FY ending 2026-06-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue (2025-06-30)",
+                "value": 281724000000.0,
+                "period": "FY ending 2025-06-30",
+                "currency": "USD"
+              }
+            ],
+            "period": "2026-06-30 vs 2025-06-30",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2026-06-30",
+            "updated_at": "2026-10-17T15:01:30.260766+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 0.128453,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 56826000000.0,
+                "period": "Balance sheet ending 2026-06-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 442387000000.0,
+                "period": "Balance sheet ending 2026-06-30",
+                "currency": "USD"
+              }
+            ],
+            "period": "Balance sheet ending 2026-06-30",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2026-06-30",
+            "updated_at": "2026-10-17T15:01:30.260766+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 40.305389,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 133749000000.0,
+                "period": "FY ending 2026-06-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 331839000000.0,
+                "period": "FY ending 2026-06-30",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2026-06-30",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2026-06-30",
+            "updated_at": "2026-10-17T15:01:30.260766+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "AMZN",
+        "name": "Amazon.com, Inc.",
+        "exchange": "NASDAQ",
+        "market": "US",
+        "sector": "Consumer Cyclical",
+        "industry": "Internet Retail",
+        "currency": "USD",
+        "price": 250.0,
+        "updated_at": "2026-10-17T15:01:57.527636+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 2696578334720.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "USD",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:01:57.527636+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 20.11263,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:01:57.527636+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 22.285825,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 77670000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 411065000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity (2024-12-31)",
+                "value": 285970000000.0,
+                "period": "Balance sheet ending 2024-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:01:57.527636+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 12.377755,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 716924000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue (2024-12-31)",
+                "value": 637959000000.0,
+                "period": "FY ending 2024-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "2025-12-31 vs 2024-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:01:57.527636+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 0.372172,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 152987000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 411065000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "Balance sheet ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:01:57.527636+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 10.833784,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 77670000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 716924000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:01:57.527636+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "JPM",
+        "name": "JPMorgan Chase & Co.",
+        "exchange": "NYSE",
+        "market": "US",
+        "sector": "Financial Services",
+        "industry": "Banks - Diversified",
+        "currency": "USD",
+        "price": 339.72,
+        "updated_at": "2026-10-17T15:02:03.666101+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 902160449536.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "USD",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:03.666101+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 14.25,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:03.666101+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": 16.133575,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 57048000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 362438000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity (2024-12-31)",
+                "value": 344758000000.0,
+                "period": "Balance sheet ending 2024-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:03.666101+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 7.322989,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 181847000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue (2024-12-31)",
+                "value": 169439000000.0,
+                "period": "FY ending 2024-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "2025-12-31 vs 2024-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:03.666101+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 1.379497,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 499982000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 362438000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "Balance sheet ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:03.666101+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": 31.371428,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": 57048000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 181847000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:03.666101+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "BE",
+        "name": "Bloom Energy Corporation",
+        "exchange": "NYSE",
+        "market": "US",
+        "sector": "Industrials",
+        "industry": "Electrical Equipment & Parts",
+        "currency": "USD",
+        "price": 221.31,
+        "updated_at": "2026-10-17T15:02:05.953390+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 65181847552.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "USD",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:05.953390+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": 291.19736,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "inputs": [],
+            "period": "TTM (provider); exact period end unavailable",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": null,
+            "definition": "Provider trailing P/E; exact TTM end may be unavailable.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:05.953390+00:00",
+            "source_record": "trailingPE",
+            "validation_status": "provider"
+          },
+          "roe:annual": {
+            "value": -13.287237,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": -88434000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 768641000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity (2024-12-31)",
+                "value": 562471000.0,
+                "period": "Balance sheet ending 2024-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:05.953390+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 37.326442,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 2023994000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue (2024-12-31)",
+                "value": 1473856000.0,
+                "period": "FY ending 2024-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "2025-12-31 vs 2024-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:05.953390+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 3.892522,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 2991952000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 768641000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "Balance sheet ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:05.953390+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": -4.369282,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": -88434000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 2023994000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:05.953390+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      },
+      {
+        "symbol": "F",
+        "name": "Ford Motor Company",
+        "exchange": "NYSE",
+        "market": "US",
+        "sector": "Consumer Cyclical",
+        "industry": "Auto Manufacturers",
+        "currency": "USD",
+        "price": 12.43,
+        "updated_at": "2026-10-17T15:02:08.114652+00:00",
+        "metrics": {
+          "market_cap:snapshot": {
+            "value": 49565814784.0,
+            "field": "market_cap",
+            "basis": "snapshot",
+            "unit": "currency",
+            "inputs": [],
+            "period": "Provider snapshot retrieved 2026-10-17",
+            "source": "Yahoo Finance/yfinance",
+            "formula": null,
+            "currency": "USD",
+            "definition": "Latest provider market capitalization in quote currency.",
+            "period_end": null,
+            "updated_at": "2026-10-17T15:02:08.114652+00:00",
+            "source_record": "marketCap",
+            "validation_status": "provider"
+          },
+          "pe:ttm": {
+            "value": null,
+            "field": "pe",
+            "basis": "ttm",
+            "unit": "times",
+            "availability": "unavailable"
+          },
+          "roe:annual": {
+            "value": -20.255734,
+            "field": "roe",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": -8182000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 35952000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity (2024-12-31)",
+                "value": 44835000000.0,
+                "period": "Balance sheet ending 2024-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+            "currency": null,
+            "definition": "Annual net income / average positive beginning/end equity \u00d7 100; TTM uses provider ROE percentage.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:08.114652+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "revenue_growth:annual": {
+            "value": 1.229783,
+            "field": "revenue_growth",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual revenue",
+                "value": 187267000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue (2024-12-31)",
+                "value": 184992000000.0,
+                "period": "FY ending 2024-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "2025-12-31 vs 2024-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+            "currency": null,
+            "definition": "(Annual revenue / comparable positive prior-year revenue \u2212 1) \u00d7 100.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:08.114652+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "debt_to_equity:snapshot": {
+            "value": 4.60998,
+            "field": "debt_to_equity",
+            "basis": "snapshot",
+            "unit": "times",
+            "inputs": [
+              {
+                "label": "Total debt",
+                "value": 165738000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Shareholders equity",
+                "value": 35952000000.0,
+                "period": "Balance sheet ending 2025-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "Balance sheet ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Total debt \u00f7 shareholders equity",
+            "currency": null,
+            "definition": "Total debt / positive equity at the same balance-sheet date.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:08.114652+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          },
+          "net_profit_margin:annual": {
+            "value": -4.369163,
+            "field": "net_profit_margin",
+            "basis": "annual",
+            "unit": "percent",
+            "inputs": [
+              {
+                "label": "Annual net income",
+                "value": -8182000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              },
+              {
+                "label": "Annual revenue",
+                "value": 187267000000.0,
+                "period": "FY ending 2025-12-31",
+                "currency": "USD"
+              }
+            ],
+            "period": "FY ending 2025-12-31",
+            "source": "Yahoo Finance/yfinance",
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "currency": null,
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "period_end": "2025-12-31",
+            "updated_at": "2026-10-17T15:02:08.114652+00:00",
+            "source_record": null,
+            "validation_status": "recomputed"
+          }
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "latest": [
+      {
+        "stage": "market",
+        "before": 16,
+        "remaining": 8,
+        "excluded": 8
+      },
+      {
+        "stage": "sector",
+        "before": 8,
+        "remaining": 1,
+        "excluded": 7
+      },
+      {
+        "stage": "filter_1:revenue_growth:annual",
+        "before": 1,
+        "remaining": 0,
+        "excluded": 1,
+        "missing_metric": 0,
+        "incompatible_period": 0,
+        "unverified_metric": 0,
+        "incompatible_currency": 0,
+        "invalid_domain": 0
+      },
+      {
+        "stage": "filter_2:pe:ttm",
+        "before": 0,
+        "remaining": 0,
+        "excluded": 0,
+        "missing_metric": 0,
+        "incompatible_period": 0,
+        "unverified_metric": 0,
+        "incompatible_currency": 0,
+        "invalid_domain": 0
+      },
+      {
+        "stage": "sort_currency",
+        "before": 0,
+        "remaining": 0,
+        "excluded": 0
+      }
+    ],
+    "exact_reported_date": [
+      {
+        "stage": "market",
+        "before": 16,
+        "remaining": 8,
+        "excluded": 8
+      },
+      {
+        "stage": "sector",
+        "before": 8,
+        "remaining": 1,
+        "excluded": 7
+      },
+      {
+        "stage": "filter_1:revenue_growth:annual",
+        "before": 1,
+        "remaining": 0,
+        "excluded": 1,
+        "missing_metric": 1,
+        "incompatible_period": 1,
+        "unverified_metric": 1,
+        "incompatible_currency": 0,
+        "invalid_domain": 0
+      },
+      {
+        "stage": "filter_2:pe:ttm",
+        "before": 0,
+        "remaining": 0,
+        "excluded": 0,
+        "missing_metric": 0,
+        "incompatible_period": 0,
+        "unverified_metric": 0,
+        "incompatible_currency": 0,
+        "invalid_domain": 0
+      },
+      {
+        "stage": "sort_currency",
+        "before": 0,
+        "remaining": 0,
+        "excluded": 0
+      }
+    ]
+  }
+}

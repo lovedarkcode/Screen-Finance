@@ -1,0 +1,601 @@
+{
+  "isolated_authentication": true,
+  "financial_data_modified": false,
+  "checks": [
+    {
+      "case": "all",
+      "sql_count": 16,
+      "sqlalchemy_count": 16,
+      "api_count": 16,
+      "symbols": [
+        "AAPL",
+        "AMZN",
+        "BE",
+        "BHARTIARTL.NS",
+        "F",
+        "GOOGL",
+        "HDFCBANK.NS",
+        "ICICIBANK.NS",
+        "INFY.NS",
+        "JPM",
+        "MSFT",
+        "MTARTECH.NS",
+        "NVDA",
+        "RELIANCE.NS",
+        "SBIN.NS",
+        "TCS.NS"
+      ],
+      "empty_reason": null,
+      "explanation": null,
+      "sql": "WITH candidates AS (SELECT s.*, (SELECT f.roe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.roe IS NOT NULL\n            AND f.provenance->'roe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'roe'->>'period_end' IS NULL OR f.provenance->'roe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'roe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS roe,(SELECT f.revenue_growth FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.revenue_growth IS NOT NULL\n            AND f.provenance->'revenue_growth'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'revenue_growth'->>'period_end' IS NULL OR f.provenance->'revenue_growth'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'revenue_growth'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS revenue_growth,(SELECT f.pe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='ttm' AND f.validation_version=1\n            AND f.pe IS NOT NULL\n            AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'pe'->>'period_end' IS NULL OR f.provenance->'pe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS pe,(SELECT f.debt_to_equity FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='snapshot' AND f.validation_version=1\n            AND f.debt_to_equity IS NOT NULL\n            AND f.provenance->'debt_to_equity'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'debt_to_equity'->>'period_end' IS NULL OR f.provenance->'debt_to_equity'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'debt_to_equity'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS debt_to_equity,(SELECT f.net_profit_margin FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.net_profit_margin IS NOT NULL\n            AND f.provenance->'net_profit_margin'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'net_profit_margin'->>'period_end' IS NULL OR f.provenance->'net_profit_margin'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'net_profit_margin'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS net_profit_margin FROM stocks s) SELECT symbol FROM candidates ORDER BY symbol",
+      "parameters": {
+        "today": "2026-10-18"
+      }
+    },
+    {
+      "case": "India",
+      "sql_count": 8,
+      "sqlalchemy_count": 8,
+      "api_count": 8,
+      "symbols": [
+        "BHARTIARTL.NS",
+        "HDFCBANK.NS",
+        "ICICIBANK.NS",
+        "INFY.NS",
+        "MTARTECH.NS",
+        "RELIANCE.NS",
+        "SBIN.NS",
+        "TCS.NS"
+      ],
+      "empty_reason": null,
+      "explanation": null,
+      "sql": "WITH candidates AS (SELECT s.*, (SELECT f.roe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.roe IS NOT NULL\n            AND f.provenance->'roe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'roe'->>'period_end' IS NULL OR f.provenance->'roe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'roe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS roe,(SELECT f.revenue_growth FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.revenue_growth IS NOT NULL\n            AND f.provenance->'revenue_growth'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'revenue_growth'->>'period_end' IS NULL OR f.provenance->'revenue_growth'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'revenue_growth'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS revenue_growth,(SELECT f.pe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='ttm' AND f.validation_version=1\n            AND f.pe IS NOT NULL\n            AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'pe'->>'period_end' IS NULL OR f.provenance->'pe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS pe,(SELECT f.debt_to_equity FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='snapshot' AND f.validation_version=1\n            AND f.debt_to_equity IS NOT NULL\n            AND f.provenance->'debt_to_equity'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'debt_to_equity'->>'period_end' IS NULL OR f.provenance->'debt_to_equity'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'debt_to_equity'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS debt_to_equity,(SELECT f.net_profit_margin FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.net_profit_margin IS NOT NULL\n            AND f.provenance->'net_profit_margin'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'net_profit_margin'->>'period_end' IS NULL OR f.provenance->'net_profit_margin'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'net_profit_margin'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS net_profit_margin FROM stocks s) SELECT symbol FROM candidates WHERE country=:market ORDER BY symbol",
+      "parameters": {
+        "today": "2026-10-18",
+        "market": "IN"
+      }
+    },
+    {
+      "case": "US",
+      "sql_count": 8,
+      "sqlalchemy_count": 8,
+      "api_count": 8,
+      "symbols": [
+        "AAPL",
+        "AMZN",
+        "BE",
+        "F",
+        "GOOGL",
+        "JPM",
+        "MSFT",
+        "NVDA"
+      ],
+      "empty_reason": null,
+      "explanation": null,
+      "sql": "WITH candidates AS (SELECT s.*, (SELECT f.roe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.roe IS NOT NULL\n            AND f.provenance->'roe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'roe'->>'period_end' IS NULL OR f.provenance->'roe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'roe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS roe,(SELECT f.revenue_growth FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.revenue_growth IS NOT NULL\n            AND f.provenance->'revenue_growth'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'revenue_growth'->>'period_end' IS NULL OR f.provenance->'revenue_growth'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'revenue_growth'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS revenue_growth,(SELECT f.pe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='ttm' AND f.validation_version=1\n            AND f.pe IS NOT NULL\n            AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'pe'->>'period_end' IS NULL OR f.provenance->'pe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS pe,(SELECT f.debt_to_equity FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='snapshot' AND f.validation_version=1\n            AND f.debt_to_equity IS NOT NULL\n            AND f.provenance->'debt_to_equity'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'debt_to_equity'->>'period_end' IS NULL OR f.provenance->'debt_to_equity'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'debt_to_equity'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS debt_to_equity,(SELECT f.net_profit_margin FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.net_profit_margin IS NOT NULL\n            AND f.provenance->'net_profit_margin'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'net_profit_margin'->>'period_end' IS NULL OR f.provenance->'net_profit_margin'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'net_profit_margin'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS net_profit_margin FROM stocks s) SELECT symbol FROM candidates WHERE country=:market ORDER BY symbol",
+      "parameters": {
+        "today": "2026-10-18",
+        "market": "US"
+      }
+    },
+    {
+      "case": "NSE/BSE",
+      "sql_count": 8,
+      "sqlalchemy_count": 8,
+      "api_count": 8,
+      "symbols": [
+        "BHARTIARTL.NS",
+        "HDFCBANK.NS",
+        "ICICIBANK.NS",
+        "INFY.NS",
+        "MTARTECH.NS",
+        "RELIANCE.NS",
+        "SBIN.NS",
+        "TCS.NS"
+      ],
+      "empty_reason": null,
+      "explanation": null,
+      "sql": "WITH candidates AS (SELECT s.*, (SELECT f.roe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.roe IS NOT NULL\n            AND f.provenance->'roe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'roe'->>'period_end' IS NULL OR f.provenance->'roe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'roe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS roe,(SELECT f.revenue_growth FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.revenue_growth IS NOT NULL\n            AND f.provenance->'revenue_growth'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'revenue_growth'->>'period_end' IS NULL OR f.provenance->'revenue_growth'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'revenue_growth'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS revenue_growth,(SELECT f.pe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='ttm' AND f.validation_version=1\n            AND f.pe IS NOT NULL\n            AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'pe'->>'period_end' IS NULL OR f.provenance->'pe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS pe,(SELECT f.debt_to_equity FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='snapshot' AND f.validation_version=1\n            AND f.debt_to_equity IS NOT NULL\n            AND f.provenance->'debt_to_equity'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'debt_to_equity'->>'period_end' IS NULL OR f.provenance->'debt_to_equity'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'debt_to_equity'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS debt_to_equity,(SELECT f.net_profit_margin FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.net_profit_margin IS NOT NULL\n            AND f.provenance->'net_profit_margin'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'net_profit_margin'->>'period_end' IS NULL OR f.provenance->'net_profit_margin'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'net_profit_margin'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS net_profit_margin FROM stocks s) SELECT symbol FROM candidates WHERE country=:market AND exchange IN (:exchange_0,:exchange_1) ORDER BY symbol",
+      "parameters": {
+        "today": "2026-10-18",
+        "market": "IN",
+        "exchange_0": "NSE",
+        "exchange_1": "BSE"
+      }
+    },
+    {
+      "case": "BSE",
+      "sql_count": 0,
+      "sqlalchemy_count": 0,
+      "api_count": 0,
+      "symbols": [],
+      "empty_reason": "no_matches",
+      "explanation": "No stored companies match the selected exchange, sector, industry and financial conditions.",
+      "sql": "WITH candidates AS (SELECT s.*, (SELECT f.roe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.roe IS NOT NULL\n            AND f.provenance->'roe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'roe'->>'period_end' IS NULL OR f.provenance->'roe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'roe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS roe,(SELECT f.revenue_growth FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.revenue_growth IS NOT NULL\n            AND f.provenance->'revenue_growth'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'revenue_growth'->>'period_end' IS NULL OR f.provenance->'revenue_growth'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'revenue_growth'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS revenue_growth,(SELECT f.pe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='ttm' AND f.validation_version=1\n            AND f.pe IS NOT NULL\n            AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'pe'->>'period_end' IS NULL OR f.provenance->'pe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS pe,(SELECT f.debt_to_equity FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='snapshot' AND f.validation_version=1\n            AND f.debt_to_equity IS NOT NULL\n            AND f.provenance->'debt_to_equity'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'debt_to_equity'->>'period_end' IS NULL OR f.provenance->'debt_to_equity'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'debt_to_equity'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS debt_to_equity,(SELECT f.net_profit_margin FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.net_profit_margin IS NOT NULL\n            AND f.provenance->'net_profit_margin'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'net_profit_margin'->>'period_end' IS NULL OR f.provenance->'net_profit_margin'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'net_profit_margin'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS net_profit_margin FROM stocks s) SELECT symbol FROM candidates WHERE country=:market AND exchange IN (:exchange_0) ORDER BY symbol",
+      "parameters": {
+        "today": "2026-10-18",
+        "market": "IN",
+        "exchange_0": "BSE"
+      },
+      "filter_trace": [
+        {
+          "stage": "market",
+          "before": 16,
+          "remaining": 8,
+          "excluded": 8
+        },
+        {
+          "stage": "exchanges",
+          "before": 8,
+          "remaining": 0,
+          "excluded": 8
+        }
+      ]
+    },
+    {
+      "case": "Indian ROE > 0",
+      "sql_count": 8,
+      "sqlalchemy_count": 8,
+      "api_count": 8,
+      "symbols": [
+        "BHARTIARTL.NS",
+        "HDFCBANK.NS",
+        "ICICIBANK.NS",
+        "INFY.NS",
+        "MTARTECH.NS",
+        "RELIANCE.NS",
+        "SBIN.NS",
+        "TCS.NS"
+      ],
+      "empty_reason": null,
+      "explanation": null,
+      "sql": "WITH candidates AS (SELECT s.*, (SELECT f.roe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.roe IS NOT NULL\n            AND f.provenance->'roe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'roe'->>'period_end' IS NULL OR f.provenance->'roe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'roe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS roe,(SELECT f.revenue_growth FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.revenue_growth IS NOT NULL\n            AND f.provenance->'revenue_growth'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'revenue_growth'->>'period_end' IS NULL OR f.provenance->'revenue_growth'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'revenue_growth'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS revenue_growth,(SELECT f.pe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='ttm' AND f.validation_version=1\n            AND f.pe IS NOT NULL\n            AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'pe'->>'period_end' IS NULL OR f.provenance->'pe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS pe,(SELECT f.debt_to_equity FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='snapshot' AND f.validation_version=1\n            AND f.debt_to_equity IS NOT NULL\n            AND f.provenance->'debt_to_equity'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'debt_to_equity'->>'period_end' IS NULL OR f.provenance->'debt_to_equity'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'debt_to_equity'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS debt_to_equity,(SELECT f.net_profit_margin FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.net_profit_margin IS NOT NULL\n            AND f.provenance->'net_profit_margin'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'net_profit_margin'->>'period_end' IS NULL OR f.provenance->'net_profit_margin'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'net_profit_margin'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS net_profit_margin FROM stocks s) SELECT symbol FROM candidates WHERE country=:market AND roe > :value_0 ORDER BY symbol",
+      "parameters": {
+        "today": "2026-10-18",
+        "market": "IN",
+        "value_0": 0.0
+      }
+    },
+    {
+      "case": "US ROE > 0",
+      "sql_count": 6,
+      "sqlalchemy_count": 6,
+      "api_count": 6,
+      "symbols": [
+        "AAPL",
+        "AMZN",
+        "GOOGL",
+        "JPM",
+        "MSFT",
+        "NVDA"
+      ],
+      "empty_reason": null,
+      "explanation": null,
+      "sql": "WITH candidates AS (SELECT s.*, (SELECT f.roe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.roe IS NOT NULL\n            AND f.provenance->'roe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'roe'->>'period_end' IS NULL OR f.provenance->'roe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'roe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS roe,(SELECT f.revenue_growth FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.revenue_growth IS NOT NULL\n            AND f.provenance->'revenue_growth'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'revenue_growth'->>'period_end' IS NULL OR f.provenance->'revenue_growth'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'revenue_growth'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS revenue_growth,(SELECT f.pe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='ttm' AND f.validation_version=1\n            AND f.pe IS NOT NULL\n            AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'pe'->>'period_end' IS NULL OR f.provenance->'pe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS pe,(SELECT f.debt_to_equity FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='snapshot' AND f.validation_version=1\n            AND f.debt_to_equity IS NOT NULL\n            AND f.provenance->'debt_to_equity'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'debt_to_equity'->>'period_end' IS NULL OR f.provenance->'debt_to_equity'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'debt_to_equity'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS debt_to_equity,(SELECT f.net_profit_margin FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.net_profit_margin IS NOT NULL\n            AND f.provenance->'net_profit_margin'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'net_profit_margin'->>'period_end' IS NULL OR f.provenance->'net_profit_margin'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'net_profit_margin'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS net_profit_margin FROM stocks s) SELECT symbol FROM candidates WHERE country=:market AND roe > :value_0 ORDER BY symbol",
+      "parameters": {
+        "today": "2026-10-18",
+        "market": "US",
+        "value_0": 0.0
+      }
+    },
+    {
+      "case": "five conditions",
+      "sql_count": 0,
+      "sqlalchemy_count": 0,
+      "api_count": 0,
+      "symbols": [],
+      "empty_reason": "no_matches",
+      "explanation": "No companies match every condition: available values fail the requested condition.",
+      "sql": "WITH candidates AS (SELECT s.*, (SELECT f.roe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.roe IS NOT NULL\n            AND f.provenance->'roe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'roe'->>'period_end' IS NULL OR f.provenance->'roe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'roe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS roe,(SELECT f.revenue_growth FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.revenue_growth IS NOT NULL\n            AND f.provenance->'revenue_growth'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'revenue_growth'->>'period_end' IS NULL OR f.provenance->'revenue_growth'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'revenue_growth'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS revenue_growth,(SELECT f.pe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='ttm' AND f.validation_version=1\n            AND f.pe IS NOT NULL\n            AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'pe'->>'period_end' IS NULL OR f.provenance->'pe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS pe,(SELECT f.debt_to_equity FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='snapshot' AND f.validation_version=1\n            AND f.debt_to_equity IS NOT NULL\n            AND f.provenance->'debt_to_equity'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'debt_to_equity'->>'period_end' IS NULL OR f.provenance->'debt_to_equity'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'debt_to_equity'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS debt_to_equity,(SELECT f.net_profit_margin FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.net_profit_margin IS NOT NULL\n            AND f.provenance->'net_profit_margin'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'net_profit_margin'->>'period_end' IS NULL OR f.provenance->'net_profit_margin'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'net_profit_margin'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS net_profit_margin FROM stocks s) SELECT symbol FROM candidates WHERE country=:market AND exchange IN (:exchange_0,:exchange_1) AND roe > :value_0 AND debt_to_equity < :value_1 AND revenue_growth > :value_2 AND net_profit_margin > :value_3 AND pe < :value_4 AND pe>0 AND COALESCE((SELECT f.eps>0 FROM financials f WHERE f.stock_id=candidates.id\n                AND f.period_type='ttm' AND f.pe IS NOT NULL AND f.validation_version=1\n                AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n                AND (f.period_end IS NULL OR f.period_end<=:today)\n                ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST, f.period_end DESC NULLS LAST,\n                f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1), TRUE) ORDER BY symbol",
+      "parameters": {
+        "today": "2026-10-18",
+        "market": "IN",
+        "exchange_0": "NSE",
+        "exchange_1": "BSE",
+        "value_0": 15.0,
+        "value_1": 1.0,
+        "value_2": 10.0,
+        "value_3": 0.0,
+        "value_4": 30.0
+      },
+      "filter_trace": [
+        {
+          "stage": "market",
+          "before": 16,
+          "remaining": 8,
+          "excluded": 8
+        },
+        {
+          "stage": "exchanges",
+          "before": 8,
+          "remaining": 8,
+          "excluded": 0
+        },
+        {
+          "stage": "filter_1:roe:annual",
+          "before": 8,
+          "remaining": 5,
+          "excluded": 3,
+          "missing_metric": 0,
+          "incompatible_period": 0,
+          "unverified_metric": 0,
+          "incompatible_currency": 0,
+          "invalid_domain": 0,
+          "failed_condition": 3
+        },
+        {
+          "stage": "filter_2:debt_to_equity:snapshot",
+          "before": 5,
+          "remaining": 3,
+          "excluded": 2,
+          "missing_metric": 0,
+          "incompatible_period": 0,
+          "unverified_metric": 0,
+          "incompatible_currency": 0,
+          "invalid_domain": 0,
+          "failed_condition": 2
+        },
+        {
+          "stage": "filter_3:revenue_growth:annual",
+          "before": 3,
+          "remaining": 0,
+          "excluded": 3,
+          "missing_metric": 0,
+          "incompatible_period": 0,
+          "unverified_metric": 0,
+          "incompatible_currency": 0,
+          "invalid_domain": 0,
+          "failed_condition": 3
+        },
+        {
+          "stage": "filter_4:net_profit_margin:annual",
+          "before": 0,
+          "remaining": 0,
+          "excluded": 0,
+          "missing_metric": 0,
+          "incompatible_period": 0,
+          "unverified_metric": 0,
+          "incompatible_currency": 0,
+          "invalid_domain": 0,
+          "failed_condition": 0
+        },
+        {
+          "stage": "filter_5:pe:ttm",
+          "before": 0,
+          "remaining": 0,
+          "excluded": 0,
+          "missing_metric": 0,
+          "incompatible_period": 0,
+          "unverified_metric": 0,
+          "incompatible_currency": 0,
+          "invalid_domain": 0,
+          "failed_condition": 0
+        }
+      ]
+    },
+    {
+      "case": "growth > 5 and PE < 25",
+      "sql_count": 3,
+      "sqlalchemy_count": 3,
+      "api_count": 3,
+      "symbols": [
+        "ICICIBANK.NS",
+        "RELIANCE.NS",
+        "SBIN.NS"
+      ],
+      "empty_reason": null,
+      "explanation": null,
+      "sql": "WITH candidates AS (SELECT s.*, (SELECT f.roe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.roe IS NOT NULL\n            AND f.provenance->'roe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'roe'->>'period_end' IS NULL OR f.provenance->'roe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'roe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS roe,(SELECT f.revenue_growth FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.revenue_growth IS NOT NULL\n            AND f.provenance->'revenue_growth'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'revenue_growth'->>'period_end' IS NULL OR f.provenance->'revenue_growth'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'revenue_growth'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS revenue_growth,(SELECT f.pe FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='ttm' AND f.validation_version=1\n            AND f.pe IS NOT NULL\n            AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'pe'->>'period_end' IS NULL OR f.provenance->'pe'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS pe,(SELECT f.debt_to_equity FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='snapshot' AND f.validation_version=1\n            AND f.debt_to_equity IS NOT NULL\n            AND f.provenance->'debt_to_equity'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'debt_to_equity'->>'period_end' IS NULL OR f.provenance->'debt_to_equity'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'debt_to_equity'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS debt_to_equity,(SELECT f.net_profit_margin FROM financials f WHERE f.stock_id=s.id\n            AND lower(trim(f.period_type))='annual' AND f.validation_version=1\n            AND f.net_profit_margin IS NOT NULL\n            AND f.provenance->'net_profit_margin'->>'validation_status' IN ('provider','normalized','recomputed')\n            AND (f.period_end IS NULL OR f.period_end<=:today)\n            AND (f.provenance->'net_profit_margin'->>'period_end' IS NULL OR f.provenance->'net_profit_margin'->>'period_end'<=CAST(:today AS text))\n            ORDER BY f.provenance->'net_profit_margin'->>'period_end' DESC NULLS LAST,\n            f.period_end DESC NULLS LAST, f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1) AS net_profit_margin FROM stocks s) SELECT symbol FROM candidates WHERE country=:market AND revenue_growth > :value_0 AND pe < :value_1 AND pe>0 AND COALESCE((SELECT f.eps>0 FROM financials f WHERE f.stock_id=candidates.id\n                AND f.period_type='ttm' AND f.pe IS NOT NULL AND f.validation_version=1\n                AND f.provenance->'pe'->>'validation_status' IN ('provider','normalized','recomputed')\n                AND (f.period_end IS NULL OR f.period_end<=:today)\n                ORDER BY f.provenance->'pe'->>'period_end' DESC NULLS LAST, f.period_end DESC NULLS LAST,\n                f.updated_at DESC NULLS LAST, f.id DESC LIMIT 1), TRUE) ORDER BY symbol",
+      "parameters": {
+        "today": "2026-10-18",
+        "market": "IN",
+        "value_0": 5.0,
+        "value_1": 25.0
+      }
+    }
+  ],
+  "diagnostics": {
+    "database_connected": true,
+    "connection": {
+      "database": "screenfinance",
+      "schema": "public",
+      "server_address": "::1/128",
+      "server_port": 5432
+    },
+    "total_stocks": 16,
+    "total_financial_records": 173,
+    "stocks_with_financials": 16,
+    "unfiltered_stock_count": 16,
+    "market_counts": {
+      "US": 8,
+      "IN": 8
+    },
+    "exchange_counts": {
+      "NYSE": 3,
+      "NASDAQ": 5,
+      "NSE": 8
+    },
+    "metric_coverage": {
+      "market_cap": {
+        "snapshot": 16
+      },
+      "pe": {
+        "ttm": 15
+      },
+      "roe": {
+        "annual": 16,
+        "ttm": 14
+      },
+      "net_profit_margin": {
+        "annual": 16,
+        "quarterly": 16,
+        "ttm": 9
+      },
+      "operating_margin": {
+        "annual": 12
+      },
+      "revenue_growth": {
+        "annual": 16
+      },
+      "debt_to_equity": {
+        "snapshot": 16
+      },
+      "current_ratio": {
+        "snapshot": 12
+      },
+      "total_debt": {
+        "snapshot": 16
+      },
+      "net_debt": {
+        "snapshot": 16
+      },
+      "operating_cash_flow": {
+        "annual": 16
+      },
+      "free_cash_flow": {
+        "annual": 15
+      },
+      "free_cash_flow_margin": {
+        "annual": 15
+      },
+      "revenue": {
+        "annual": 16,
+        "quarterly": 16,
+        "ttm": 9
+      },
+      "net_income": {
+        "annual": 16,
+        "quarterly": 16,
+        "ttm": 9
+      },
+      "operating_income": {
+        "annual": 12
+      },
+      "eps": {
+        "ttm": 16
+      }
+    },
+    "reporting_periods": [
+      {
+        "period_type": "quarterly",
+        "currency": "INR",
+        "records": 32,
+        "earliest": "2025-03-31",
+        "latest": "2026-06-30"
+      },
+      {
+        "period_type": "annual",
+        "currency": "INR",
+        "records": 28,
+        "earliest": "2023-03-31",
+        "latest": "2026-03-31"
+      },
+      {
+        "period_type": "quarterly",
+        "currency": "USD",
+        "records": 45,
+        "earliest": "2025-03-31",
+        "latest": "2026-07-31"
+      },
+      {
+        "period_type": "ttm",
+        "currency": "USD",
+        "records": 9,
+        "earliest": "2026-06-30",
+        "latest": "2026-07-31"
+      },
+      {
+        "period_type": "annual",
+        "currency": "USD",
+        "records": 36,
+        "earliest": "2022-09-30",
+        "latest": "2026-06-30"
+      },
+      {
+        "period_type": "snapshot",
+        "currency": "USD",
+        "records": 8,
+        "earliest": "2025-09-30",
+        "latest": "2026-06-30"
+      },
+      {
+        "period_type": "snapshot",
+        "currency": "INR",
+        "records": 8,
+        "earliest": "2026-03-31",
+        "latest": "2026-03-31"
+      },
+      {
+        "period_type": "ttm",
+        "currency": "INR",
+        "records": 7,
+        "earliest": "2026-06-30",
+        "latest": "2026-06-30"
+      }
+    ],
+    "screen": {
+      "market": null,
+      "as_of": null,
+      "exchange": null,
+      "exchanges": [],
+      "sector": null,
+      "industry": null,
+      "filters": [],
+      "sort_by": "market_cap",
+      "sort_period": "snapshot",
+      "sort_desc": true,
+      "limit": 25
+    },
+    "filter_trace": [
+      {
+        "stage": "market",
+        "before": 16,
+        "remaining": 16,
+        "excluded": 0
+      }
+    ]
+  },
+  "linked_financials": {
+    "sql": 16,
+    "sqlalchemy": 16
+  },
+  "natural_language": [
+    {
+      "query": "Show all available companies without financial filters.",
+      "http": 200,
+      "status": "success",
+      "total_count": 16,
+      "parsed_filters": {
+        "market": null,
+        "as_of": null,
+        "exchange": null,
+        "exchanges": [],
+        "sector": null,
+        "industry": null,
+        "filters": [],
+        "sort_by": "market_cap",
+        "sort_period": "snapshot",
+        "sort_desc": true,
+        "limit": 25
+      },
+      "explanation": null,
+      "clarification": null
+    },
+    {
+      "query": "Show all Indian companies.",
+      "http": 200,
+      "status": "success",
+      "total_count": 8,
+      "parsed_filters": {
+        "market": "IN",
+        "as_of": null,
+        "exchange": null,
+        "exchanges": [],
+        "sector": null,
+        "industry": null,
+        "filters": [],
+        "sort_by": "market_cap",
+        "sort_period": "snapshot",
+        "sort_desc": true,
+        "limit": 25
+      },
+      "explanation": null,
+      "clarification": null
+    },
+    {
+      "query": "Show Indian companies with ROE above 0%.",
+      "http": 200,
+      "status": "success",
+      "total_count": 8,
+      "parsed_filters": {
+        "market": "IN",
+        "as_of": null,
+        "exchange": null,
+        "exchanges": [],
+        "sector": null,
+        "industry": null,
+        "filters": [
+          {
+            "field": "roe",
+            "operator": "gt",
+            "value": 0.0,
+            "period": "annual",
+            "period_end": null,
+            "currency": null
+          }
+        ],
+        "sort_by": "market_cap",
+        "sort_period": "snapshot",
+        "sort_desc": true,
+        "limit": 25
+      },
+      "explanation": null,
+      "clarification": null
+    },
+    {
+      "query": "Find Indian companies listed on NSE or BSE with ROE greater than 15%, debt-to-equity below 1, annual revenue growth above 10%, positive net profit margin, and P/E below 30.",
+      "http": 200,
+      "status": "success",
+      "total_count": 0,
+      "parsed_filters": {
+        "market": "IN",
+        "as_of": null,
+        "exchange": null,
+        "exchanges": [
+          "NSE",
+          "BSE"
+        ],
+        "sector": null,
+        "industry": null,
+        "filters": [
+          {
+            "field": "roe",
+            "operator": "gt",
+            "value": 15.0,
+            "period": "annual",
+            "period_end": null,
+            "currency": null
+          },
+          {
+            "field": "debt_to_equity",
+            "operator": "lt",
+            "value": 1.0,
+            "period": "snapshot",
+            "period_end": null,
+            "currency": null
+          },
+          {
+            "field": "revenue_growth",
+            "operator": "gt",
+            "value": 10.0,
+            "period": "annual",
+            "period_end": null,
+            "currency": null
+          },
+          {
+            "field": "net_profit_margin",
+            "operator": "gt",
+            "value": 0.0,
+            "period": "annual",
+            "period_end": null,
+            "currency": null
+          },
+          {
+            "field": "pe",
+            "operator": "lt",
+            "value": 30.0,
+            "period": "ttm",
+            "period_end": null,
+            "currency": null
+          }
+        ],
+        "sort_by": "market_cap",
+        "sort_period": "snapshot",
+        "sort_desc": true,
+        "limit": 25
+      },
+      "explanation": "No companies match every condition: available values fail the requested condition.",
+      "clarification": null
+    }
+  ]
+}

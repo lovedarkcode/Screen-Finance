@@ -3,12 +3,13 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { ArrowRight, Layers, Newspaper, RefreshCw } from 'lucide-react'
 import stockService from '@/services/stock.service'
 import api from '@/services/api'
 import StockChart from '@/components/stock/StockChart'
+import NaturalLanguageScreener from '@/components/screener/NaturalLanguageScreener'
 import { EmptyState, PriceChange, SectionTitle } from '@/components/stock/StockUI'
 import { money, marketTime, number } from '@/components/stock/stock-format'
 
@@ -19,6 +20,14 @@ const INDICES = [
 const STOCKS = ['RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS', 'INFY.NS', 'ICICIBANK.NS', 'TATAMOTORS.NS', 'SBIN.NS', 'BHARTIARTL.NS']
 
 export default function HomePage() {
+  const [searchParams] = useSearchParams()
+  const screenerOpen = searchParams.get('screener') === 'ai'
+  const screenerRef = useRef(null)
+  useEffect(() => {
+    if (!screenerOpen) return
+    screenerRef.current?.scrollIntoView({ block: 'start' })
+    screenerRef.current?.querySelector('textarea')?.focus({ preventScroll: true })
+  }, [screenerOpen])
   const [quotes, setQuotes] = useState({})
   const [loading, setLoading] = useState(true)
   const [attempt, setAttempt] = useState(0)
@@ -54,6 +63,7 @@ export default function HomePage() {
     .sort((a, b) => tab === 'losers' ? a.changePercent - b.changePercent : tab === 'gainers' ? b.changePercent - a.changePercent : a.name.localeCompare(b.name))
   return <>
     <section className="market-hero"><div className="stock-container"><div className="market-heading-row"><div><p className="market-eyebrow">Discover / Feed</p><h1>Your market, at a glance</h1><p className="market-description">Follow Indian benchmarks, explore company performance and move from the market view to the details that matter.</p></div><Button variant="outline" size="sm" className="stock-button" onClick={refresh} disabled={loading}><RefreshCw size={14} />Refresh market</Button></div></div></section>
+    {screenerOpen && <div ref={screenerRef} style={{ scrollMarginTop: 110 }}><NaturalLanguageScreener /></div>}
     <section className="stock-section stock-band-alt"><div className="stock-container"><SectionTitle extra={<span className="stock-source-note">Select an index to explore its history</span>}>Market Overview</SectionTitle>
       <div className="market-index-grid">{INDICES.map(index => {
         const quote = quotes[index.symbol]

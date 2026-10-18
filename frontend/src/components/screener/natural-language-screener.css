@@ -1,0 +1,48 @@
+.nl-screener { padding-top: 0; }
+.nl-bot-card { padding: 26px; }
+.nl-heading { display: flex; gap: 15px; align-items: flex-start; margin-bottom: 22px; }
+.nl-bot-icon { display: grid; place-items: center; width: 46px; height: 46px; flex-shrink: 0; background: var(--stock-accent-surface); color: var(--stock-accent); border: 1px solid var(--stock-border); border-radius: 13px; }
+.nl-heading > div { flex: 1; min-width: 0; }
+.nl-heading h2 { font-size: 22px; font-weight: 600; line-height: 1.5; }
+.nl-heading p:not(.market-eyebrow) { color: var(--stock-muted); font-size: 12px; line-height: 1.8; max-width: 720px; margin-top: 6px; }
+.nl-query-label { display: block; font-size: 12px; font-weight: 500; margin-bottom: 9px; }
+.nl-screener textarea { min-height: 100px; font: inherit; padding: 16px; line-height: 1.8; }
+.nl-query-actions, .nl-editor-actions, .nl-pagination { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+.nl-query-actions > span { margin-left: auto; font-size: 10px; color: var(--stock-muted); }
+.nl-examples { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 18px; margin-top: 18px; border-top: 1px solid var(--stock-border); }
+.nl-status { display: flex; gap: 12px; padding: 22px 0 0; align-items: center; font-size: 12px; color: var(--stock-muted); }
+.nl-feedback { padding: 16px; border: 1px solid var(--stock-border); border-radius: 10px; background: var(--stock-surface); margin-top: 20px; font-size: 12px; line-height: 1.8; }
+.nl-feedback strong { display: block; margin-bottom: 5px; }
+.nl-editor { border-top: 1px solid var(--stock-border); margin-top: 24px; padding-top: 24px; }
+.nl-editor-heading { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; margin-bottom: 18px; }
+.nl-editor h3 { font-size: 15px; font-weight: 600; }
+.nl-editor small, .nl-filter-definition { color: var(--stock-muted); font-size: 10px; line-height: 1.7; }
+.nl-controls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.nl-filter-list { display: grid; gap: 14px; margin-top: 20px; }
+.nl-filter { display: grid; grid-template-columns: minmax(150px, 1.4fr) minmax(76px, .6fr) minmax(95px, .8fr) minmax(125px, 1fr) minmax(125px, 1fr) 36px; align-items: start; gap: 12px; padding: 16px; border: 1px solid var(--stock-border); border-radius: 12px; }
+.nl-filter > button { margin-top: 23px; }
+.nl-filter-definition { grid-column: 1 / -1; }
+.nl-filter label, .nl-controls label { font-size: 11px; }
+.nl-editor-actions > [data-slot=field] { margin-left: auto; max-width: 150px; }
+.nl-results { margin-top: 26px; }
+.nl-results-heading { display: flex; gap: 18px; align-items: center; justify-content: space-between; margin-bottom: 15px; }
+.nl-results h3 { font-size: 17px; font-weight: 600; }
+.nl-results-heading p { color: var(--stock-muted); font-size: 11px; margin-top: 5px; }
+.nl-notes { margin: 10px 0 20px; padding-left: 16px; font-size: 10px; line-height: 1.8; color: var(--stock-muted); }
+.nl-results-table { min-width: 1050px; }
+.nl-results-table th { padding: 12px; text-align: right; }
+.nl-results-table th:first-child { text-align: left; }
+.nl-results-table th button { padding: 0; height: auto; font-size: 11px; }
+.nl-results-table th small, .nl-results-table td small { display: block; color: var(--stock-muted); font-size: 9px; line-height: 1.5; font-weight: 400; text-transform: none; letter-spacing: normal; max-width: 180px; white-space: normal; margin-top: 5px; }
+.nl-results-table td { text-align: right; font-size: 12px; min-width: 125px; vertical-align: top; }
+.nl-results-table td:first-child { text-align: left; min-width: 220px; }
+.nl-results-table td a:hover { color: var(--stock-accent); }
+.nl-unavailable { color: var(--stock-muted); font-size: 10px; }
+.nl-empty { display: grid; gap: 12px; justify-items: center; text-align: center; padding: 35px 20px; color: var(--stock-muted); }
+.nl-empty p { font-size: 12px; }
+.nl-applied-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 100%; }
+.nl-applied-filters [data-slot=chip] { height: auto; white-space: normal; text-align: left; overflow-wrap: anywhere; }
+.nl-pagination { font-size: 10px; color: var(--stock-muted); }
+.nl-pagination > span { margin-right: auto; }
+@media (max-width: 900px) { .nl-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); } .nl-filter { grid-template-columns: repeat(3, minmax(0, 1fr)); } .nl-filter > button { margin-top: 20px; } }
+@media (max-width: 639px) { .nl-bot-card { padding: 18px; } .nl-heading { flex-wrap: wrap; gap: 10px; } .nl-heading h2 { font-size: 19px; } .nl-heading > [data-slot=chip] { display: none; } .nl-bot-icon { width: 36px; height: 36px; } .nl-controls, .nl-filter { grid-template-columns: repeat(2, minmax(0, 1fr)); } .nl-filter { padding: 12px; } .nl-query-actions { gap: 8px; } .nl-query-actions button:first-child { padding-left: 0; font-size: 11px; } .nl-query-actions button:last-child { width: 100%; } .nl-examples button { height: auto; min-height: 32px; white-space: normal; text-align: left; font-size: 11px; } .nl-pagination > span { flex-basis: 100%; } }

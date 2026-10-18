@@ -1,0 +1,45 @@
+{
+  "original_query": "Show Indian companies with revenue growth above 15% and P/E below 25.",
+  "status": "success",
+  "parsed_filters": {
+    "market": "IN",
+    "exchange": null,
+    "sector": null,
+    "industry": null,
+    "filters": [
+      {
+        "field": "revenue_growth",
+        "operator": "gt",
+        "value": 15.0,
+        "period": "annual",
+        "period_end": null,
+        "currency": null
+      },
+      {
+        "field": "pe",
+        "operator": "lt",
+        "value": 25.0,
+        "period": "ttm",
+        "period_end": null,
+        "currency": null
+      }
+    ],
+    "sort_by": "market_cap",
+    "sort_period": "snapshot",
+    "sort_desc": true,
+    "limit": 25
+  },
+  "stocks": [],
+  "total_count": 0,
+  "page": 1,
+  "page_size": 25,
+  "data_as_of": "2026-10-17T15:02:37.576630+00:00",
+  "universe_count": 8,
+  "warnings": [
+    "Screening covers the imported stock universe, not every exchange listing. Missing or incompatible metric values do not match numeric filters.",
+    "Monetary sorting uses INR values; incompatible reporting currencies are excluded."
+  ],
+  "clarification": null,
+  "cached": false,
+  "execution_ms": 332.09
+}

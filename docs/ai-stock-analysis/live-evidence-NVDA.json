@@ -1,0 +1,412 @@
+{
+  "financialEvidenceOnly": true,
+  "symbol": "NVDA",
+  "exchange": "NASDAQ",
+  "retrievedAt": "2026-10-17T13:52:41.442654+00:00",
+  "evidenceCount": 77,
+  "quality": {
+    "coverage": "available",
+    "checkedCalculations": 20,
+    "providerMetrics": 55,
+    "annualPeriods": 4,
+    "quarterlyPeriods": 5,
+    "issues": [
+      {
+        "code": "unknown_provider_ttm_end",
+        "severity": "low",
+        "text": "Provider trailing ratios have no exact period end and cannot be directly reconciled with fiscal-year calculations.",
+        "evidenceIds": []
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "id": "E3",
+      "label": "Market capitalization",
+      "value": 5170596937728.0,
+      "unit": "currency",
+      "currency": "USD",
+      "period": "Provider snapshot retrieved 2026-10-17",
+      "sourceId": "statistics",
+      "formula": null,
+      "inputs": [],
+      "kind": "provider",
+      "periodType": "snapshot",
+      "periodEnd": null,
+      "operation": null,
+      "sourceField": "marketCap",
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E4",
+      "label": "Trailing P/E",
+      "value": 27.070797,
+      "unit": "times",
+      "currency": null,
+      "period": "TTM (provider); exact period end unavailable",
+      "sourceId": "statistics",
+      "formula": null,
+      "inputs": [],
+      "kind": "provider",
+      "periodType": "ttm",
+      "periodEnd": null,
+      "operation": null,
+      "sourceField": "trailingPE",
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E5",
+      "label": "Trailing EPS",
+      "value": 7.91,
+      "unit": "currency",
+      "currency": "USD",
+      "period": "TTM (provider); exact period end unavailable",
+      "sourceId": "statistics",
+      "formula": null,
+      "inputs": [],
+      "kind": "provider",
+      "periodType": "ttm",
+      "periodEnd": null,
+      "operation": null,
+      "sourceField": "trailingEps",
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E7",
+      "label": "Return on equity (provider)",
+      "value": 117.211,
+      "unit": "percent",
+      "currency": null,
+      "period": "TTM (provider); exact period end unavailable",
+      "sourceId": "statistics",
+      "formula": "Provider returnOnEquity \u00d7 100 (unit conversion only)",
+      "inputs": [
+        "E6"
+      ],
+      "kind": "normalized",
+      "periodType": "ttm",
+      "periodEnd": null,
+      "operation": "scale_percent",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E11",
+      "label": "Net profit margin",
+      "value": 55.602534,
+      "unit": "percent",
+      "currency": null,
+      "period": "FY ending 2026-01-31",
+      "sourceId": "income",
+      "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+      "inputs": [
+        "E9",
+        "E8"
+      ],
+      "kind": "calculated",
+      "periodType": "annual",
+      "periodEnd": "2026-01-31",
+      "operation": "percent_ratio",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E26",
+      "label": "Quarterly net profit margin",
+      "value": 62.032197,
+      "unit": "percent",
+      "currency": null,
+      "period": "Quarter ending 2026-07-31",
+      "sourceId": "quarterly",
+      "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+      "inputs": [
+        "E25",
+        "E24"
+      ],
+      "kind": "calculated",
+      "periodType": "quarterly",
+      "periodEnd": "2026-07-31",
+      "operation": "percent_ratio",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E67",
+      "label": "Operating margin",
+      "value": 60.381684,
+      "unit": "percent",
+      "currency": null,
+      "period": "FY ending 2026-01-31",
+      "sourceId": "income",
+      "formula": "Annual operating income \u00f7 annual revenue \u00d7 100",
+      "inputs": [
+        "E10",
+        "E8"
+      ],
+      "kind": "calculated",
+      "periodType": "annual",
+      "periodEnd": "2026-01-31",
+      "operation": "percent_ratio",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E68",
+      "label": "Annual revenue growth",
+      "value": 65.473536,
+      "unit": "percent",
+      "currency": null,
+      "period": "2026-01-31 vs 2025-01-31",
+      "sourceId": "income",
+      "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+      "inputs": [
+        "E8",
+        "E12"
+      ],
+      "kind": "calculated",
+      "periodType": "comparison",
+      "periodEnd": "2026-01-31",
+      "operation": "growth",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E69",
+      "label": "Free cash flow",
+      "value": 96676000000.0,
+      "unit": "currency",
+      "currency": "USD",
+      "period": "FY ending 2026-01-31",
+      "sourceId": "cashflow",
+      "formula": "Operating cash flow \u2212 absolute capital expenditure",
+      "inputs": [
+        "E59",
+        "E60"
+      ],
+      "kind": "calculated",
+      "periodType": "annual",
+      "periodEnd": "2026-01-31",
+      "operation": "fcf",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E70",
+      "label": "Free cash flow margin",
+      "value": 44.770258,
+      "unit": "percent",
+      "currency": null,
+      "period": "FY ending 2026-01-31",
+      "sourceId": "cashflow",
+      "formula": "Free cash flow \u00f7 same-period annual revenue \u00d7 100",
+      "inputs": [
+        "E69",
+        "E8"
+      ],
+      "kind": "calculated",
+      "periodType": "annual",
+      "periodEnd": "2026-01-31",
+      "operation": "percent_ratio",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E71",
+      "label": "Annual return on equity",
+      "value": 101.485082,
+      "unit": "percent",
+      "currency": null,
+      "period": "FY ending 2026-01-31",
+      "sourceId": "income",
+      "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+      "inputs": [
+        "E9",
+        "E41",
+        "E46"
+      ],
+      "kind": "calculated",
+      "periodType": "annual",
+      "periodEnd": "2026-01-31",
+      "operation": "roe",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E72",
+      "label": "Current ratio",
+      "value": 3.905264,
+      "unit": "times",
+      "currency": null,
+      "period": "Balance sheet ending 2026-01-31",
+      "sourceId": "balance",
+      "formula": "Current assets \u00f7 current liabilities",
+      "inputs": [
+        "E42",
+        "E43"
+      ],
+      "kind": "calculated",
+      "periodType": "instant",
+      "periodEnd": "2026-01-31",
+      "operation": "ratio",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E73",
+      "label": "Debt to equity",
+      "value": 0.070187,
+      "unit": "times",
+      "currency": null,
+      "period": "Balance sheet ending 2026-01-31",
+      "sourceId": "balance",
+      "formula": "Total debt \u00f7 shareholders equity",
+      "inputs": [
+        "E39",
+        "E41"
+      ],
+      "kind": "calculated",
+      "periodType": "instant",
+      "periodEnd": "2026-01-31",
+      "operation": "ratio",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E74",
+      "label": "Net debt",
+      "value": 435000000.0,
+      "unit": "currency",
+      "currency": "USD",
+      "period": "Balance sheet ending 2026-01-31",
+      "sourceId": "balance",
+      "formula": "Total debt \u2212 cash and cash equivalents; negative means net cash",
+      "inputs": [
+        "E39",
+        "E40"
+      ],
+      "kind": "calculated",
+      "periodType": "instant",
+      "periodEnd": "2026-01-31",
+      "operation": "subtract",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    },
+    {
+      "id": "E77",
+      "label": "TTM net profit margin",
+      "value": 63.662949,
+      "unit": "percent",
+      "currency": null,
+      "period": "TTM ending 2026-07-31",
+      "sourceId": "quarterly",
+      "formula": "Four-quarter net income \u00f7 four-quarter revenue \u00d7 100",
+      "inputs": [
+        "E76",
+        "E75"
+      ],
+      "kind": "calculated",
+      "periodType": "ttm",
+      "periodEnd": "2026-07-31",
+      "operation": "percent_ratio",
+      "sourceField": null,
+      "symbol": "NVDA",
+      "exchange": "NASDAQ"
+    }
+  ],
+  "trends": [
+    {
+      "period": "FY ending 2026-01-31",
+      "periodEnd": "2026-01-31",
+      "periodType": "annual",
+      "revenueId": "E8",
+      "netIncomeId": "E9",
+      "netMarginId": "E11"
+    },
+    {
+      "period": "FY ending 2025-01-31",
+      "periodEnd": "2025-01-31",
+      "periodType": "annual",
+      "revenueId": "E12",
+      "netIncomeId": "E13",
+      "netMarginId": "E15"
+    },
+    {
+      "period": "FY ending 2024-01-31",
+      "periodEnd": "2024-01-31",
+      "periodType": "annual",
+      "revenueId": "E16",
+      "netIncomeId": "E17",
+      "netMarginId": "E19"
+    },
+    {
+      "period": "FY ending 2023-01-31",
+      "periodEnd": "2023-01-31",
+      "periodType": "annual",
+      "revenueId": "E20",
+      "netIncomeId": "E21",
+      "netMarginId": "E23"
+    },
+    {
+      "period": "FY ending 2022-01-31",
+      "periodEnd": "2022-01-31",
+      "periodType": "annual",
+      "revenueId": null,
+      "netIncomeId": null,
+      "netMarginId": null
+    },
+    {
+      "period": "Quarter ending 2026-07-31",
+      "periodEnd": "2026-07-31",
+      "periodType": "quarterly",
+      "revenueId": "E24",
+      "netIncomeId": "E25",
+      "netMarginId": "E26"
+    },
+    {
+      "period": "Quarter ending 2026-04-30",
+      "periodEnd": "2026-04-30",
+      "periodType": "quarterly",
+      "revenueId": "E27",
+      "netIncomeId": "E28",
+      "netMarginId": "E29"
+    },
+    {
+      "period": "Quarter ending 2026-01-31",
+      "periodEnd": "2026-01-31",
+      "periodType": "quarterly",
+      "revenueId": "E30",
+      "netIncomeId": "E31",
+      "netMarginId": "E32"
+    },
+    {
+      "period": "Quarter ending 2025-10-31",
+      "periodEnd": "2025-10-31",
+      "periodType": "quarterly",
+      "revenueId": "E33",
+      "netIncomeId": "E34",
+      "netMarginId": "E35"
+    },
+    {
+      "period": "Quarter ending 2025-07-31",
+      "periodEnd": "2025-07-31",
+      "periodType": "quarterly",
+      "revenueId": "E36",
+      "netIncomeId": "E37",
+      "netMarginId": "E38"
+    }
+  ]
+}

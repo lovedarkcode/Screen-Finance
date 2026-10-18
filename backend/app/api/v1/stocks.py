@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import re
+from bisect import bisect_right
 from datetime import UTC, datetime, timedelta
 from math import isfinite
 from typing import Any
@@ -10,7 +11,11 @@ from urllib.parse import quote
 
 import httpx
 import yfinance as yf
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query
+from sqlalchemy import select
+from app.dependencies import get_db
+from app.models.financials import Financials
+from app.models.stock import Stock
 from fastapi.concurrency import run_in_threadpool
 
 
@@ -557,7 +562,7 @@ async def get_metrics(symbol: str) -> list[dict[str, str]]:
 
 
 @router.get("/{symbol}/chart")
-async def get_chart(symbol: str, range: str = "1Yr") -> list[dict[str, Any]]:
+async def get_chart(symbol: str, range: str = "1Yr", indicators: bool = False) -> list[dict[str, Any]]:
     normalized = _normalize_symbol(symbol)
     if range not in PERIODS:
         raise HTTPException(status_code=422, detail="Unsupported chart timeframe")
@@ -571,11 +576,19 @@ async def get_chart(symbol: str, range: str = "1Yr") -> list[dict[str, Any]]:
         interval = "1m"
     elif range == "1W":
         interval = "30m"
+    if indicators and interval in ("1wk", "1mo"):
+        interval = "1d"
+    params = {"range": period, "interval": interval, "includePrePost": "false"}
+    if range in ("3Y", "3Yr"):
+        # Yahoo's range enum does not include three years.
+        now = datetime.now(UTC)
+        params = {"period1": int((now - timedelta(days=3 * 365.25)).timestamp()),
+                  "period2": int(now.timestamp()), "interval": interval, "includePrePost": "false"}
         
     try:
         data = await _get_json(
             YAHOO_CHART_URL.format(symbol=quote(normalized, safe=".^-")),
-            {"range": period, "interval": interval, "includePrePost": "false"},
+            params,
         )
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"Could not load chart for {symbol}") from exc
@@ -601,7 +614,43 @@ async def get_chart(symbol: str, range: str = "1Yr") -> list[dict[str, Any]]:
                     "volume": int(volume) if volume is not None and volume >= 0 else None,
                 }
             )
+    if indicators and rows:
+        try:
+            history = await _get_json(
+                YAHOO_CHART_URL.format(symbol=quote(normalized, safe=".^-")),
+                {"period1": int(rows[0]["timestamp"] - 365 * 86400),
+                 "period2": int(datetime.now(UTC).timestamp()), "interval": "1d", "includePrePost": "false"},
+            )
+            daily = (history.get("chart", {}).get("result") or [{}])[0]
+            daily_closes = (daily.get("indicators", {}).get("quote") or [{}])[0].get("close") or []
+            samples = sorted((stamp, close) for stamp, raw in zip(daily.get("timestamp") or [], daily_closes)
+                             if (close := _number(raw)) is not None)
+            stamps = [stamp for stamp, _ in samples]
+            prefix = [0.0]
+            for _, close in samples:
+                prefix.append(prefix[-1] + close)
+            for row in rows:
+                # Intraday overlays use completed prior sessions, never today's future close.
+                cutoff = row["timestamp"] if interval == "1d" else row["timestamp"] // 86400 * 86400 - 1
+                end = bisect_right(stamps, cutoff)
+                for window in (50, 100):
+                    row[f"dma{window}"] = (prefix[end] - prefix[end - window]) / window if end >= window else None
+        except (httpx.HTTPError, ValueError, KeyError, TypeError):
+            # Keep price history usable if the supplemental daily feed is unavailable.
+            pass
     return rows
+
+
+@router.get("/{symbol}/pe-history")
+async def get_pe_history(symbol: str, db=Depends(get_db)) -> list[dict[str, Any]]:
+    """Recorded valuation snapshots, dated when observed rather than backfilled."""
+    normalized = _normalize_symbol(symbol)
+    result = await db.execute(select(Financials.updated_at, Financials.pe).join(
+        Stock, Stock.id == Financials.stock_id
+    ).where(Stock.symbol == normalized, Financials.pe > 0,
+            Financials.updated_at.is_not(None), Financials.period_type == "ttm")
+      .order_by(Financials.updated_at))
+    return [{"date": observed.isoformat(), "pe": pe} for observed, pe in result if _number(pe) is not None]
 
 
 @router.get("/{symbol}/quarters")

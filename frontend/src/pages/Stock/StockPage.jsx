@@ -13,6 +13,7 @@ import StockFinancials from '@/components/stock/StockFinancials'
 import StockCompany from '@/components/stock/StockCompany'
 import StockPeers from '@/components/stock/StockPeers'
 import StockStatements from '@/components/stock/StockStatements'
+import StockAnalysisAgent from '@/components/stock/StockAnalysisAgent'
 import { EmptyState, SectionTitle } from '@/components/stock/StockUI'
 import stockService from '@/services/stock.service'
 import '@/components/stock/stock-detail.css'
@@ -66,6 +67,7 @@ function StockDetail({ symbol }) {
       </div></section>}
       <footer className="stock-source-footer stock-container">Market data: Yahoo Finance / yfinance · Prices may be delayed. Availability varies by company.</footer>
     </main>}
+    <StockAnalysisAgent stock={data.stock} theme={theme} />
   </div>
 }
 

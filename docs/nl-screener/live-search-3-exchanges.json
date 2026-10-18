@@ -1,0 +1,73 @@
+{
+  "original_query": "Find Indian companies listed on NSE or BSE with Return on Equity (ROE) greater than 15%, debt-to-equity ratio below 1, annual revenue growth above 10%, positive net profit margin, and P/E ratio below 30. Sort the results by market capitalization in descending order and show the top 20 companies.",
+  "status": "success",
+  "parsed_filters": {
+    "market": "IN",
+    "exchange": null,
+    "exchanges": [
+      "NSE",
+      "BSE"
+    ],
+    "sector": null,
+    "industry": null,
+    "filters": [
+      {
+        "field": "roe",
+        "operator": "gt",
+        "value": 15.0,
+        "period": "annual",
+        "period_end": null,
+        "currency": null
+      },
+      {
+        "field": "debt_to_equity",
+        "operator": "lt",
+        "value": 1.0,
+        "period": "snapshot",
+        "period_end": null,
+        "currency": null
+      },
+      {
+        "field": "revenue_growth",
+        "operator": "gt",
+        "value": 10.0,
+        "period": "annual",
+        "period_end": null,
+        "currency": null
+      },
+      {
+        "field": "net_profit_margin",
+        "operator": "gt",
+        "value": 0.0,
+        "period": "annual",
+        "period_end": null,
+        "currency": null
+      },
+      {
+        "field": "pe",
+        "operator": "lt",
+        "value": 30.0,
+        "period": "ttm",
+        "period_end": null,
+        "currency": null
+      }
+    ],
+    "sort_by": "market_cap",
+    "sort_period": "snapshot",
+    "sort_desc": true,
+    "limit": 20
+  },
+  "stocks": [],
+  "total_count": 0,
+  "page": 1,
+  "page_size": 20,
+  "data_as_of": "2026-10-17T15:02:37.576630+00:00",
+  "universe_count": 8,
+  "warnings": [
+    "Screening covers the imported stock universe, not every exchange listing. Missing or incompatible metric values do not match numeric filters.",
+    "Monetary sorting uses INR values; incompatible reporting currencies are excluded."
+  ],
+  "clarification": null,
+  "cached": false,
+  "execution_ms": 342.46
+}

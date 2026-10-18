@@ -1,0 +1,371 @@
+{
+  "financialEvidenceOnly": true,
+  "symbol": "MTARTECH.NS",
+  "exchange": "NSE",
+  "retrievedAt": "2026-10-17T13:52:55.875438+00:00",
+  "evidenceCount": 72,
+  "quality": {
+    "coverage": "available",
+    "checkedCalculations": 17,
+    "providerMetrics": 54,
+    "annualPeriods": 4,
+    "quarterlyPeriods": 5,
+    "issues": [
+      {
+        "code": "unknown_provider_ttm_end",
+        "severity": "low",
+        "text": "Provider trailing ratios have no exact period end and cannot be directly reconciled with fiscal-year calculations.",
+        "evidenceIds": []
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "id": "E3",
+      "label": "Market capitalization",
+      "value": 216993546240.0,
+      "unit": "currency",
+      "currency": "INR",
+      "period": "Provider snapshot retrieved 2026-10-17",
+      "sourceId": "statistics",
+      "formula": null,
+      "inputs": [],
+      "kind": "provider",
+      "periodType": "snapshot",
+      "periodEnd": null,
+      "operation": null,
+      "sourceField": "marketCap",
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E4",
+      "label": "Trailing P/E",
+      "value": 162.58354,
+      "unit": "times",
+      "currency": null,
+      "period": "TTM (provider); exact period end unavailable",
+      "sourceId": "statistics",
+      "formula": null,
+      "inputs": [],
+      "kind": "provider",
+      "periodType": "ttm",
+      "periodEnd": null,
+      "operation": null,
+      "sourceField": "trailingPE",
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E5",
+      "label": "Trailing EPS",
+      "value": 43.39,
+      "unit": "currency",
+      "currency": "INR",
+      "period": "TTM (provider); exact period end unavailable",
+      "sourceId": "statistics",
+      "formula": null,
+      "inputs": [],
+      "kind": "provider",
+      "periodType": "ttm",
+      "periodEnd": null,
+      "operation": null,
+      "sourceField": "trailingEps",
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E9",
+      "label": "Net profit margin",
+      "value": 10.865483,
+      "unit": "percent",
+      "currency": null,
+      "period": "FY ending 2026-03-31",
+      "sourceId": "income",
+      "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+      "inputs": [
+        "E7",
+        "E6"
+      ],
+      "kind": "calculated",
+      "periodType": "annual",
+      "periodEnd": "2026-03-31",
+      "operation": "percent_ratio",
+      "sourceField": null,
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E24",
+      "label": "Quarterly net profit margin",
+      "value": 14.112989,
+      "unit": "percent",
+      "currency": null,
+      "period": "Quarter ending 2026-06-30",
+      "sourceId": "quarterly",
+      "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+      "inputs": [
+        "E23",
+        "E22"
+      ],
+      "kind": "calculated",
+      "periodType": "quarterly",
+      "periodEnd": "2026-06-30",
+      "operation": "percent_ratio",
+      "sourceField": null,
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E65",
+      "label": "Operating margin",
+      "value": 15.736173,
+      "unit": "percent",
+      "currency": null,
+      "period": "FY ending 2026-03-31",
+      "sourceId": "income",
+      "formula": "Annual operating income \u00f7 annual revenue \u00d7 100",
+      "inputs": [
+        "E8",
+        "E6"
+      ],
+      "kind": "calculated",
+      "periodType": "annual",
+      "periodEnd": "2026-03-31",
+      "operation": "percent_ratio",
+      "sourceField": null,
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E66",
+      "label": "Annual revenue growth",
+      "value": 30.204801,
+      "unit": "percent",
+      "currency": null,
+      "period": "2026-03-31 vs 2025-03-31",
+      "sourceId": "income",
+      "formula": "(Latest annual revenue \u00f7 previous annual revenue \u2212 1) \u00d7 100",
+      "inputs": [
+        "E6",
+        "E10"
+      ],
+      "kind": "calculated",
+      "periodType": "comparison",
+      "periodEnd": "2026-03-31",
+      "operation": "growth",
+      "sourceField": null,
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E67",
+      "label": "Free cash flow",
+      "value": 633000000.0,
+      "unit": "currency",
+      "currency": "INR",
+      "period": "FY ending 2026-03-31",
+      "sourceId": "cashflow",
+      "formula": "Operating cash flow \u2212 absolute capital expenditure",
+      "inputs": [
+        "E57",
+        "E58"
+      ],
+      "kind": "calculated",
+      "periodType": "annual",
+      "periodEnd": "2026-03-31",
+      "operation": "fcf",
+      "sourceField": null,
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E68",
+      "label": "Free cash flow margin",
+      "value": 7.314528,
+      "unit": "percent",
+      "currency": null,
+      "period": "FY ending 2026-03-31",
+      "sourceId": "cashflow",
+      "formula": "Free cash flow \u00f7 same-period annual revenue \u00d7 100",
+      "inputs": [
+        "E67",
+        "E6"
+      ],
+      "kind": "calculated",
+      "periodType": "annual",
+      "periodEnd": "2026-03-31",
+      "operation": "percent_ratio",
+      "sourceField": null,
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E69",
+      "label": "Annual return on equity",
+      "value": 12.121134,
+      "unit": "percent",
+      "currency": null,
+      "period": "FY ending 2026-03-31",
+      "sourceId": "income",
+      "formula": "Annual net income \u00f7 average of beginning/end shareholders equity \u00d7 100",
+      "inputs": [
+        "E7",
+        "E39",
+        "E44"
+      ],
+      "kind": "calculated",
+      "periodType": "annual",
+      "periodEnd": "2026-03-31",
+      "operation": "roe",
+      "sourceField": null,
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E70",
+      "label": "Current ratio",
+      "value": 1.552221,
+      "unit": "times",
+      "currency": null,
+      "period": "Balance sheet ending 2026-03-31",
+      "sourceId": "balance",
+      "formula": "Current assets \u00f7 current liabilities",
+      "inputs": [
+        "E40",
+        "E41"
+      ],
+      "kind": "calculated",
+      "periodType": "instant",
+      "periodEnd": "2026-03-31",
+      "operation": "ratio",
+      "sourceField": null,
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E71",
+      "label": "Debt to equity",
+      "value": 0.457781,
+      "unit": "times",
+      "currency": null,
+      "period": "Balance sheet ending 2026-03-31",
+      "sourceId": "balance",
+      "formula": "Total debt \u00f7 shareholders equity",
+      "inputs": [
+        "E37",
+        "E39"
+      ],
+      "kind": "calculated",
+      "periodType": "instant",
+      "periodEnd": "2026-03-31",
+      "operation": "ratio",
+      "sourceField": null,
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    },
+    {
+      "id": "E72",
+      "label": "Net debt",
+      "value": 3755690000.0,
+      "unit": "currency",
+      "currency": "INR",
+      "period": "Balance sheet ending 2026-03-31",
+      "sourceId": "balance",
+      "formula": "Total debt \u2212 cash and cash equivalents; negative means net cash",
+      "inputs": [
+        "E37",
+        "E38"
+      ],
+      "kind": "calculated",
+      "periodType": "instant",
+      "periodEnd": "2026-03-31",
+      "operation": "subtract",
+      "sourceField": null,
+      "symbol": "MTARTECH.NS",
+      "exchange": "NSE"
+    }
+  ],
+  "trends": [
+    {
+      "period": "FY ending 2026-03-31",
+      "periodEnd": "2026-03-31",
+      "periodType": "annual",
+      "revenueId": "E6",
+      "netIncomeId": "E7",
+      "netMarginId": "E9"
+    },
+    {
+      "period": "FY ending 2025-03-31",
+      "periodEnd": "2025-03-31",
+      "periodType": "annual",
+      "revenueId": "E10",
+      "netIncomeId": "E11",
+      "netMarginId": "E13"
+    },
+    {
+      "period": "FY ending 2024-03-31",
+      "periodEnd": "2024-03-31",
+      "periodType": "annual",
+      "revenueId": "E14",
+      "netIncomeId": "E15",
+      "netMarginId": "E17"
+    },
+    {
+      "period": "FY ending 2023-03-31",
+      "periodEnd": "2023-03-31",
+      "periodType": "annual",
+      "revenueId": "E18",
+      "netIncomeId": "E19",
+      "netMarginId": "E21"
+    },
+    {
+      "period": "FY ending 2022-03-31",
+      "periodEnd": "2022-03-31",
+      "periodType": "annual",
+      "revenueId": null,
+      "netIncomeId": null,
+      "netMarginId": null
+    },
+    {
+      "period": "Quarter ending 2026-06-30",
+      "periodEnd": "2026-06-30",
+      "periodType": "quarterly",
+      "revenueId": "E22",
+      "netIncomeId": "E23",
+      "netMarginId": "E24"
+    },
+    {
+      "period": "Quarter ending 2026-03-31",
+      "periodEnd": "2026-03-31",
+      "periodType": "quarterly",
+      "revenueId": "E25",
+      "netIncomeId": "E26",
+      "netMarginId": "E27"
+    },
+    {
+      "period": "Quarter ending 2025-12-31",
+      "periodEnd": "2025-12-31",
+      "periodType": "quarterly",
+      "revenueId": "E28",
+      "netIncomeId": "E29",
+      "netMarginId": "E30"
+    },
+    {
+      "period": "Quarter ending 2025-06-30",
+      "periodEnd": "2025-06-30",
+      "periodType": "quarterly",
+      "revenueId": "E31",
+      "netIncomeId": "E32",
+      "netMarginId": "E33"
+    },
+    {
+      "period": "Quarter ending 2025-03-31",
+      "periodEnd": "2025-03-31",
+      "periodType": "quarterly",
+      "revenueId": "E34",
+      "netIncomeId": "E35",
+      "netMarginId": "E36"
+    }
+  ]
+}

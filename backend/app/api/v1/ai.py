@@ -1,6 +1,11 @@
 """AI / RAG / agent endpoints."""
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
+
+from app.dependencies import require_user
+from app.models.user import User
+from app.schemas.ai import AnalysisRequest, StockAnalysisReport
+from app.services.ai.stock_analysis_service import analyze_stock
 
 router = APIRouter(prefix="/ai", tags=["ai"])
 
@@ -23,23 +28,15 @@ async def chat(payload: ChatRequest) -> dict:
     }
 
 
+@router.post("/analyze", response_model=StockAnalysisReport)
+async def analyze(payload: AnalysisRequest, _user: User = Depends(require_user)) -> StockAnalysisReport:
+    return await analyze_stock(payload.symbol)
+
+
 @router.get("/summary/{symbol}")
-async def ai_summary(symbol: str) -> dict:
-    return {
-        "symbol": symbol,
-        "summary": (
-            "Apple Inc. is a global technology leader specializing in iPhone, Mac, iPad, "
-            "Wearables and Services. Strong brand, high customer loyalty and consistent "
-            "financial performance drive long-term value."
-        ),
-        "keyPoints": [
-            "Strong ecosystem and brand loyalty",
-            "Services segment growing rapidly",
-            "Robust cash flows and profitability",
-            "Exposure to China remains a key risk",
-            "Innovation in AI and wearables to watch",
-        ],
-    }
+async def ai_summary(symbol: str, _user: User = Depends(require_user)) -> dict:
+    report = await analyze_stock(symbol)
+    return {**report.model_dump(mode="json"), "summary": "\n\n".join(item.text for item in report.research.summary), "keyPoints": [item.text for item in report.research.strengths]}
 
 
 @router.get("/recommendations/{symbol}")

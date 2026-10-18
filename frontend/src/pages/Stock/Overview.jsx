@@ -1,4 +1,3 @@
-import { Pencil } from 'lucide-react'
 import MetricsCard from '@/components/stock/MetricsCard'
 import StockChart from '@/components/stock/StockChart'
 
@@ -29,7 +28,7 @@ const Overview = ({ metrics = [], chartData = [], stock }) => {
 
       </div>
 
-      <StockChart symbol={stock?.symbol} exchange={stock?.exchange} initialData={chartData} />
+      <StockChart symbol={stock?.symbol} currency={stock?.currency} timeZone={stock?.timeZone} initialData={chartData} />
     </section>
   )
 }

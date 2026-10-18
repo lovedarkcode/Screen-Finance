@@ -22,9 +22,10 @@ const stockService = {
     return response.data
   },
   getChart: async (symbol, range = '1Yr') => {
-    const response = await api.get(`/stocks/${symbol}/chart`, { params: { range } })
+    const response = await api.get(`/stocks/${symbol}/chart`, { params: { range, indicators: true }, timeout: 30000 })
     return response.data
   },
+  getPeHistory: async (symbol) => (await api.get(`/stocks/${symbol}/pe-history`)).data,
   getQuarters: async (symbol) => {
     const response = await api.get(`/stocks/${symbol}/quarters`)
     return response.data
