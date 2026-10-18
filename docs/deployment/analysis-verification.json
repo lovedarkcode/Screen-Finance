@@ -1,0 +1,9 @@
+{
+  "check": "Full Nebius stock analysis",
+  "passed": true,
+  "http": 200,
+  "provider": "Nebius",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "seconds": 11.6,
+  "temporary_account_removed": true
+}

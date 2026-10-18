@@ -1,0 +1,88 @@
+{
+  "url": "https://assest-hunter.vercel.app",
+  "checks": [
+    {
+      "check": "/",
+      "passed": true
+    },
+    {
+      "check": "/feed",
+      "passed": true
+    },
+    {
+      "check": "Hosted database health",
+      "passed": true
+    },
+    {
+      "check": "Registration",
+      "passed": true,
+      "detail": 201
+    },
+    {
+      "check": "Login",
+      "passed": true,
+      "detail": 200
+    },
+    {
+      "check": "Authenticated user",
+      "passed": true
+    },
+    {
+      "check": "Watchlist save",
+      "passed": true
+    },
+    {
+      "check": "Watchlist persistence",
+      "passed": true
+    },
+    {
+      "check": "Watchlist removal",
+      "passed": true
+    },
+    {
+      "check": "Database stock screening",
+      "passed": true,
+      "detail": {
+        "status": 200,
+        "matches": 16
+      }
+    },
+    {
+      "check": "Nebius AI screening",
+      "passed": true,
+      "detail": {
+        "http": 200,
+        "status": "success",
+        "matches": 16
+      }
+    },
+    {
+      "check": "Deployed screener uses shared Redis",
+      "passed": true
+    },
+    {
+      "check": "Live quote AAPL",
+      "passed": true,
+      "detail": 200
+    },
+    {
+      "check": "Live quote RELIANCE.NS",
+      "passed": true,
+      "detail": 200
+    },
+    {
+      "check": "Live quote ^NSEI",
+      "passed": true,
+      "detail": 200
+    },
+    {
+      "check": "Price chart with daily averages",
+      "passed": true,
+      "detail": 200
+    },
+    {
+      "check": "Temporary verification account cleaned up",
+      "passed": true
+    }
+  ]
+}
