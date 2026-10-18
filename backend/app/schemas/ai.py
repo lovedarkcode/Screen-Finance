@@ -112,7 +112,7 @@ class StockAnalysisReport(BaseModel):
     financialCurrency: str | None
     generatedAt: datetime
     quoteAsOf: str | None
-    provider: Literal["NVIDIA"] = "NVIDIA"
+    provider: Literal["NVIDIA", "Nebius"] = "NVIDIA"
     model: str
     cached: bool = False
     research: ResearchDraft

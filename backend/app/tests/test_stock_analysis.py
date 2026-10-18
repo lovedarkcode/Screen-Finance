@@ -180,7 +180,7 @@ def test_http_success_with_error_event_retries_without_exposing_partial_content(
             asyncio.run(agent._nvidia_research({}, report().evidence))
         assert exc.value.status_code == 503 and exc.value.headers["Retry-After"] == "30"
         assert "Unverified" not in exc.value.detail
-    assert len(calls) == 2 and "NVIDIA stream failed" in caplog.text
+    assert len(calls) == 2 and "AI provider stream failed" in caplog.text
     assert "isolated-nvidia-key" not in caplog.text and "Unverified" not in caplog.text
 
 
@@ -262,3 +262,9 @@ def test_authenticated_endpoint_and_legacy_summary_use_real_report(monkeypatch):
         assert summary["summary"] == report().research.summary[0].text and seen == ["AAPL", "AAPL"]
     finally:
         app.dependency_overrides.pop(require_user, None)
+
+
+@pytest.fixture(autouse=True)
+def isolate_legacy_provider(monkeypatch):
+    from app.config import settings
+    monkeypatch.setattr(settings, "NEBIUS_API_KEY", None)

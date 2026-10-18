@@ -418,3 +418,9 @@ def test_indian_natural_query_cannot_acquire_an_unmentioned_energy_sector(datase
     screen, _ = validate_screen(draft, query)
     matches, total = rows(dataset, screen)
     assert total == 1 and matches[0]["symbol"] == "INDA.NS" and screen.sector is None
+
+
+@pytest.fixture(autouse=True)
+def isolate_legacy_provider(monkeypatch):
+    from app.config import settings
+    monkeypatch.setattr(settings, "NEBIUS_API_KEY", None)

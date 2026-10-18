@@ -43,6 +43,30 @@ class Settings(BaseSettings):
     NVIDIA_API_KEY: SecretStr | None = None
     NVIDIA_MODEL: str = "nvidia/nemotron-3-ultra-550b-a55b"
     NVIDIA_SCREENER_MODEL: str | None = None
+    NEBIUS_API_KEY: SecretStr | None = None
+    NEBIUS_BASE_URL: str = "https://api.tokenfactory.us-central1.nebius.com/v1/"
+    NEBIUS_MODEL: str = "nvidia/nemotron-3-super-120b-a12b"
+
+    @property
+    def ai_provider(self) -> str:
+        return "Nebius" if self.NEBIUS_API_KEY and self.NEBIUS_API_KEY.get_secret_value().strip() else "NVIDIA"
+
+    @property
+    def ai_api_key(self) -> SecretStr | None:
+        return self.NEBIUS_API_KEY if self.ai_provider == "Nebius" else self.NVIDIA_API_KEY
+
+    @property
+    def ai_base_url(self) -> str:
+        return self.NEBIUS_BASE_URL if self.ai_provider == "Nebius" else "https://integrate.api.nvidia.com/v1"
+
+    @property
+    def ai_model(self) -> str:
+        return self.NEBIUS_MODEL if self.ai_provider == "Nebius" else self.NVIDIA_MODEL
+
+    @property
+    def screener_model(self) -> str:
+        return self.NEBIUS_MODEL if self.ai_provider == "Nebius" else self.NVIDIA_SCREENER_MODEL or self.NVIDIA_MODEL
+
     FINNHUB_API_KEY: str | None = None
     ALPHA_VANTAGE_API_KEY: str | None = None
     POLYGON_API_KEY: str | None = None

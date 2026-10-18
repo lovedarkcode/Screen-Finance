@@ -1,4 +1,4 @@
-"""NVIDIA parses into data only; there is no SQL/tool execution in this module."""
+"""The AI provider parses into data only; there is no SQL/tool execution here."""
 import asyncio
 import json
 from fastapi import HTTPException
@@ -34,16 +34,16 @@ Return unresolved_conditions as [] only if EVERY condition was represented faith
 
 async def parse_query(query):
     guard_query(query)
-    model = settings.NVIDIA_SCREENER_MODEL or settings.NVIDIA_MODEL
-    key = cache.key_for("parse", {"query": query.strip(), "model": model})
+    model = settings.screener_model
+    key = cache.key_for("parse", {"query": query.strip(), "model": model, "endpoint": settings.ai_base_url})
     saved = await cache.get(key)
     if saved:
         return ParsedScreen.model_validate(saved)
-    if not settings.NVIDIA_API_KEY or not settings.NVIDIA_API_KEY.get_secret_value().strip():
-        raise HTTPException(503, "The NVIDIA screener is not configured. Please contact the administrator.")
+    if not settings.ai_api_key or not settings.ai_api_key.get_secret_value().strip():
+        raise HTTPException(503, "The AI screener is not configured. Please contact the administrator.")
     context = {"supported_metrics": METRICS, "unsupported": UNSUPPORTED, "sectors": SECTORS, "schema": ParsedScreen.model_json_schema()}
     try:
-        async with asyncio.timeout(60), AsyncOpenAI(base_url="https://integrate.api.nvidia.com/v1", api_key=settings.NVIDIA_API_KEY.get_secret_value(), http_client=DefaultAsyncHttpxClient(follow_redirects=False), max_retries=0, timeout=55) as client:
+        async with asyncio.timeout(60), AsyncOpenAI(base_url=settings.ai_base_url, api_key=settings.ai_api_key.get_secret_value(), http_client=DefaultAsyncHttpxClient(follow_redirects=False), max_retries=0, timeout=55) as client:
             stream = await client.chat.completions.create(model=model, messages=[{"role": "system", "content": PROMPT + "\n" + json.dumps(context)}, {"role": "user", "content": query}], temperature=.1, max_tokens=4096, extra_body={"chat_template_kwargs": {"enable_thinking": False}}, stream=True)
             parts, finish = [], None
             async with stream:
@@ -62,7 +62,7 @@ async def parse_query(query):
             raise ValueError("Incomplete response")
         parsed = ParsedScreen.model_validate_json(content)
     except (TimeoutError, APIError):
-        raise HTTPException(503, "NVIDIA could not interpret the screen right now. Please retry, or use the editable financial filters.") from None
+        raise HTTPException(503, "The AI provider could not interpret the screen right now. Please retry, or use the editable financial filters.") from None
     except (ValueError, ValidationError, TypeError, AttributeError):
         raise HTTPException(502, "The AI filter interpretation could not be verified. Please restate the request.") from None
     # Cache only parsed data, never credentials, reasoning deltas or raw provider errors.
