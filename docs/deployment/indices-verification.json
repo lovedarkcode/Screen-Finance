@@ -1,0 +1,14 @@
+{
+  "url": "https://assest-hunter.vercel.app",
+  "indices": [
+    "SENSEX",
+    "NIFTY 50",
+    "NASDAQ Composite",
+    "S&P 500"
+  ],
+  "liveQuotes": true,
+  "chartSwitching": true,
+  "marketTimeZones": true,
+  "mobileOverflow": false,
+  "runtimeErrors": []
+}

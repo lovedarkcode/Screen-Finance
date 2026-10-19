@@ -14,8 +14,10 @@ import { EmptyState, PriceChange, SectionTitle } from '@/components/stock/StockU
 import { money, marketTime, number } from '@/components/stock/stock-format'
 
 const INDICES = [
-  { symbol: '^NSEI', name: 'NIFTY 50' }, { symbol: '^BSESN', name: 'SENSEX' },
-  { symbol: '^NSEBANK', name: 'BANK NIFTY' }, { symbol: '^CNXIT', name: 'NIFTY IT' },
+  { symbol: '^BSESN', name: 'SENSEX', currency: 'INR', timeZone: 'Asia/Kolkata' },
+  { symbol: '^NSEI', name: 'NIFTY 50', currency: 'INR', timeZone: 'Asia/Kolkata' },
+  { symbol: '^IXIC', name: 'NASDAQ', currency: 'USD', timeZone: 'America/New_York' },
+  { symbol: '^GSPC', name: 'S&P 500', currency: 'USD', timeZone: 'America/New_York' },
 ]
 const STOCKS = ['RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS', 'INFY.NS', 'ICICIBANK.NS', 'TATAMOTORS.NS', 'SBIN.NS', 'BHARTIARTL.NS']
 
@@ -59,17 +61,17 @@ export default function HomePage() {
   const movers = stocks.filter(stock => tab === 'gainers' ? stock.changePercent > 0 : tab === 'losers' ? stock.changePercent < 0 : true)
     .sort((a, b) => tab === 'losers' ? a.changePercent - b.changePercent : tab === 'gainers' ? b.changePercent - a.changePercent : a.name.localeCompare(b.name))
   return <>
-    <section className="market-hero"><div className="stock-container"><div className="market-heading-row"><div><p className="market-eyebrow">Discover / Feed</p><h1>Your market, at a glance</h1><p className="market-description">Follow Indian benchmarks, explore company performance and move from the market view to the details that matter.</p></div><Button variant="outline" size="sm" className="stock-button" onClick={refresh} disabled={loading}><RefreshCw size={14} />Refresh market</Button></div></div></section>
+    <section className="market-hero"><div className="stock-container"><div className="market-heading-row"><div><p className="market-eyebrow">Discover / Feed</p><h1>Your market, at a glance</h1><p className="market-description">Follow Indian and US benchmarks, explore company performance and move from the market view to the details that matter.</p></div><Button variant="outline" size="sm" className="stock-button" onClick={refresh} disabled={loading}><RefreshCw size={14} />Refresh market</Button></div></div></section>
     {screenerOpen && <div ref={screenerRef} style={{ scrollMarginTop: 110 }}><NaturalLanguageScreener /></div>}
     <section className="stock-section stock-band-alt"><div className="stock-container"><SectionTitle extra={<span className="stock-source-note">Select an index to explore its history</span>}>Market Overview</SectionTitle>
       <div className="market-index-grid">{INDICES.map(index => {
         const quote = quotes[index.symbol]
-        return <Card asChild><button className="market-card market-index-card" key={index.symbol} aria-pressed={benchmark.symbol === index.symbol} onClick={() => setBenchmark(index)}><span>{index.name}</span>
-          {!quote ? <Skeleton className="sk" style={{ height: 63, marginTop: 10 }} aria-label={`Loading ${index.name}`} /> : <><strong>{number(quote.price)}</strong><PriceChange value={quote.changePercent} /><small>{quote.error || quote.price == null ? 'Quote unavailable · try refresh' : quote.date ? marketTime(quote.date) : 'Latest provider quote · may be delayed'}</small></>}
+        return <Card key={index.symbol} asChild><button className="market-card market-index-card" aria-pressed={benchmark.symbol === index.symbol} onClick={() => setBenchmark(index)}><span>{index.name}</span>
+          {!quote ? <Skeleton className="sk" style={{ height: 63, marginTop: 10 }} aria-label={`Loading ${index.name}`} /> : <><strong>{number(quote.price)}</strong><PriceChange value={quote.changePercent} /><small>{quote.error || quote.price == null ? 'Quote unavailable · try refresh' : quote.date ? marketTime(quote.date, quote.timeZone || index.timeZone) : 'Latest provider quote · may be delayed'}</small></>}
         </button></Card>
       })}</div>
     </div></section>
-    <StockChart key={`${benchmark.symbol}-${attempt}`} symbol={benchmark.symbol} title={`${benchmark.name} Performance`} />
+    <StockChart key={`${benchmark.symbol}-${attempt}`} symbol={benchmark.symbol} currency={benchmark.currency} timeZone={benchmark.timeZone} title={`${benchmark.name} Performance`} />
     <section className="stock-section stock-band-alt"><div className="stock-container market-grid">
       <Card className="market-card"><SectionTitle>Market Movers</SectionTitle><Segmented className="market-tabs" label="Market mover filters" value={tab} onChange={setTab} options={[['all', 'All tracked'], ['gainers', 'Gainers'], ['losers', 'Losers']].map(([value, label]) => ({ value, label }))} />
         <p className="stock-source-note" style={{ marginBottom: 16 }}>A curated sample of eight companies. All tracked is ordered by company name.</p>
