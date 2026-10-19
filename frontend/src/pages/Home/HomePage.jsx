@@ -5,9 +5,9 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { ArrowRight, Layers, Newspaper, RefreshCw } from 'lucide-react'
+import { ArrowRight, Layers, RefreshCw } from 'lucide-react'
 import stockService from '@/services/stock.service'
-import api from '@/services/api'
+import MarketNews from '@/components/news/MarketNews'
 import StockChart from '@/components/stock/StockChart'
 import NaturalLanguageScreener from '@/components/screener/NaturalLanguageScreener'
 import { EmptyState, PriceChange, SectionTitle } from '@/components/stock/StockUI'
@@ -34,7 +34,6 @@ export default function HomePage() {
   const [benchmark, setBenchmark] = useState(INDICES[0])
   const [tab, setTab] = useState('all')
   const [sectors, setSectors] = useState({ items: [], loading: true, error: false })
-  const [news, setNews] = useState({ items: [], loading: true, error: false })
   useEffect(() => {
     let live = true
     Promise.allSettled([...INDICES.map(index => index.symbol), ...STOCKS].map(async symbol => {
@@ -49,11 +48,9 @@ export default function HomePage() {
     let live = true
     stockService.getSectors().then(items => { if (live) setSectors({ items, loading: false, error: false }) })
       .catch(() => { if (live) setSectors({ items: [], loading: false, error: true }) })
-    api.get('/news').then(({ data }) => { if (live) setNews({ items: data.items || [], loading: false, error: false }) })
-      .catch(() => { if (live) setNews({ items: [], loading: false, error: true }) })
     return () => { live = false }
   }, [attempt])
-  const refresh = () => { setQuotes({}); setLoading(true); setSectors({ items: [], loading: true, error: false }); setNews({ items: [], loading: true, error: false }); setAttempt(value => value + 1) }
+  const refresh = () => { setQuotes({}); setLoading(true); setSectors({ items: [], loading: true, error: false }); setAttempt(value => value + 1) }
   const stocks = STOCKS.map(symbol => quotes[symbol]).filter(quote => quote?.price != null && !quote.error)
   const measured = stocks.filter(stock => stock.changePercent != null)
   const advances = measured.filter(stock => stock.changePercent > 0).length
@@ -88,7 +85,7 @@ export default function HomePage() {
     <section className="stock-section"><div className="stock-container"><SectionTitle extra={<Link className="market-link" to="/screens">Open Screener<ArrowRight size={14} /></Link>}>Explore Sectors</SectionTitle>
       {sectors.loading ? <div className="market-loading" aria-label="Loading sectors" aria-busy="true"><Skeleton className="sk" /></div> : sectors.error ? <EmptyState error onRetry={refresh}>Sector discovery is temporarily unavailable.</EmptyState> : !sectors.items.length ? <EmptyState>No market sectors available.</EmptyState> : <div className="market-sector-grid">{sectors.items.map(sector => <Card asChild><Link key={sector.id} className="market-card market-sector-card" to={`/screens?sector=${encodeURIComponent(sector.id)}`}><Layers size={18} /><span><strong>{sector.name}</strong><small>{sector.tickerCount} companies</small></span><ArrowRight size={14} /></Link></Card>)}</div>}
     </div></section>
-    <section className="stock-section stock-band"><div className="stock-container"><SectionTitle>Market News</SectionTitle>{news.loading ? <div className="market-loading" aria-label="Loading market news" aria-busy="true"><Skeleton className="sk" /></div> : news.error ? <EmptyState error onRetry={refresh}>Market news is temporarily unavailable.</EmptyState> : news.items.length ? <div className="market-sector-grid">{news.items.map((item, index) => <Card asChild><article className="market-card" key={item.id || index}><h3>{item.title}</h3><p className="stock-source-note">{item.source}</p></article></Card>)}</div> : <div className="market-news-empty"><Newspaper size={24} /><strong>No market stories available yet</strong><p>Latest stories will appear here when available from your news feed.</p></div>}</div></section>
+    <MarketNews key={attempt} />
     <footer className="stock-source-footer stock-container">Asset Hunter · Market data: Yahoo Finance / yfinance. Quotes may be delayed. Refresh to request the latest available data.</footer>
   </>
 }

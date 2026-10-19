@@ -41,6 +41,11 @@
 .market-table-actions { display: flex; justify-content: flex-end; align-items: center; gap: 4px; }
 .market-table-actions button[aria-pressed="true"] { color: var(--stock-accent); }
 .market-sector-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.market-news-card { text-decoration: none; gap: 14px; }
+.market-news-card h3 { font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+.market-news-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; font-size: 11px; color: var(--stock-muted); }
+.market-news-card .market-link { margin-top: auto; }
+@media (max-width: 540px) { .market-sector-grid:has(.market-news-card) { grid-template-columns: 1fr; } }
 .market-sector-card { display: flex; flex-direction: row; align-items: center; gap: 12px; }
 .market-sector-card:hover { border-color: var(--stock-accent-border); }
 .market-sector-card > svg:first-child { color: var(--stock-accent); }
