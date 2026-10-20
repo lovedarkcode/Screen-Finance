@@ -65,9 +65,10 @@ When prompted, use the repository root as the project directory. Vercel will rea
 Vercel does not run the Docker services from `docker-compose.yml`. Use hosted services for Postgres, Redis, and Qdrant, then put their connection URLs in Vercel environment variables.
 
 Only PostgreSQL and Redis are used by the current deployed API paths; Qdrant and
-Celery workers are not running on Vercel. Background pipelines in the existing
-admin API remain placeholders. Stock screening initially contains the existing
-16 stocks and 173 financial records, not a complete exchange-wide universe.
+Celery workers are not running on Vercel. Quarterly results have a separate,
+implemented worker: it must run on a persistent host against the same production
+database. Vercel does not start it from Docker Compose. The screener's original
+sixteen-symbol metric import is separate from the quarterly exchange catalog.
 The new database starts with fresh user accounts. Local test accounts were not
 copied. Google OAuth's authorized origins must include the production domain in
 the Google Cloud console; email/password sign-in is independently verified.
@@ -77,6 +78,55 @@ Migrations are applied explicitly with `alembic upgrade head` using a hosted
 function startup. To refresh public screening data, run
 `python ../scripts/refresh_screener.py` from `backend/` with the hosted connection
 set in the shell. This updates only the imported stock universe.
+
+## Quarterly results returning HTTP 503
+
+The database health endpoint tests connectivity with `SELECT 1`; it does not
+verify the feature's schema. A healthy database can still lack newly deployed
+tables or columns. The results endpoint uses the shared screening database
+dependency, which is why older deployments report "The screening database is
+unavailable" for these schema failures too.
+
+On 20 October 2026, production was still at revision `a31f70d293c1`, while the
+local backend used a different, already migrated database. Production lacked
+`quarterly_results`, `quarterly_poll_state` and `result_listings`. Applying the
+four additive migrations through `e0c42b5138df` fixed the live 503. Authenticated
+checks of `/api/v1/results?page_size=12` and the `/api/results/latest` alias
+returned 200. See [the production verification](docs/deployment/results-database-verification.json).
+
+Before using a newly deployed database feature, set `DATABASE_URL` in the
+operator terminal to the **production** database, preferably its unpooled URL
+for migrations, then run from `backend/`:
+
+```powershell
+$env:DEBUG = 'false'
+python -m alembic current
+python -m alembic upgrade head
+```
+
+Running this against the URL in a developer's `backend/.env` does not migrate a
+different Vercel database. `vercel env pull` can help retrieve configuration,
+but sensitive values may be replaced by `[SENSITIVE]`; those markers are not
+usable credentials. Keep downloaded environment files ignored and never print
+connection strings or keys into logs.
+
+After migrations, an empty results catalog means ingestion has not populated
+that database yet. Start the worker on a persistent host with the production
+`DATABASE_URL` and the appropriate server-side Nebius configuration:
+
+```powershell
+python -m app.workers.quarterly_results_worker --bootstrap
+```
+
+This discovers exchange catalogs, fetches Yahoo statements in paced batches,
+and then follows the 15-minute schedule. A worker writing to a local database
+will not update the production UI. Read requests do not launch ingestion.
+See [worker settings, coverage and API details](docs/quarterly-results/PIPELINE.md).
+
+The shared database dependency now logs exception type and SQLSTATE without SQL,
+parameters or credentials. Missing-table/column errors (`42P01`, `42703`) return
+an explicit migration instruction after deploying the updated code. The live
+schema repair itself does not require a redeploy.
 
 The root requirements file contains only packages needed by deployed API routes.
 The full backend requirements include local tooling and workers and should not

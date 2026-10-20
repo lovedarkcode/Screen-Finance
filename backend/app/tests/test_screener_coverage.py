@@ -8,9 +8,9 @@ from datetime import UTC, date, datetime
 from types import SimpleNamespace
 
 import pytest
-from asyncpg import InvalidCatalogNameError
+from asyncpg import InvalidCatalogNameError, UndefinedColumnError, UndefinedTableError
 from fastapi.testclient import TestClient
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import ProgrammingError, SQLAlchemyError
 
 from app.main import app
 from app.api.v1 import screener as api
@@ -179,6 +179,26 @@ def test_database_errors_return_503_without_details(dataset, monkeypatch, error)
         response = TestClient(app).post("/api/v1/screener/execute", json={"screen": {}})
         assert response.status_code == 503 and "private" not in response.text
         assert "success" not in response.text
+    finally:
+        app.dependency_overrides.pop(require_user, None)
+
+
+@pytest.mark.parametrize("error_type", [UndefinedTableError, UndefinedColumnError])
+def test_missing_schema_reports_migration_action_without_leaking_sql(monkeypatch, caplog, error_type):
+    error = ProgrammingError("private SQL", {"password": "private secret"}, error_type("private provider error"))
+    class FailingSession:
+        bind = SimpleNamespace(dialect=SimpleNamespace(name="postgresql"))
+        async def __aenter__(self): return self
+        async def __aexit__(self, *args): return False
+        async def execute(self, *args): raise error
+    monkeypatch.setattr(api, "SessionLocal", FailingSession)
+    app.dependency_overrides[require_user] = lambda: SimpleNamespace(id=-2)
+    try:
+        response = TestClient(app).get("/api/v1/results?page_size=12")
+        assert response.status_code == 503
+        assert "alembic upgrade head" in response.json()["detail"]
+        assert error_type.sqlstate in caplog.text
+        assert "private" not in response.text + caplog.text
     finally:
         app.dependency_overrides.pop(require_user, None)
 

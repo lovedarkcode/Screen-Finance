@@ -1,4 +1,5 @@
 """Authenticated, read-only stock screening endpoints."""
+import logging
 from asyncpg import PostgresError
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import func, select, text
@@ -14,6 +15,7 @@ from app.services.screener.metrics import METRICS, SCHEMA_VERSION
 from app.services.screener.query_builder import market_expression
 
 router = APIRouter(prefix="/screener", tags=["screener"])
+logger = logging.getLogger("screen-finance.database")
 
 
 async def screening_db():
@@ -23,7 +25,13 @@ async def screening_db():
                 await session.execute(text("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY"))
                 await session.execute(text("SET LOCAL statement_timeout = '5000ms'"))
             yield session
-        except (SQLAlchemyError, PostgresError, OSError, TimeoutError):
+        except (SQLAlchemyError, PostgresError, OSError, TimeoutError) as error:
+            original = getattr(error, "orig", error)
+            sqlstate = getattr(original, "sqlstate", None)
+            # Exception strings/tracebacks may contain SQL, parameters or credentials.
+            logger.error("Read-only database request failed: error_type=%s sqlstate=%s", type(error).__name__, sqlstate)
+            if sqlstate in ("42P01", "42703"):
+                raise HTTPException(503, "The database schema is out of date. Run alembic upgrade head against the deployed DATABASE_URL.") from None
             raise HTTPException(503, "The screening database is unavailable. Please retry or contact the administrator.") from None
 
 

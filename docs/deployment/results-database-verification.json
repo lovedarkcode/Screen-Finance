@@ -1,0 +1,85 @@
+{
+  "checked_at": "2026-10-20T14:19:25.981892+00:00",
+  "url": "https://assest-hunter.vercel.app",
+  "root_cause": "Production database lacked quarterly-results migrations; local and production databases differ.",
+  "revision_before": "a31f70d293c1",
+  "revision_after": "e0c42b5138df",
+  "missing_tables_before": [
+    "quarterly_results",
+    "quarterly_poll_state",
+    "result_listings"
+  ],
+  "checks": [
+    {
+      "path": "/api/v1/results?page_size=12",
+      "status": 200,
+      "provider": "Yahoo Finance/yfinance",
+      "total": 15298,
+      "coverage": {
+        "listed": 15298,
+        "with_results": 0,
+        "pending": 15298,
+        "ready": 0,
+        "unavailable": 0,
+        "error": 0
+      },
+      "detail": null
+    },
+    {
+      "path": "/api/results/latest?page_size=12",
+      "status": 200,
+      "provider": "Yahoo Finance/yfinance",
+      "total": 15298,
+      "coverage": {
+        "listed": 15298,
+        "with_results": 0,
+        "pending": 15298,
+        "ready": 0,
+        "unavailable": 0,
+        "error": 0
+      },
+      "detail": null
+    },
+    {
+      "path": "/api/v1/results?market=IN&exchange=NSE&page_size=12",
+      "status": 200,
+      "provider": "Yahoo Finance/yfinance",
+      "total": 3200,
+      "coverage": {
+        "listed": 3200,
+        "with_results": 0,
+        "pending": 3200,
+        "ready": 0,
+        "unavailable": 0,
+        "error": 0
+      },
+      "detail": null
+    },
+    {
+      "path": "/api/v1/results?exchange=BSE&page_size=12",
+      "status": 200,
+      "provider": "Yahoo Finance/yfinance",
+      "total": 4960,
+      "coverage": {
+        "listed": 4960,
+        "with_results": 0,
+        "pending": 4960,
+        "ready": 0,
+        "unavailable": 0,
+        "error": 0
+      },
+      "detail": null
+    }
+  ],
+  "temporary_verification_account_removed": true,
+  "production_bootstrap": {
+    "completed_at": "2026-10-20T14:25:36.379701+00:00",
+    "catalog_listings": 15298,
+    "quarterly_records": 64,
+    "listings_with_results": 13,
+    "pending_listings": 15282,
+    "unavailable_listings": 3,
+    "mode": "One initial Yahoo batch; ongoing refresh requires a persistent worker targeting production DATABASE_URL."
+  },
+  "regression_tests_passed": 51
+}
