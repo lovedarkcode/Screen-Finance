@@ -1,0 +1,21 @@
+{
+  "nebius_configured": true,
+  "results": [
+    {
+      "ticker": "AAPL",
+      "error": "fmp_http_402"
+    },
+    {
+      "ticker": "MSFT",
+      "error": "fmp_http_402"
+    },
+    {
+      "ticker": "RELIANCE.NS",
+      "error": "fmp_http_402"
+    },
+    {
+      "ticker": "TATASTEEL.NS",
+      "error": "fmp_http_402"
+    }
+  ]
+}

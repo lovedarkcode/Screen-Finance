@@ -6,6 +6,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute'
 import StockPage from './pages/Stock/StockPage'
 import HomePage from './pages/Home/HomePage'
 import ScreenerPage from './pages/Screener/ScreenerPage'
+import QuarterlyResultsPage from './pages/Results/QuarterlyResultsPage'
+import LatestFilingsPage from './pages/Results/LatestFilingsPage'
 import PortfolioPage from './pages/Portfolio/PortfolioPage'
 import Watchlist from './pages/Portfolio/Watchlist'
 import AIChat from './pages/AI/AIChat'
@@ -29,6 +31,9 @@ const AppRoutes = () => {
           <Route path="/feed" element={<HomePage />} />
           <Route path="/stock/:symbol" element={<StockPage />} />
           <Route path="/screens" element={<ScreenerPage />} />
+          <Route path="/results" element={<LatestFilingsPage />} />
+          <Route path="/results/imported" element={<QuarterlyResultsPage />} />
+          <Route path="/results/latest" element={<LatestFilingsPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/ai" element={<AIChat />} />

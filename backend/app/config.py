@@ -5,7 +5,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import List
 
-from pydantic import Field, SecretStr
+from pydantic import AliasChoices, Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -21,6 +21,7 @@ class Settings(BaseSettings):
     API_V1_PREFIX: str = "/api/v1"
     ENVIRONMENT: str = Field(default="development")
     DEBUG: bool = Field(default=True)
+    PORT: int = Field(default=8000, ge=1, le=65535)
 
     BACKEND_CORS_ORIGINS: List[str] = Field(
         default_factory=lambda: [
@@ -46,6 +47,20 @@ class Settings(BaseSettings):
     NEBIUS_API_KEY: SecretStr | None = None
     NEBIUS_BASE_URL: str = "https://api.tokenfactory.us-central1.nebius.com/v1/"
     NEBIUS_MODEL: str = "nvidia/nemotron-3-super-120b-a12b"
+    FMP_API_KEY: SecretStr | None = Field(default=None, validation_alias=AliasChoices("FMP_API_KEY", "FMP"))
+    RESULTS_TICKERS: str = "RELIANCE.NS,TATASTEEL.NS,AAPL,MSFT"
+    RESULTS_AI_BATCH_SIZE: int = Field(default=8, ge=1, le=32)
+    RESULTS_BATCH_SIZE: int = Field(default=150, ge=1, le=200)
+    RESULTS_REQUEST_DELAY: float = Field(default=1.0, ge=0.5, le=30)
+    RESULTS_REFRESH_HOURS: int = Field(default=24, ge=6, le=168)
+
+    @field_validator("NEBIUS_BASE_URL", mode="before")
+    @classmethod
+    def resolve_nebius_website(cls, value):
+        # Marketing-site URLs are aliases, never destinations for API credentials.
+        if isinstance(value, str) and value.rstrip("/") in ("https://nebius.ai", "https://nebius.com"):
+            return "https://api.tokenfactory.us-central1.nebius.com/v1/"
+        return value
 
     @property
     def ai_provider(self) -> str:

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from sqlalchemy import DateTime, Float, Index, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, synonym
 
 from app.db.base import Base
 
@@ -14,6 +14,7 @@ class Stock(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     symbol: Mapped[str] = mapped_column(String(20), unique=True, index=True)
+    ticker = synonym("symbol")
     name: Mapped[str] = mapped_column(String(255))
     exchange: Mapped[str] = mapped_column(String(20))
     country: Mapped[str] = mapped_column(String(10))

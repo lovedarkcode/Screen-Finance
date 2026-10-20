@@ -190,7 +190,7 @@ def build_evidence(quote, snapshot, retrieved):
     annual_rows, quarter_rows, balance_rows, cash_rows, trends = {}, {}, {}, {}, []
     for source, periods, rows, fields, basis in [
         ("income", annual, annual_rows, [("Total Revenue", "Annual revenue"), ("Net Income", "Annual net income"), ("Operating Income", "Annual operating income")], "annual"),
-        ("quarterly", quarterly, quarter_rows, [("Total Revenue", "Quarterly revenue"), ("Net Income", "Quarterly net income")], "quarterly"),
+        ("quarterly", quarterly, quarter_rows, [("Total Revenue", "Quarterly revenue"), ("Net Income", "Quarterly net income"), ("EBITDA", "Quarterly EBITDA"), ("Diluted EPS", "Quarterly diluted EPS"), ("Basic EPS", "Quarterly basic EPS")], "quarterly"),
         ("balance", _periods(frames.get("balance"), retrieved), balance_rows, [("Total Debt", "Total debt"), ("Cash And Cash Equivalents", "Cash and cash equivalents"), ("Stockholders Equity", "Shareholders equity"), ("Current Assets", "Current assets"), ("Current Liabilities", "Current liabilities")], "instant"),
         ("cashflow", _periods(frames.get("cashflow"), retrieved), cash_rows, [("Operating Cash Flow", "Operating cash flow"), ("Capital Expenditure", "Capital expenditure")], "annual"),
     ]:

@@ -18,7 +18,7 @@ const Mainlayouts = () => {
     <div className="stock-detail" data-stock-theme={theme}>
       <StockToolbar theme={theme} setTheme={setTheme} />
       <main>
-        <Outlet />
+        <Outlet context={{ theme, setTheme }} />
       </main>
     </div>
   )

@@ -55,8 +55,8 @@ export default function StockToolbar({ stock, theme, setTheme }) {
   }
   return <>
     <header className="stock-toolbar"><div className="stock-container stock-toolbar-inner">
-      <Link className="stock-brand" to="/screens"><span className="stock-brand-mark"><img src="/assest-hunter.png" alt="" /></span><span>Asset Hunter</span></Link>
-      <nav className="market-navigation" aria-label="Main navigation"><NavLink to="/feed">Feed</NavLink><NavLink to="/screens">Screens</NavLink><Button variant={screenerOpen ? 'muted' : 'ghost'} size="sm" aria-pressed={screenerOpen} onClick={() => navigate(screenerOpen ? '/feed' : '/feed?screener=ai')}><Sparkles size={14} />AI Screener</Button></nav>
+      <Link className="stock-brand" to="/feed"><span className="stock-brand-mark"><img src="/assest-hunter.png" alt="" /></span><span>Asset Hunter</span></Link>
+      <nav className="market-navigation" aria-label="Main navigation"><NavLink to="/feed">Feed</NavLink><NavLink to="/screens">Screens</NavLink><NavLink to="/results">Quarterly Results</NavLink><Button variant={screenerOpen ? 'muted' : 'ghost'} size="sm" aria-pressed={screenerOpen} onClick={() => navigate(screenerOpen ? '/feed' : '/feed?screener=ai')}><Sparkles size={14} />AI Screener</Button></nav>
       {stock && scrolled && <div className="stock-compact-quote"><strong>{stock.baseSymbol || stock.symbol}</strong><strong>{money(stock.price, stock.currency)}</strong><PriceChange value={stock.changePercent} /></div>}
       <Button variant="outline" size="sm" className="stock-search-trigger" onClick={() => setSearchOpen(true)} aria-label="Search stocks and sectors"><Search size={15} /><span>Search Indian &amp; US stocks …</span></Button>
       <div className="stock-header-actions">

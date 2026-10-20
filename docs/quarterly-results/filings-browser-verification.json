@@ -1,0 +1,22 @@
+{
+  "synthetic": true,
+  "checks": [
+    "Loading state",
+    "All-catalog server pagination renders 12 listings",
+    "Yahoo source label",
+    "Announcement date is unavailable, not invented",
+    "Coverage includes pending and unavailable listings",
+    "Second catalog page",
+    "Company history and comparative columns",
+    "BSE exchange filter and pending discovery state",
+    "Unavailable statements shown without fake numbers",
+    "Retry state",
+    "Ready and market filters",
+    "Search and clear filters",
+    "AI pending retains numeric data",
+    "AI failure retains saved statements",
+    "API error recovery",
+    "Mobile has no document overflow",
+    "No browser runtime errors"
+  ]
+}

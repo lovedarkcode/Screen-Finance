@@ -2,16 +2,21 @@
 
 Asset Hunter is a stock research application for US and Indian equities. It combines market data, charts, natural-language financial screening, and AI research grounded in retrieved financial evidence. The frontend uses React and Vite; the backend uses FastAPI, PostgreSQL, SQLAlchemy, and LangGraph.
 
+The **Quarterly Results** page (`/results`, also `/results/latest`) uses **Yahoo Finance/yfinance**, with daily NSE main-board/SME, BSE active-equity and NYSE/Nasdaq directory discovery. It lists the full imported catalog with exchange filters, search, pagination, coverage counts, and explicit pending/unavailable/retry states. A paced background worker stores quarterly statements and revisions, then creates validated NVIDIA Nemotron summaries through Nebius. Its APIs are `GET /api/results`, `GET /api/results/latest` and `GET /api/results/{ticker}` (also under `/api/v1`). See [setup, coverage, API contract and live evidence](docs/quarterly-results/PIPELINE.md).
+
+The earlier Yahoo-imported comparison view remains separately labeled at `/results/imported`, backed by `/api/v1/results/imported`. See its [reference evidence and verification screenshots](docs/quarterly-results/README.md).
+
 ## NVIDIA Nemotron usage
 
-NVIDIA Nemotron powers two implemented features:
+NVIDIA Nemotron powers three implemented features:
 
 | Feature | How Nemotron is used | What the backend verifies |
 | --- | --- | --- |
 | Natural-language stock screening | Converts requests such as “Find US companies with ROE above 20% and debt-to-equity below 0.5” into structured JSON filters. | Supported metrics, original thresholds, units, markets, and reporting periods are validated before parameterized SQLAlchemy queries run against PostgreSQL. The model never generates executable SQL or stock results. |
 | Stock analysis | Selects and ranks verified financial findings into summary, strengths, risks, and watch items. | Financial calculations, listing identity, currencies, reporting periods, source references, and selected finding IDs are checked by the server. Final claim wording and citations come from verified findings. |
+| Quarterly result summaries | Selects positive triggers, warning red flags and a two-sentence executive summary from newly stored Yahoo statements. | The server calculates YoY/QoQ changes, validates finding IDs and renders verified sentences. Raw financials remain available while summaries are pending or fail. |
 
-When Nebius is configured, both features use **`nvidia/nemotron-3-super-120b-a12b`** through Token Factory. The direct NVIDIA API configuration defaults to **`nvidia/nemotron-3-ultra-550b-a55b`**; `NVIDIA_SCREENER_MODEL` can select a separate screening model for that provider.
+When Nebius is configured, all three features use **`nvidia/nemotron-3-super-120b-a12b`** through Token Factory. The direct NVIDIA API configuration defaults to **`nvidia/nemotron-3-ultra-550b-a55b`**; `NVIDIA_SCREENER_MODEL` can select a separate screening model for that provider.
 
 Screening disables model thinking for structured filter extraction. Stock analysis enables thinking, but collects only final response content; reasoning deltas are not stored or displayed. Users can review and edit screening conditions before rerunning them without another model call.
 
@@ -23,7 +28,7 @@ Implementation references:
 
 ## How Nebius Token Factory accelerated the workflow
 
-Token Factory provides the hosted inference endpoint used by the two AI features. The backend connects through the existing OpenAI-compatible Python client:
+Token Factory provides the hosted inference endpoint used by the AI features. The backend connects through the existing OpenAI-compatible Python client:
 
 ```text
 FastAPI -> OpenAI-compatible client -> Nebius Token Factory -> NVIDIA Nemotron
@@ -41,7 +46,7 @@ These are workflow benefits of the integration; this repository does not include
 
 | Tool or service | Role in this project |
 | --- | --- |
-| Nebius Token Factory | Hosted NVIDIA Nemotron inference for natural-language screening and stock analysis, configured with `NEBIUS_API_KEY`, `NEBIUS_BASE_URL`, and `NEBIUS_MODEL`. |
+| Nebius Token Factory | Hosted NVIDIA Nemotron inference for natural-language screening, stock analysis and quarterly summaries, configured with `NEBIUS_API_KEY`, `NEBIUS_BASE_URL`, and `NEBIUS_MODEL`. |
 
 Token Factory is the Nebius service integrated in the current codebase. No additional Nebius compute, storage, training, or deployment services are configured. Application deployment is documented separately in [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md).
 
@@ -89,7 +94,7 @@ NVIDIA_MODEL=nvidia/nemotron-3-ultra-550b-a55b
 NVIDIA_SCREENER_MODEL=nvidia/nemotron-3-super-120b-a12b
 ```
 
-A nonempty `NEBIUS_API_KEY` takes precedence for both AI features. Failed Nebius calls do not silently switch to NVIDIA. The OpenAI SDK is used as a compatible client; these features do not use `OPENAI_API_KEY`. Restart the backend after changing its environment settings.
+A nonempty `NEBIUS_API_KEY` takes precedence for AI features. Failed Nebius calls do not silently switch to NVIDIA. The OpenAI SDK is used as a compatible client; these features do not use `OPENAI_API_KEY`. Restart the backend after changing its environment settings.
 
 In `frontend/.env`, use:
 
@@ -121,13 +126,25 @@ python ../scripts/refresh_screener.py
 python -m uvicorn app.main:app --reload --port 8000
 ```
 
-The refresh imports the starter universe of sixteen real US/Indian stock symbols and their available verified metrics. It calls market-data providers and may take time or encounter provider limits. Screening uses this imported universe, so a fresh database needs the refresh before it can return stock matches. It is not an exchange-wide dataset.
+The refresh imports the starter universe of sixteen real US/Indian stock symbols and their available verified metrics. It calls market-data providers and may take time or encounter provider limits. Screening uses this imported universe, so a fresh database needs the refresh before it can return stock matches. This screening-metrics import is separate from the exchange-wide quarterly tracker. Start the quarterly worker below to populate the full results catalog.
 
 To refresh specific companies later, run this from `backend/` with the virtual environment activated:
 
 ```powershell
 python ../scripts/refresh_screener.py AAPL NVDA RELIANCE.NS MTARTECH.NS
 ```
+
+### Start exchange-wide quarterly results
+
+In a separate terminal with the backend virtual environment activated:
+
+```powershell
+cd backend
+$env:DEBUG = 'false'
+python -m app.workers.quarterly_results_worker --bootstrap
+```
+
+The worker discovers the full exchange catalogs and fills Yahoo quarterly statements in paced batches. Initial discovery takes time and Yahoo may not cover every listing; the UI reports progress and missing data explicitly. After the initial pass, scheduled batches run every 15 minutes. `RESULTS_TICKERS` only sets priority, not coverage. The tracker needs no FMP key. Quarterly summaries require the Nebius key. Keep this worker running separately from the web server; see [worker setup](docs/quarterly-results/PIPELINE.md).
 
 ### 4. Install and run the frontend
 

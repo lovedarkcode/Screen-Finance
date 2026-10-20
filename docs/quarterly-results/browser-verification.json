@@ -1,0 +1,19 @@
+{
+  "fixture": true,
+  "checks": [
+    "Loading state appears",
+    "First page shows twelve results",
+    "Reporting dates are distinguished from announcements",
+    "Pagination uses server page",
+    "Industry filtering preserves selected quarter and resets page",
+    "Growth comparison changes displayed values",
+    "Comparison dialog shows history and source",
+    "Company search filters results",
+    "All mobile result cards remain reachable",
+    "Mobile page has no horizontal overflow",
+    "Market selection changes currency and clears incompatible filters",
+    "Provider/database error can be retried",
+    "Empty state provides clear filters",
+    "No browser runtime errors"
+  ]
+}

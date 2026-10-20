@@ -47,6 +47,18 @@ def normalize_rows(quote, snapshot, retrieved):
     for trend in trends:
         if trend.netMarginId:
             put("net_profit_margin", trend.periodType, by_id[trend.netMarginId])
+    # Retain additional verified quarterly figures without changing NLP metric semantics.
+    for item in evidence:
+        if item.sourceId != "quarterly" or item.sourceField not in ("EBITDA", "Diluted EPS", "Basic EPS"):
+            continue
+        row = rows.get(f"quarterly:{item.periodEnd}")
+        if row is None:
+            continue
+        field = "ebitda" if item.sourceField == "EBITDA" else "eps"
+        extra = row["provenance"].setdefault("result_metrics", {})
+        if field == "eps" and field in extra:  # Prefer diluted EPS; never mix EPS bases.
+            continue
+        extra[field] = {"value": item.value, "currency": item.currency, "period_end": item.periodEnd.isoformat(), "source_record": item.sourceField, "validation_status": "provider", "source": "Yahoo Finance/yfinance"}
     # A refresh clears previously available metrics that are now missing.
     for row in rows.values():
         for key, info in METRICS.items():

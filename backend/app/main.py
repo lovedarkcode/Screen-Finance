@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
 from app.api.router import api_router
+from app.api.v1.filing_results import router as filing_results_router
 from app.config import settings
 from app.db.session import engine
 from app.middleware import RequestContextMiddleware
@@ -52,6 +53,7 @@ def create_app() -> FastAPI:
     app.add_middleware(RequestContextMiddleware)
 
     app.include_router(api_router, prefix=settings.API_V1_PREFIX)
+    app.include_router(filing_results_router, prefix="/api")
 
     @app.get("/", tags=["health"])
     async def root() -> dict[str, str]:

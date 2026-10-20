@@ -4,12 +4,20 @@ from app.models.financials import Financials
 from app.models.news import News
 from app.models.portfolio import Holding, Portfolio
 from app.models.stock import Stock
+from app.models.company import Company
+from app.models.quarterly_result import QuarterlyResult
+from app.models.quarterly_poll_state import QuarterlyPollState
+from app.models.result_listing import ResultListing
 from app.models.user import User
 from app.models.watchlist import Watchlist
 
 __all__ = [
     "User",
     "Stock",
+    "Company",
+    "QuarterlyResult",
+    "QuarterlyPollState",
+    "ResultListing",
     "Financials",
     "Portfolio",
     "Holding",

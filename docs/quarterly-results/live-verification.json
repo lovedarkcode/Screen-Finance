@@ -1,0 +1,2020 @@
+{
+  "checked_at": "2026-10-20T11:43:07.664262+00:00",
+  "read_only": true,
+  "database": {
+    "IN": {
+      "items": [
+        {
+          "symbol": "BHARTIARTL.NS",
+          "name": "Bharti Airtel Limited",
+          "exchange": "NSE",
+          "industry": "Telecom Services",
+          "sector": "Communication Services",
+          "currency": "INR",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:37.987719+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 585391000000.0,
+              "source_field": "Total Revenue",
+              "currency": "INR",
+              "yoy": {
+                "value": 18.35,
+                "reason": null
+              },
+              "qoq": {
+                "value": 5.7,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 339642000000.0,
+              "source_field": "EBITDA",
+              "currency": "INR",
+              "yoy": {
+                "value": 19.46,
+                "reason": null
+              },
+              "qoq": {
+                "value": 15.94,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 81674000000.0,
+              "source_field": "Net Income",
+              "currency": "INR",
+              "yoy": {
+                "value": 37.32,
+                "reason": null
+              },
+              "qoq": {
+                "value": 11.5,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 13.37,
+              "source_field": "Diluted EPS",
+              "currency": "INR",
+              "yoy": {
+                "value": 35.05,
+                "reason": null
+              },
+              "qoq": {
+                "value": 10.04,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/BHARTIARTL.NS/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "INR",
+              "sales": 585391000000.0,
+              "ebitda": 339642000000.0,
+              "net_profit": 81674000000.0,
+              "eps": 13.37
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "INR",
+              "sales": 553832000000.0,
+              "ebitda": 292938000000.0,
+              "net_profit": 73251000000.0,
+              "eps": 12.15
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "INR",
+              "sales": 539816000000.0,
+              "ebitda": 313446000000.0,
+              "net_profit": 66305000000.0,
+              "eps": 11.02
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "INR",
+              "sales": 494626000000.0,
+              "ebitda": 284303000000.0,
+              "net_profit": 59479000000.0,
+              "eps": 9.9
+            },
+            {
+              "quarter_end": "2025-03-31",
+              "currency": "INR",
+              "sales": 478762000000.0,
+              "ebitda": 274122000000.0,
+              "net_profit": 110218000000.0,
+              "eps": 18.38
+            }
+          ]
+        },
+        {
+          "symbol": "ICICIBANK.NS",
+          "name": "ICICI Bank Limited",
+          "exchange": "NSE",
+          "industry": "Banks - Regional",
+          "sector": "Financial Services",
+          "currency": "INR",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:32.131837+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 383657400000.0,
+              "source_field": "Total Revenue",
+              "currency": "INR",
+              "yoy": {
+                "value": 7.73,
+                "reason": null
+              },
+              "qoq": {
+                "value": 7.34,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": null,
+              "source_field": null,
+              "currency": "INR",
+              "yoy": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              },
+              "qoq": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              }
+            },
+            "net_profit": {
+              "value": 154400600000.0,
+              "source_field": "Net Income",
+              "currency": "INR",
+              "yoy": {
+                "value": 13.88,
+                "reason": null
+              },
+              "qoq": {
+                "value": 4.64,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 21.29,
+              "source_field": "Diluted EPS",
+              "currency": "INR",
+              "yoy": {
+                "value": 13.79,
+                "reason": null
+              },
+              "qoq": {
+                "value": 4.57,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/ICICIBANK.NS/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "INR",
+              "sales": 383657400000.0,
+              "ebitda": null,
+              "net_profit": 154400600000.0,
+              "eps": 21.29
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "INR",
+              "sales": 357423400000.0,
+              "ebitda": null,
+              "net_profit": 147550600000.0,
+              "eps": 20.36
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "INR",
+              "sales": 352926000000.0,
+              "ebitda": null,
+              "net_profit": 125379800000.0,
+              "eps": 17.29
+            },
+            {
+              "quarter_end": "2025-09-30",
+              "currency": "INR",
+              "sales": 346048700000.0,
+              "ebitda": null,
+              "net_profit": 133570600000.0,
+              "eps": null
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "INR",
+              "sales": 356136100000.0,
+              "ebitda": null,
+              "net_profit": 135576000000.0,
+              "eps": 18.71
+            }
+          ]
+        },
+        {
+          "symbol": "INFY.NS",
+          "name": "Infosys Limited",
+          "exchange": "NSE",
+          "industry": "Information Technology Services",
+          "sector": "Technology",
+          "currency": "USD",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:28.038547+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 5082000000.0,
+              "source_field": "Total Revenue",
+              "currency": "USD",
+              "yoy": {
+                "value": 2.85,
+                "reason": null
+              },
+              "qoq": {
+                "value": 0.83,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 1307000000.0,
+              "source_field": "EBITDA",
+              "currency": "USD",
+              "yoy": {
+                "value": 1.87,
+                "reason": null
+              },
+              "qoq": {
+                "value": -2.02,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 819000000.0,
+              "source_field": "Net Income",
+              "currency": "USD",
+              "yoy": {
+                "value": 1.24,
+                "reason": null
+              },
+              "qoq": {
+                "value": -10.88,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 0.2,
+              "source_field": "Diluted EPS",
+              "currency": "USD",
+              "yoy": {
+                "value": 5.26,
+                "reason": null
+              },
+              "qoq": {
+                "value": -13.04,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/INFY.NS/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "USD",
+              "sales": 5082000000.0,
+              "ebitda": 1307000000.0,
+              "net_profit": 819000000.0,
+              "eps": 0.2
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "USD",
+              "sales": 5040000000.0,
+              "ebitda": 1334000000.0,
+              "net_profit": 919000000.0,
+              "eps": 0.23
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "USD",
+              "sales": 5099000000.0,
+              "ebitda": 1176000000.0,
+              "net_profit": 747000000.0,
+              "eps": 0.18
+            },
+            {
+              "quarter_end": "2025-09-30",
+              "currency": "USD",
+              "sales": 5076000000.0,
+              "ebitda": 1312000000.0,
+              "net_profit": 839000000.0,
+              "eps": null
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "USD",
+              "sales": 4941000000.0,
+              "ebitda": 1283000000.0,
+              "net_profit": 809000000.0,
+              "eps": 0.19
+            }
+          ]
+        },
+        {
+          "symbol": "MTARTECH.NS",
+          "name": "MTAR Technologies Limited",
+          "exchange": "NSE",
+          "industry": "Specialty Industrial Machinery",
+          "sector": "Industrials",
+          "currency": "INR",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:34.228844+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 3558920000.0,
+              "source_field": "Total Revenue",
+              "currency": "INR",
+              "yoy": {
+                "value": 130.49,
+                "reason": null
+              },
+              "qoq": {
+                "value": 17.5,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 929410000.0,
+              "source_field": "EBITDA",
+              "currency": "INR",
+              "yoy": {
+                "value": 220.55,
+                "reason": null
+              },
+              "qoq": {
+                "value": 18.85,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 502270000.0,
+              "source_field": "Net Income",
+              "currency": "INR",
+              "yoy": {
+                "value": 364.51,
+                "reason": null
+              },
+              "qoq": {
+                "value": 13.42,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 16.33,
+              "source_field": "Diluted EPS",
+              "currency": "INR",
+              "yoy": {
+                "value": 363.92,
+                "reason": null
+              },
+              "qoq": {
+                "value": 13.4,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/MTARTECH.NS/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "INR",
+              "sales": 3558920000.0,
+              "ebitda": 929410000.0,
+              "net_profit": 502270000.0,
+              "eps": 16.33
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "INR",
+              "sales": 3028770000.0,
+              "ebitda": 782010000.0,
+              "net_profit": 442830000.0,
+              "eps": 14.4
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "INR",
+              "sales": 2737500000.0,
+              "ebitda": 626560000.0,
+              "net_profit": 346890000.0,
+              "eps": 11.28
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "INR",
+              "sales": 1544100000.0,
+              "ebitda": 289940000.0,
+              "net_profit": 108130000.0,
+              "eps": 3.52
+            },
+            {
+              "quarter_end": "2025-03-31",
+              "currency": "INR",
+              "sales": 1792440000.0,
+              "ebitda": 341760000.0,
+              "net_profit": 137220000.0,
+              "eps": 4.46
+            }
+          ]
+        },
+        {
+          "symbol": "RELIANCE.NS",
+          "name": "Reliance Industries Limited",
+          "exchange": "NSE",
+          "industry": "Oil & Gas Refining & Marketing",
+          "sector": "Energy",
+          "currency": "INR",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:24.487770+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 3094680000000.0,
+              "source_field": "Total Revenue",
+              "currency": "INR",
+              "yoy": {
+                "value": 27.02,
+                "reason": null
+              },
+              "qoq": {
+                "value": 5.24,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 389670000000.0,
+              "source_field": "EBITDA",
+              "currency": "INR",
+              "yoy": {
+                "value": -11.8,
+                "reason": null
+              },
+              "qoq": {
+                "value": 15.36,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 209460000000.0,
+              "source_field": "Net Income",
+              "currency": "INR",
+              "yoy": {
+                "value": -22.4,
+                "reason": null
+              },
+              "qoq": {
+                "value": 23.42,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 15.48,
+              "source_field": "Diluted EPS",
+              "currency": "INR",
+              "yoy": {
+                "value": -22.41,
+                "reason": null
+              },
+              "qoq": {
+                "value": 23.44,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/RELIANCE.NS/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "INR",
+              "sales": 3094680000000.0,
+              "ebitda": 389670000000.0,
+              "net_profit": 209460000000.0,
+              "eps": 15.48
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "INR",
+              "sales": 2940590000000.0,
+              "ebitda": 337800000000.0,
+              "net_profit": 169710000000.0,
+              "eps": 12.54
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "INR",
+              "sales": 2649050000000.0,
+              "ebitda": 363100000000.0,
+              "net_profit": 186450000000.0,
+              "eps": 13.78
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "INR",
+              "sales": 2436320000000.0,
+              "ebitda": 441820000000.0,
+              "net_profit": 269940000000.0,
+              "eps": 19.95
+            },
+            {
+              "quarter_end": "2025-03-31",
+              "currency": "INR",
+              "sales": 2613880000000.0,
+              "ebitda": 352580000000.0,
+              "net_profit": 194070000000.0,
+              "eps": 14.34
+            }
+          ]
+        },
+        {
+          "symbol": "SBIN.NS",
+          "name": "State Bank of India",
+          "exchange": "NSE",
+          "industry": "Banks - Regional",
+          "sector": "Financial Services",
+          "currency": "INR",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:36.184565+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 978142900000.0,
+              "source_field": "Total Revenue",
+              "currency": "INR",
+              "yoy": {
+                "value": 10.24,
+                "reason": null
+              },
+              "qoq": {
+                "value": -3.27,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": null,
+              "source_field": null,
+              "currency": "INR",
+              "yoy": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              },
+              "qoq": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              }
+            },
+            "net_profit": {
+              "value": 241130000000.0,
+              "source_field": "Net Income",
+              "currency": "INR",
+              "yoy": {
+                "value": 13.73,
+                "reason": null
+              },
+              "qoq": {
+                "value": 22.76,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 26.11,
+              "source_field": "Diluted EPS",
+              "currency": "INR",
+              "yoy": {
+                "value": 9.89,
+                "reason": null
+              },
+              "qoq": {
+                "value": 22.7,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/SBIN.NS/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "INR",
+              "sales": 978142900000.0,
+              "ebitda": null,
+              "net_profit": 241130000000.0,
+              "eps": 26.11
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "INR",
+              "sales": 1011255900000.0,
+              "ebitda": null,
+              "net_profit": 196428700000.0,
+              "eps": 21.28
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "INR",
+              "sales": 1068657800000.0,
+              "ebitda": null,
+              "net_profit": 213171100000.0,
+              "eps": 23.09
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "INR",
+              "sales": 887253600000.0,
+              "ebitda": null,
+              "net_profit": 212014700000.0,
+              "eps": 23.76
+            },
+            {
+              "quarter_end": "2025-03-31",
+              "currency": "INR",
+              "sales": 1013352700000.0,
+              "ebitda": null,
+              "net_profit": 196004600000.0,
+              "eps": 21.96
+            }
+          ]
+        },
+        {
+          "symbol": "TCS.NS",
+          "name": "Tata Consultancy Services Limited",
+          "exchange": "NSE",
+          "industry": "Information Technology Services",
+          "sector": "Technology",
+          "currency": "INR",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:26.198507+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 722750000000.0,
+              "source_field": "Total Revenue",
+              "currency": "INR",
+              "yoy": {
+                "value": 13.93,
+                "reason": null
+              },
+              "qoq": {
+                "value": 2.23,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 194560000000.0,
+              "source_field": "EBITDA",
+              "currency": "INR",
+              "yoy": {
+                "value": 4.97,
+                "reason": null
+              },
+              "qoq": {
+                "value": -2.88,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 133490000000.0,
+              "source_field": "Net Income",
+              "currency": "INR",
+              "yoy": {
+                "value": 4.62,
+                "reason": null
+              },
+              "qoq": {
+                "value": -2.69,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 36.9,
+              "source_field": "Diluted EPS",
+              "currency": "INR",
+              "yoy": {
+                "value": 4.62,
+                "reason": null
+              },
+              "qoq": {
+                "value": -2.74,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/TCS.NS/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "INR",
+              "sales": 722750000000.0,
+              "ebitda": 194560000000.0,
+              "net_profit": 133490000000.0,
+              "eps": 36.9
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "INR",
+              "sales": 706980000000.0,
+              "ebitda": 200330000000.0,
+              "net_profit": 137180000000.0,
+              "eps": 37.94
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "INR",
+              "sales": 670870000000.0,
+              "ebitda": 159960000000.0,
+              "net_profit": 106570000000.0,
+              "eps": 29.45
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "INR",
+              "sales": 634370000000.0,
+              "ebitda": 185350000000.0,
+              "net_profit": 127600000000.0,
+              "eps": 35.27
+            },
+            {
+              "quarter_end": "2025-03-31",
+              "currency": "INR",
+              "sales": 644790000000.0,
+              "ebitda": 180080000000.0,
+              "net_profit": 122240000000.0,
+              "eps": 33.79
+            }
+          ]
+        },
+        {
+          "symbol": "HDFCBANK.NS",
+          "name": "HDFC Bank Limited",
+          "exchange": "NSE",
+          "industry": "Banks - Regional",
+          "sector": "Financial Services",
+          "currency": "INR",
+          "quarter_end": "2025-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:30.299535+00:00",
+          "previous_quarter_end": "2025-03-31",
+          "previous_year_end": null,
+          "metrics": {
+            "sales": {
+              "value": 853464600000.0,
+              "source_field": "Total Revenue",
+              "currency": "INR",
+              "yoy": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              },
+              "qoq": {
+                "value": -10.45,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": null,
+              "source_field": null,
+              "currency": "INR",
+              "yoy": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              },
+              "qoq": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              }
+            },
+            "net_profit": {
+              "value": 162579100000.0,
+              "source_field": "Net Income",
+              "currency": "INR",
+              "yoy": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              },
+              "qoq": {
+                "value": 5.62,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 10.56,
+              "source_field": "Diluted EPS",
+              "currency": "INR",
+              "yoy": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              },
+              "qoq": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/HDFCBANK.NS/financials/",
+          "history": [
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "INR",
+              "sales": 853464600000.0,
+              "ebitda": null,
+              "net_profit": 162579100000.0,
+              "eps": 10.56
+            },
+            {
+              "quarter_end": "2025-03-31",
+              "currency": "INR",
+              "sales": 953058900000.0,
+              "ebitda": null,
+              "net_profit": 153934600000.0,
+              "eps": null
+            }
+          ]
+        }
+      ],
+      "total": 8,
+      "page": 1,
+      "page_size": 50,
+      "quarters": [
+        "2026-06-30",
+        "2026-03-31",
+        "2025-12-31",
+        "2025-09-30",
+        "2025-06-30",
+        "2025-03-31"
+      ],
+      "industries": [
+        "Banks - Regional",
+        "Information Technology Services",
+        "Oil & Gas Refining & Marketing",
+        "Specialty Industrial Machinery",
+        "Telecom Services"
+      ],
+      "universe_count": 8,
+      "updated_at": "2026-10-20T11:42:37.987719+00:00",
+      "growing_sales": 7,
+      "growing_profit": 6,
+      "date_basis": "Fiscal quarter end, not announcement date",
+      "source": "Yahoo Finance/yfinance"
+    },
+    "US": {
+      "items": [
+        {
+          "symbol": "NVDA",
+          "name": "NVIDIA Corporation",
+          "exchange": "NASDAQ",
+          "industry": "Semiconductors",
+          "sector": "Technology",
+          "currency": "USD",
+          "quarter_end": "2026-07-31",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:10.442504+00:00",
+          "previous_quarter_end": "2026-04-30",
+          "previous_year_end": "2025-07-31",
+          "metrics": {
+            "sales": {
+              "value": 96221000000.0,
+              "source_field": "Total Revenue",
+              "currency": "USD",
+              "yoy": {
+                "value": 105.85,
+                "reason": null
+              },
+              "qoq": {
+                "value": 17.9,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 72861000000.0,
+              "source_field": "EBITDA",
+              "currency": "USD",
+              "yoy": {
+                "value": 128.14,
+                "reason": null
+              },
+              "qoq": {
+                "value": 2.62,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 59688000000.0,
+              "source_field": "Net Income",
+              "currency": "USD",
+              "yoy": {
+                "value": 125.9,
+                "reason": null
+              },
+              "qoq": {
+                "value": 2.34,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 2.46,
+              "source_field": "Diluted EPS",
+              "currency": "USD",
+              "yoy": {
+                "value": 127.78,
+                "reason": null
+              },
+              "qoq": {
+                "value": 2.93,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/NVDA/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-07-31",
+              "currency": "USD",
+              "sales": 96221000000.0,
+              "ebitda": 72861000000.0,
+              "net_profit": 59688000000.0,
+              "eps": 2.46
+            },
+            {
+              "quarter_end": "2026-04-30",
+              "currency": "USD",
+              "sales": 81615000000.0,
+              "ebitda": 71002000000.0,
+              "net_profit": 58321000000.0,
+              "eps": 2.39
+            },
+            {
+              "quarter_end": "2026-01-31",
+              "currency": "USD",
+              "sales": 68127000000.0,
+              "ebitda": 51283000000.0,
+              "net_profit": 42960000000.0,
+              "eps": 1.76
+            },
+            {
+              "quarter_end": "2025-10-31",
+              "currency": "USD",
+              "sales": 57006000000.0,
+              "ebitda": 38748000000.0,
+              "net_profit": 31910000000.0,
+              "eps": 1.3
+            },
+            {
+              "quarter_end": "2025-07-31",
+              "currency": "USD",
+              "sales": 46743000000.0,
+              "ebitda": 31937000000.0,
+              "net_profit": 26422000000.0,
+              "eps": 1.08
+            }
+          ]
+        },
+        {
+          "symbol": "GOOGL",
+          "name": "Alphabet Inc.",
+          "exchange": "NASDAQ",
+          "industry": "Internet Content & Information",
+          "sector": "Communication Services",
+          "currency": "USD",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:14.323887+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 119796000000.0,
+              "source_field": "Total Revenue",
+              "currency": "USD",
+              "yoy": {
+                "value": 24.23,
+                "reason": null
+              },
+              "qoq": {
+                "value": 9.01,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 147135000000.0,
+              "source_field": "EBITDA",
+              "currency": "USD",
+              "yoy": {
+                "value": 275.42,
+                "reason": null
+              },
+              "qoq": {
+                "value": 74.27,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 112193000000.0,
+              "source_field": "Net Income",
+              "currency": "USD",
+              "yoy": {
+                "value": 297.9,
+                "reason": null
+              },
+              "qoq": {
+                "value": 79.29,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 9.11,
+              "source_field": "Diluted EPS",
+              "currency": "USD",
+              "yoy": {
+                "value": 294.37,
+                "reason": null
+              },
+              "qoq": {
+                "value": 78.28,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/GOOGL/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "USD",
+              "sales": 119796000000.0,
+              "ebitda": 147135000000.0,
+              "net_profit": 112193000000.0,
+              "eps": 9.11
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "USD",
+              "sales": 109896000000.0,
+              "ebitda": 84427000000.0,
+              "net_profit": 62578000000.0,
+              "eps": 5.11
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "USD",
+              "sales": 113829000000.0,
+              "ebitda": 45455000000.0,
+              "net_profit": 34455000000.0,
+              "eps": 2.82
+            },
+            {
+              "quarter_end": "2025-09-30",
+              "currency": "USD",
+              "sales": 102346000000.0,
+              "ebitda": 49741000000.0,
+              "net_profit": 34979000000.0,
+              "eps": 2.87
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "USD",
+              "sales": 96428000000.0,
+              "ebitda": 39192000000.0,
+              "net_profit": 28196000000.0,
+              "eps": 2.31
+            }
+          ]
+        },
+        {
+          "symbol": "AAPL",
+          "name": "Apple Inc.",
+          "exchange": "NASDAQ",
+          "industry": "Consumer Electronics",
+          "sector": "Technology",
+          "currency": "USD",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:08.562940+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 109417000000.0,
+              "source_field": "Total Revenue",
+              "currency": "USD",
+              "yoy": {
+                "value": 16.36,
+                "reason": null
+              },
+              "qoq": {
+                "value": -1.59,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 39015000000.0,
+              "source_field": "EBITDA",
+              "currency": "USD",
+              "yoy": {
+                "value": 25.73,
+                "reason": null
+              },
+              "qoq": {
+                "value": -0.79,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 29789000000.0,
+              "source_field": "Net Income",
+              "currency": "USD",
+              "yoy": {
+                "value": 27.12,
+                "reason": null
+              },
+              "qoq": {
+                "value": 0.71,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 2.02,
+              "source_field": "Diluted EPS",
+              "currency": "USD",
+              "yoy": {
+                "value": 28.66,
+                "reason": null
+              },
+              "qoq": {
+                "value": 0.5,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/AAPL/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "USD",
+              "sales": 109417000000.0,
+              "ebitda": 39015000000.0,
+              "net_profit": 29789000000.0,
+              "eps": 2.02
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "USD",
+              "sales": 111184000000.0,
+              "ebitda": 39324000000.0,
+              "net_profit": 29578000000.0,
+              "eps": 2.01
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "USD",
+              "sales": 143756000000.0,
+              "ebitda": 54066000000.0,
+              "net_profit": 42097000000.0,
+              "eps": 2.84
+            },
+            {
+              "quarter_end": "2025-09-30",
+              "currency": "USD",
+              "sales": 102466000000.0,
+              "ebitda": 35554000000.0,
+              "net_profit": 27466000000.0,
+              "eps": 1.85
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "USD",
+              "sales": 94036000000.0,
+              "ebitda": 31032000000.0,
+              "net_profit": 23434000000.0,
+              "eps": 1.57
+            }
+          ]
+        },
+        {
+          "symbol": "BE",
+          "name": "Bloom Energy Corporation",
+          "exchange": "NYSE",
+          "industry": "Electrical Equipment & Parts",
+          "sector": "Industrials",
+          "currency": "USD",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:20.091218+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 1065365000.0,
+              "source_field": "Total Revenue",
+              "currency": "USD",
+              "yoy": {
+                "value": 165.52,
+                "reason": null
+              },
+              "qoq": {
+                "value": 41.85,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 222978000.0,
+              "source_field": "EBITDA",
+              "currency": "USD",
+              "yoy": {
+                "value": null,
+                "reason": "Prior figure is zero or negative; percentage growth is not meaningful"
+              },
+              "qoq": {
+                "value": 132.22,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 196290000.0,
+              "source_field": "Net Income",
+              "currency": "USD",
+              "yoy": {
+                "value": null,
+                "reason": "Prior figure is zero or negative; percentage growth is not meaningful"
+              },
+              "qoq": {
+                "value": 177.82,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 0.62,
+              "source_field": "Diluted EPS",
+              "currency": "USD",
+              "yoy": {
+                "value": null,
+                "reason": "Prior figure is zero or negative; percentage growth is not meaningful"
+              },
+              "qoq": {
+                "value": 169.57,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/BE/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "USD",
+              "sales": 1065365000.0,
+              "ebitda": 222978000.0,
+              "net_profit": 196290000.0,
+              "eps": 0.62
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "USD",
+              "sales": 751054000.0,
+              "ebitda": 96019000.0,
+              "net_profit": 70653000.0,
+              "eps": 0.23
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "USD",
+              "sales": 777683000.0,
+              "ebitda": 26209000.0,
+              "net_profit": 1092000.0,
+              "eps": 0.0
+            },
+            {
+              "quarter_end": "2025-09-30",
+              "currency": "USD",
+              "sales": 519048000.0,
+              "ebitda": 4566000.0,
+              "net_profit": -23093000.0,
+              "eps": -0.1
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "USD",
+              "sales": 401242000.0,
+              "ebitda": -14139000.0,
+              "net_profit": -42619000.0,
+              "eps": -0.18
+            }
+          ]
+        },
+        {
+          "symbol": "F",
+          "name": "Ford Motor Company",
+          "exchange": "NYSE",
+          "industry": "Auto Manufacturers",
+          "sector": "Consumer Cyclical",
+          "currency": "USD",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:22.255994+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 48296000000.0,
+              "source_field": "Total Revenue",
+              "currency": "USD",
+              "yoy": {
+                "value": -3.76,
+                "reason": null
+              },
+              "qoq": {
+                "value": 11.66,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": -236000000.0,
+              "source_field": "EBITDA",
+              "currency": "USD",
+              "yoy": {
+                "value": -110.39,
+                "reason": null
+              },
+              "qoq": {
+                "value": -105.03,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": -1327000000.0,
+              "source_field": "Net Income",
+              "currency": "USD",
+              "yoy": {
+                "value": null,
+                "reason": "Prior figure is zero or negative; percentage growth is not meaningful"
+              },
+              "qoq": {
+                "value": -152.08,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": -0.33,
+              "source_field": "Diluted EPS",
+              "currency": "USD",
+              "yoy": {
+                "value": null,
+                "reason": "Prior figure is zero or negative; percentage growth is not meaningful"
+              },
+              "qoq": {
+                "value": -152.38,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/F/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "USD",
+              "sales": 48296000000.0,
+              "ebitda": -236000000.0,
+              "net_profit": -1327000000.0,
+              "eps": -0.33
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "USD",
+              "sales": 43253000000.0,
+              "ebitda": 4691000000.0,
+              "net_profit": 2548000000.0,
+              "eps": 0.63
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "USD",
+              "sales": 45890000000.0,
+              "ebitda": -4611000000.0,
+              "net_profit": -11064000000.0,
+              "eps": null
+            },
+            {
+              "quarter_end": "2025-09-30",
+              "currency": "USD",
+              "sales": 50534000000.0,
+              "ebitda": 3668000000.0,
+              "net_profit": 2447000000.0,
+              "eps": 0.6
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "USD",
+              "sales": 50184000000.0,
+              "ebitda": 2272000000.0,
+              "net_profit": -36000000.0,
+              "eps": -0.01
+            }
+          ]
+        },
+        {
+          "symbol": "JPM",
+          "name": "JPMorgan Chase & Co.",
+          "exchange": "NYSE",
+          "industry": "Banks - Diversified",
+          "sector": "Financial Services",
+          "currency": "USD",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:18.379736+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 52852000000.0,
+              "source_field": "Total Revenue",
+              "currency": "USD",
+              "yoy": {
+                "value": 17.76,
+                "reason": null
+              },
+              "qoq": {
+                "value": 6.06,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": null,
+              "source_field": null,
+              "currency": "USD",
+              "yoy": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              },
+              "qoq": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              }
+            },
+            "net_profit": {
+              "value": 21155000000.0,
+              "source_field": "Net Income",
+              "currency": "USD",
+              "yoy": {
+                "value": 41.16,
+                "reason": null
+              },
+              "qoq": {
+                "value": 28.26,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 7.7,
+              "source_field": "Diluted EPS",
+              "currency": "USD",
+              "yoy": {
+                "value": 46.95,
+                "reason": null
+              },
+              "qoq": {
+                "value": 29.63,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/JPM/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "USD",
+              "sales": 52852000000.0,
+              "ebitda": null,
+              "net_profit": 21155000000.0,
+              "eps": 7.7
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "USD",
+              "sales": 49833000000.0,
+              "ebitda": null,
+              "net_profit": 16494000000.0,
+              "eps": 5.94
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "USD",
+              "sales": 45796000000.0,
+              "ebitda": null,
+              "net_profit": 13025000000.0,
+              "eps": 4.63
+            },
+            {
+              "quarter_end": "2025-09-30",
+              "currency": "USD",
+              "sales": 46430000000.0,
+              "ebitda": null,
+              "net_profit": 14393000000.0,
+              "eps": 5.07
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "USD",
+              "sales": 44882000000.0,
+              "ebitda": null,
+              "net_profit": 14987000000.0,
+              "eps": 5.24
+            }
+          ]
+        },
+        {
+          "symbol": "MSFT",
+          "name": "Microsoft Corporation",
+          "exchange": "NASDAQ",
+          "industry": "Software - Infrastructure",
+          "sector": "Technology",
+          "currency": "USD",
+          "quarter_end": "2026-06-30",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:12.499623+00:00",
+          "previous_quarter_end": "2026-03-31",
+          "previous_year_end": "2025-06-30",
+          "metrics": {
+            "sales": {
+              "value": 90007000000.0,
+              "source_field": "Total Revenue",
+              "currency": "USD",
+              "yoy": {
+                "value": 17.75,
+                "reason": null
+              },
+              "qoq": {
+                "value": 8.59,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 55908000000.0,
+              "source_field": "EBITDA",
+              "currency": "USD",
+              "yoy": {
+                "value": 25.82,
+                "reason": null
+              },
+              "qoq": {
+                "value": 11.18,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 35766000000.0,
+              "source_field": "Net Income",
+              "currency": "USD",
+              "yoy": {
+                "value": 31.33,
+                "reason": null
+              },
+              "qoq": {
+                "value": 12.55,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 4.81,
+              "source_field": "Diluted EPS",
+              "currency": "USD",
+              "yoy": {
+                "value": 31.78,
+                "reason": null
+              },
+              "qoq": {
+                "value": 12.65,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/MSFT/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-06-30",
+              "currency": "USD",
+              "sales": 90007000000.0,
+              "ebitda": 55908000000.0,
+              "net_profit": 35766000000.0,
+              "eps": 4.81
+            },
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "USD",
+              "sales": 82886000000.0,
+              "ebitda": 50285000000.0,
+              "net_profit": 31778000000.0,
+              "eps": 4.27
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "USD",
+              "sales": 81273000000.0,
+              "ebitda": 58180000000.0,
+              "net_profit": 38458000000.0,
+              "eps": 5.16
+            },
+            {
+              "quarter_end": "2025-09-30",
+              "currency": "USD",
+              "sales": 77673000000.0,
+              "ebitda": 48060000000.0,
+              "net_profit": 27747000000.0,
+              "eps": 3.72
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "USD",
+              "sales": 76441000000.0,
+              "ebitda": 44434000000.0,
+              "net_profit": 27233000000.0,
+              "eps": 3.65
+            }
+          ]
+        },
+        {
+          "symbol": "AMZN",
+          "name": "Amazon.com, Inc.",
+          "exchange": "NASDAQ",
+          "industry": "Internet Retail",
+          "sector": "Consumer Cyclical",
+          "currency": "USD",
+          "quarter_end": "2026-03-31",
+          "announcement_date": null,
+          "retrieved_at": "2026-10-20T11:42:16.456008+00:00",
+          "previous_quarter_end": "2025-12-31",
+          "previous_year_end": "2025-03-31",
+          "metrics": {
+            "sales": {
+              "value": 181519000000.0,
+              "source_field": "Total Revenue",
+              "currency": "USD",
+              "yoy": {
+                "value": 16.61,
+                "reason": null
+              },
+              "qoq": {
+                "value": -14.93,
+                "reason": null
+              }
+            },
+            "ebitda": {
+              "value": 59579000000.0,
+              "source_field": "EBITDA",
+              "currency": "USD",
+              "yoy": {
+                "value": 63.31,
+                "reason": null
+              },
+              "qoq": {
+                "value": 27.43,
+                "reason": null
+              }
+            },
+            "net_profit": {
+              "value": 30255000000.0,
+              "source_field": "Net Income",
+              "currency": "USD",
+              "yoy": {
+                "value": 76.65,
+                "reason": null
+              },
+              "qoq": {
+                "value": 42.77,
+                "reason": null
+              }
+            },
+            "eps": {
+              "value": 2.78,
+              "source_field": "Diluted EPS",
+              "currency": "USD",
+              "yoy": {
+                "value": null,
+                "reason": "Comparable figure unavailable"
+              },
+              "qoq": {
+                "value": 42.56,
+                "reason": null
+              }
+            }
+          },
+          "source_url": "https://finance.yahoo.com/quote/AMZN/financials/",
+          "history": [
+            {
+              "quarter_end": "2026-03-31",
+              "currency": "USD",
+              "sales": 181519000000.0,
+              "ebitda": 59579000000.0,
+              "net_profit": 30255000000.0,
+              "eps": 2.78
+            },
+            {
+              "quarter_end": "2025-12-31",
+              "currency": "USD",
+              "sales": 213386000000.0,
+              "ebitda": 46755000000.0,
+              "net_profit": 21192000000.0,
+              "eps": 1.95
+            },
+            {
+              "quarter_end": "2025-09-30",
+              "currency": "USD",
+              "sales": 180169000000.0,
+              "ebitda": 45504000000.0,
+              "net_profit": 21187000000.0,
+              "eps": 1.95
+            },
+            {
+              "quarter_end": "2025-06-30",
+              "currency": "USD",
+              "sales": 167702000000.0,
+              "ebitda": 36600000000.0,
+              "net_profit": 18164000000.0,
+              "eps": 1.68
+            },
+            {
+              "quarter_end": "2025-03-31",
+              "currency": "USD",
+              "sales": 155667000000.0,
+              "ebitda": 36482000000.0,
+              "net_profit": 17127000000.0,
+              "eps": null
+            }
+          ]
+        }
+      ],
+      "total": 8,
+      "page": 1,
+      "page_size": 50,
+      "quarters": [
+        "2026-07-31",
+        "2026-06-30",
+        "2026-04-30",
+        "2026-03-31",
+        "2026-01-31",
+        "2025-12-31",
+        "2025-10-31",
+        "2025-09-30",
+        "2025-07-31",
+        "2025-06-30",
+        "2025-03-31"
+      ],
+      "industries": [
+        "Auto Manufacturers",
+        "Banks - Diversified",
+        "Consumer Electronics",
+        "Electrical Equipment & Parts",
+        "Internet Content & Information",
+        "Internet Retail",
+        "Semiconductors",
+        "Software - Infrastructure"
+      ],
+      "universe_count": 8,
+      "updated_at": "2026-10-20T11:42:22.255994+00:00",
+      "growing_sales": 7,
+      "growing_profit": 6,
+      "date_basis": "Fiscal quarter end, not announcement date",
+      "source": "Yahoo Finance/yfinance"
+    }
+  },
+  "provider": [
+    {
+      "symbol": "AAPL",
+      "quarterly_records": 5,
+      "latest": {
+        "period": "2026-06-30",
+        "period_type": "quarterly",
+        "period_end": "2026-06-30",
+        "snapshot_key": "quarterly:2026-06-30",
+        "updated_at": "2026-10-20 11:43:09.128504+00:00",
+        "validation_version": 1,
+        "currency": "USD",
+        "provenance": {
+          "revenue": {
+            "currency": "USD",
+            "period": "Quarter ending 2026-06-30",
+            "period_end": "2026-06-30",
+            "updated_at": "2026-10-20T11:43:09.128504+00:00",
+            "source": "Yahoo Finance/yfinance",
+            "source_record": "Total Revenue",
+            "formula": null,
+            "validation_status": "provider",
+            "definition": "Revenue for the selected period.",
+            "inputs": []
+          },
+          "net_income": {
+            "currency": "USD",
+            "period": "Quarter ending 2026-06-30",
+            "period_end": "2026-06-30",
+            "updated_at": "2026-10-20T11:43:09.128504+00:00",
+            "source": "Yahoo Finance/yfinance",
+            "source_record": "Net Income",
+            "formula": null,
+            "validation_status": "provider",
+            "definition": "Net income for the selected period; profitable means net income > 0.",
+            "inputs": []
+          },
+          "net_profit_margin": {
+            "currency": null,
+            "period": "Quarter ending 2026-06-30",
+            "period_end": "2026-06-30",
+            "updated_at": "2026-10-20T11:43:09.128504+00:00",
+            "source": "Yahoo Finance/yfinance",
+            "source_record": null,
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "validation_status": "recomputed",
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "inputs": [
+              {
+                "label": "Quarterly net income",
+                "value": 29789000000.0,
+                "period": "Quarter ending 2026-06-30",
+                "currency": "USD"
+              },
+              {
+                "label": "Quarterly revenue",
+                "value": 109417000000.0,
+                "period": "Quarter ending 2026-06-30",
+                "currency": "USD"
+              }
+            ]
+          },
+          "result_metrics": {
+            "operating_income": {
+              "value": 35695000000.0,
+              "currency": "USD",
+              "period_end": "2026-06-30",
+              "source_record": "Operating Income",
+              "validation_status": "provider",
+              "source": "Yahoo Finance/yfinance"
+            },
+            "ebitda": {
+              "value": 39015000000.0,
+              "currency": "USD",
+              "period_end": "2026-06-30",
+              "source_record": "EBITDA",
+              "validation_status": "provider",
+              "source": "Yahoo Finance/yfinance"
+            },
+            "eps": {
+              "value": 2.02,
+              "currency": "USD",
+              "period_end": "2026-06-30",
+              "source_record": "Diluted EPS",
+              "validation_status": "provider",
+              "source": "Yahoo Finance/yfinance"
+            }
+          }
+        },
+        "sales": 109417000000.0,
+        "net_profit": 29789000000.0,
+        "net_profit_margin": 27.225203,
+        "pe": null,
+        "roe": null,
+        "operating_margin": null,
+        "revenue_growth": null,
+        "debt_to_equity": null,
+        "current_ratio": null,
+        "total_debt": null,
+        "net_debt": null,
+        "operating_cash_flow": null,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "operating_profit": null,
+        "eps": null
+      }
+    },
+    {
+      "symbol": "TCS.NS",
+      "quarterly_records": 5,
+      "latest": {
+        "period": "2026-06-30",
+        "period_type": "quarterly",
+        "period_end": "2026-06-30",
+        "snapshot_key": "quarterly:2026-06-30",
+        "updated_at": "2026-10-20 11:43:10.026658+00:00",
+        "validation_version": 1,
+        "currency": "INR",
+        "provenance": {
+          "revenue": {
+            "currency": "INR",
+            "period": "Quarter ending 2026-06-30",
+            "period_end": "2026-06-30",
+            "updated_at": "2026-10-20T11:43:10.026658+00:00",
+            "source": "Yahoo Finance/yfinance",
+            "source_record": "Total Revenue",
+            "formula": null,
+            "validation_status": "provider",
+            "definition": "Revenue for the selected period.",
+            "inputs": []
+          },
+          "net_income": {
+            "currency": "INR",
+            "period": "Quarter ending 2026-06-30",
+            "period_end": "2026-06-30",
+            "updated_at": "2026-10-20T11:43:10.026658+00:00",
+            "source": "Yahoo Finance/yfinance",
+            "source_record": "Net Income",
+            "formula": null,
+            "validation_status": "provider",
+            "definition": "Net income for the selected period; profitable means net income > 0.",
+            "inputs": []
+          },
+          "net_profit_margin": {
+            "currency": null,
+            "period": "Quarter ending 2026-06-30",
+            "period_end": "2026-06-30",
+            "updated_at": "2026-10-20T11:43:10.026658+00:00",
+            "source": "Yahoo Finance/yfinance",
+            "source_record": null,
+            "formula": "Same-period net income \u00f7 revenue \u00d7 100",
+            "validation_status": "recomputed",
+            "definition": "Same-period net income / positive revenue \u00d7 100.",
+            "inputs": [
+              {
+                "label": "Quarterly net income",
+                "value": 133490000000.0,
+                "period": "Quarter ending 2026-06-30",
+                "currency": "INR"
+              },
+              {
+                "label": "Quarterly revenue",
+                "value": 722750000000.0,
+                "period": "Quarter ending 2026-06-30",
+                "currency": "INR"
+              }
+            ]
+          },
+          "result_metrics": {
+            "operating_income": {
+              "value": 173170000000.0,
+              "currency": "INR",
+              "period_end": "2026-06-30",
+              "source_record": "Operating Income",
+              "validation_status": "provider",
+              "source": "Yahoo Finance/yfinance"
+            },
+            "ebitda": {
+              "value": 194560000000.0,
+              "currency": "INR",
+              "period_end": "2026-06-30",
+              "source_record": "EBITDA",
+              "validation_status": "provider",
+              "source": "Yahoo Finance/yfinance"
+            },
+            "eps": {
+              "value": 36.9,
+              "currency": "INR",
+              "period_end": "2026-06-30",
+              "source_record": "Diluted EPS",
+              "validation_status": "provider",
+              "source": "Yahoo Finance/yfinance"
+            }
+          }
+        },
+        "sales": 722750000000.0,
+        "net_profit": 133490000000.0,
+        "net_profit_margin": 18.469734,
+        "pe": null,
+        "roe": null,
+        "operating_margin": null,
+        "revenue_growth": null,
+        "debt_to_equity": null,
+        "current_ratio": null,
+        "total_debt": null,
+        "net_debt": null,
+        "operating_cash_flow": null,
+        "free_cash_flow": null,
+        "free_cash_flow_margin": null,
+        "operating_profit": null,
+        "eps": null
+      }
+    }
+  ]
+}
