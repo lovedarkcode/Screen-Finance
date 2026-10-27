@@ -16,11 +16,13 @@ from app.models.stock import Stock
 from app.models.financials import Financials
 from app.schemas.screener import ScreenDefinition
 from app.services.screener.metrics import METRICS, VALIDATION_VERSION
+from app.services.screener.indexes import members
 from app.services.screener.query_builder import diagnostics, exchange_expression, market_expression, statements, universe_count
 from app.services.screener.validator import validate_screen
 
 
 async def collect(session, screen):
+    index_symbols = await members(session) if screen.index else None
     market, exchange = market_expression(), exchange_expression()
     identity = dict((await session.execute(text("SELECT current_database() AS database, current_schema() AS schema, inet_server_addr()::text AS server_address, inet_server_port() AS server_port"))).mappings().one())
     _, unfiltered, _ = statements(ScreenDefinition(market=screen.market, sort_period="snapshot"), 1)
@@ -44,7 +46,7 @@ async def collect(session, screen):
         "metric_coverage": coverage,
         "reporting_periods": [dict(row) for row in periods],
         "screen": screen.model_dump(mode="json"),
-        "filter_trace": await diagnostics(session, screen),
+        "filter_trace": await diagnostics(session, screen, index_symbols),
     }
 
 

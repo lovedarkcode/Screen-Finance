@@ -18,7 +18,7 @@ NVIDIA Nemotron powers three implemented features:
 
 When Nebius is configured, all three features use **`nvidia/nemotron-3-super-120b-a12b`** through Token Factory. The direct NVIDIA API configuration defaults to **`nvidia/nemotron-3-ultra-550b-a55b`**; `NVIDIA_SCREENER_MODEL` can select a separate screening model for that provider.
 
-Screening disables model thinking for structured filter extraction. Stock analysis enables thinking, but collects only final response content; reasoning deltas are not stored or displayed. Users can review and edit screening conditions before rerunning them without another model call.
+Screening disables model thinking for structured filter extraction. Stock analysis enables thinking, but collects only final response content; reasoning deltas are not stored or displayed. Users choose Indian or US market and describe their conditions. Interpreted conditions remain visible; sorting and pagination do not call the model again.
 
 Implementation references:
 
@@ -126,7 +126,9 @@ python ../scripts/refresh_screener.py
 python -m uvicorn app.main:app --reload --port 8000
 ```
 
-The refresh imports the starter universe of sixteen real US/Indian stock symbols and their available verified metrics. It calls market-data providers and may take time or encounter provider limits. Screening uses this imported universe, so a fresh database needs the refresh before it can return stock matches. This screening-metrics import is separate from the exchange-wide quarterly tracker. Start the quarterly worker below to populate the full results catalog.
+The refresh discovers NSE, BSE, NYSE and NASDAQ listings and processes one resumable batch of validated screening financials. It is no longer limited to sixteen starter symbols. Keep `python -m app.workers.stock_sync_worker` running to fill and refresh the entire catalog, or run `python ../scripts/refresh_screener.py --watch`. On Windows, `scripts/screener_worker.ps1` starts it hidden and `scripts/screener_worker.ps1 -Stop` stops it. Docker Compose includes the `screener-worker` service.
+
+Financial coverage grows as the paced worker progresses; provider limits and missing statements can leave gaps. Results show both catalog size and how many listings have eligible data for the requested conditions. S&P 500 prompts use refreshed constituent membership, fetched from FMP with a public DataHub constituent-list fallback; missing/stale membership returns an explanation rather than silently screening all US stocks. The quarterly-results worker remains independent.
 
 To refresh specific companies later, run this from `backend/` with the virtual environment activated:
 

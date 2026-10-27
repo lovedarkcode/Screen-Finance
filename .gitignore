@@ -20,3 +20,5 @@ __pycache__
 !**/.env.example
 *.log
 backend/.quarterly-worker.json
+
+backend/.screener-worker.json

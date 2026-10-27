@@ -38,7 +38,7 @@ async def screening_db():
 @router.post("/search", response_model=ScreenResponse)
 async def search(payload: SearchRequest, user: User = Depends(require_user), session=Depends(screening_db)):
     await rate_limit(user)
-    state = await screener_graph.ainvoke({"query": payload.query, "session": session, "page": payload.page}, config={"recursion_limit": 8})
+    state = await screener_graph.ainvoke({"query": payload.query, "market": payload.market, "session": session, "page": payload.page}, config={"recursion_limit": 8})
     return state["result"]
 
 

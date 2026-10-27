@@ -658,3 +658,14 @@ graph TD
 | Workers | Celery | Quarterly ingestion, stock sync, news, filings, embeddings |
 | Migrations | Alembic | Database schema versioning |
 | Deployment | Docker Compose / Vercel | Containerized local deploy, serverless production |
+
+
+## Stock discovery coverage update
+
+The discovery UI now has an Indian/US selector and a natural-language prompt. The server applies the selected market deterministically and rejects conflicting prompt coverage. Interpreted conditions are read-only; result pagination and sorting retain the original conditions.
+
+The screening refresh no longer uses a sixteen-stock starter list. `app.workers.stock_sync_worker` reuses the daily NSE/BSE/NYSE/NASDAQ catalog, then fills verified financial snapshots in resumable exchange-balanced batches. Per-listing screening due dates and errors live in `result_listings`, separate from quarterly refresh state. A database lease in `quarterly_poll_state` prevents overlapping screening workers. Migration `f1d53c6249ea` adds the queue columns/index.
+
+S&P 500 membership is a separate current-index restriction backed by a refreshed constituent snapshot (`screener_sp500`), sourced from FMP or the public constituent table. It is not treated as NYSE membership. Missing or stale membership is reported explicitly.
+
+Responses distinguish catalog size (`universe_count`), listings with eligible financial data (`eligible_count`), and matches (`total_count`). The background import progressively expands financial coverage; numeric filters never treat absent financials as matching data.

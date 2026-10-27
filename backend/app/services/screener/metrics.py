@@ -1,5 +1,5 @@
 """Allowlist of metrics backed by the financial validation engine."""
-SCHEMA_VERSION = "screener-v4"
+SCHEMA_VERSION = "screener-v5"
 VALIDATION_VERSION = 1
 OPERATORS = ("gt", "gte", "lt", "lte", "eq", "between")
 

@@ -10,6 +10,7 @@ from app.services.screener.metrics import METRICS, SECTORS, SECTOR_ALIASES
 NUMBER = re.compile(r"(?<![\w.])[+-]?(?:\d+(?:,\d+)*(?:\.\d+)?|\.\d+)(?:e[+-]?\d+)?", re.I)
 SCALES = {"trillion": 1e12, "billion": 1e9, "million": 1e6, "crore": 1e7, "crores": 1e7, "lakh": 1e5, "lakhs": 1e5, "thousand": 1e3, "cr": 1e7, "bn": 1e9, "b": 1e9, "m": 1e6, "k": 1e3}
 EXCHANGE_PATTERN = r"(?:nyse american|nyse arca|nasdaq|nse|bse|nyse|otcqb|otcqx|otc|cboe)"
+SP500_PATTERN = r"\b(?:s\s*&\s*p\s*500|sp\s*500|standard\s*(?:&|and)\s*poor'?s\s*500)\b"
 
 
 class ScreenIssue(ValueError):
@@ -72,11 +73,19 @@ def _numbers(text, field):
     return values
 
 
-def _verify_extraction(parsed, query):
+def _verify_extraction(parsed, query, market=None):
     lower = query.casefold()
     market_patterns = {"US": r"\b(us|usa|united states|nasdaq|nyse|american)\b|u\.s\.", "IN": r"\b(india|indian|nse|bse)\b"}
     mentioned = {market for market, pattern in market_patterns.items() if re.search(pattern, lower)}
+    index_match = re.search(SP500_PATTERN, query, re.I)
+    if index_match:
+        mentioned.add("US")
+    if parsed.index != ("SP500" if index_match else None):
+        raise ScreenIssue("The requested index membership was not preserved. Specify S&P 500 explicitly.")
+    if market and mentioned and mentioned != {market}:
+        raise ScreenIssue("The prompt names a different market. Change the market selector or update the prompt.")
     expected_market = next(iter(mentioned)) if len(mentioned) == 1 else None
+    expected_market = market or expected_market
     if parsed.market != expected_market:
         raise ScreenIssue("The requested market coverage was not preserved. Omit market to screen all imported companies.")
     exchanges = {match.group().casefold() for match in re.finditer(r"\b" + EXCHANGE_PATTERN + r"\b", query, re.I)}
@@ -87,7 +96,7 @@ def _verify_extraction(parsed, query):
     sectors = {canonical for term, canonical in sector_terms.items() if re.search(r"(?<!\w)" + re.escape(term) + r"(?!\w)", lower)}
     interpreted_sector = _sector(parsed.sector)
     if len(sectors) > 1 or (sectors and interpreted_sector not in sectors) or (interpreted_sector and not sectors and interpreted_sector.casefold() not in lower):
-        raise ScreenIssue("The requested sector was not preserved. Choose an explicit sector in the filter editor.")
+        raise ScreenIssue("The requested sector was not preserved. Name an explicit sector in your prompt.")
     if parsed.industry and parsed.industry.casefold() not in lower:
         raise ScreenIssue("The requested industry could not be matched verbatim. Choose an explicit industry.")
     sort_clause = re.search(r"\bsort(?:ed)?(?:\s+the\s+results)?\s+by\s+([^.;]+)", query, re.I)
@@ -98,6 +107,8 @@ def _verify_extraction(parsed, query):
     if re.search(r"\bdescending\b|\bhighest\b.{0,25}\bfirst\b", query, re.I) and not parsed.sort_desc:
         raise ScreenIssue("The requested descending sort order was not preserved.")
     covered = [False] * len(query)
+    if index_match:
+        covered[index_match.start():index_match.end()] = [True] * len(index_match.group())
     if parsed.as_of:
         match = re.search(r"\bas of\s+" + re.escape(parsed.as_of.isoformat()), query, re.I)
         if not match:
@@ -146,7 +157,7 @@ def _verify_extraction(parsed, query):
         raise ScreenIssue("A requested financial condition was not extracted. Please restate it explicitly.")
 
 
-def validate_screen(screen, query=None):
+def validate_screen(screen, query=None, market=None):
     warnings = []
     if query is not None and isinstance(screen, ParsedScreen):
         conditions = []
@@ -160,6 +171,10 @@ def validate_screen(screen, query=None):
         raise ScreenIssue("Please clarify the unsupported or ambiguous conditions: " + "; ".join(screen.unresolved_conditions)[:800])
     if screen.as_of and screen.as_of > datetime.now(UTC).date():
         raise ScreenIssue("Future screening dates are unavailable.", "unsupported")
+    if screen.index and screen.market != "US":
+        raise ScreenIssue("S&P 500 membership requires the US market.", "invalid")
+    if screen.index and screen.as_of:
+        raise ScreenIssue("Historical S&P 500 membership is not available. Remove the historical screening date.", "unsupported")
     selected_exchanges = list(dict.fromkeys(screen.exchanges or ([screen.exchange] if screen.exchange else [])))
     if screen.exchange and screen.exchanges and set(screen.exchanges) != {screen.exchange}:
         raise ScreenIssue("Use either a single exchange or a list of exchanges, not conflicting selections.", "invalid")
@@ -231,7 +246,7 @@ def validate_screen(screen, query=None):
         normal["sort_period"] = None
     if query is not None:
         guard_query(query)
-        _verify_extraction(screen, query)
+        _verify_extraction(screen, query, market)
     warnings.append("Screening covers the imported stock universe, not every exchange listing. Missing or incompatible metric values do not match numeric filters.")
     if screen.sort_by in METRICS and METRICS[screen.sort_by]["unit"] == "currency":
         warnings.append("Monetary sorting groups values by currency; unavailable values sort last. No currency conversion is applied.")

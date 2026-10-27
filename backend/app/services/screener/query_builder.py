@@ -63,7 +63,7 @@ def _currency(aliases, selection):
     return func.upper(func.trim(Stock.currency)) if field == "market_cap" else func.upper(func.trim(aliases[selection].provenance[field]["currency"].as_string()))
 
 
-def _plan(screen):
+def _plan(screen, index_symbols=None):
     aliases, ranks = {}, {}
     for index, selection in enumerate(_selections(screen)):
         field, basis, end = selection
@@ -88,6 +88,10 @@ def _plan(screen):
     for key, row in aliases.items():
         statement = statement.outerjoin(row, and_(row.stock_id == Stock.id, ranks[key] == 1))
     stages = [{"name": "market", "predicates": [market_expression() == screen.market if screen.market else true()]}]
+    if screen.index:
+        if index_symbols is None:
+            raise ValueError("Index membership must be resolved before screening")
+        stages.append({"name": "index", "predicates": [Stock.symbol.in_(index_symbols)]})
     if screen.exchanges or screen.exchange:
         stages.append({"name": "exchanges", "predicates": [exchange_expression().in_(screen.exchanges or [screen.exchange])]})
     if screen.sector:
@@ -124,8 +128,8 @@ def _plan(screen):
     return statement, stages, aliases
 
 
-def statements(screen, page):
-    statement, stages, aliases = _plan(screen)
+def statements(screen, page, index_symbols=None):
+    statement, stages, aliases = _plan(screen, index_symbols)
     statement = statement.where(*(predicate for stage in stages for predicate in stage["predicates"]))
     count = select(func.count()).select_from(statement.order_by(None).subquery())
     order = []
@@ -147,9 +151,15 @@ def statements(screen, page):
     return statement, count, list(aliases)
 
 
-async def diagnostics(session, screen):
+async def eligible_count(session, screen, index_symbols=None):
+    statement, stages, _ = _plan(screen, index_symbols)
+    predicates = [predicate for stage in stages for predicate in (stage["predicates"][:1] if "checks" in stage else stage["predicates"])]
+    return (await session.execute(select(func.count()).select_from(statement.where(*predicates).subquery()))).scalar_one()
+
+
+async def diagnostics(session, screen, index_symbols=None):
     """Shared production predicates; called by the development-only CLI."""
-    statement, stages, _ = _plan(screen)
+    statement, stages, _ = _plan(screen, index_symbols)
     result, applied = [], []
     for stage in stages:
         checks = stage.get("checks", {})
@@ -160,12 +170,12 @@ async def diagnostics(session, screen):
     return result
 
 
-async def empty_explanation(session, screen, universe, total):
+async def empty_explanation(session, screen, universe, total, index_symbols=None):
     if total:
         return "page_out_of_range", "This page is beyond the matching results. Return to an earlier page."
     if not universe:
         return "empty_universe", "No companies are stored in the selected market universe."
-    trace = await diagnostics(session, screen)
+    trace = await diagnostics(session, screen, index_symbols)
     stage = next((item for item in trace if item["before"] and not item["remaining"]), None)
     if stage:
         exclusions = []

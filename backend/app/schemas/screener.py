@@ -31,6 +31,7 @@ class FinancialFilter(StrictModel):
 
 class ScreenDefinition(StrictModel):
     market: Literal["IN", "US"] | None = None
+    index: Literal["SP500"] | None = None
     as_of: date | None = Field(default=None, description="Only use data observed by this date; null means current available data.")
     exchange: Exchange | None = None
     exchanges: list[Exchange] = Field(default_factory=list, max_length=10, description="Any of these exchanges; use for NSE or BSE, NASDAQ or NYSE. Financial filters still all apply.")
@@ -54,6 +55,7 @@ class ParsedScreen(ScreenDefinition):
 
 class SearchRequest(StrictModel):
     query: str = Field(min_length=3, max_length=1500)
+    market: Literal["IN", "US"] | None = None
     page: int = Field(default=1, ge=1, le=1000)
 
     @field_validator("query")
@@ -81,6 +83,7 @@ class ScreenResponse(StrictModel):
     page_size: int = 25
     data_as_of: str | None = None
     universe_count: int = Field(default=0, description="All imported stocks in the selected market (or all markets), before other filters and pagination, including stocks without financials.")
+    eligible_count: int = Field(default=0, description="Listings in the requested scope with eligible data for every requested metric, before numeric thresholds.")
     empty_reason: Literal["empty_universe", "no_matches", "missing_metrics", "unavailable_period", "incompatible_currency", "page_out_of_range"] | None = None
     explanation: str | None = None
     warnings: list[str] = Field(default_factory=list)

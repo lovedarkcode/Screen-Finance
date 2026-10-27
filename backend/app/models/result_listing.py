@@ -9,7 +9,8 @@ from app.db.base import Base
 
 class ResultListing(Base):
     __tablename__ = "result_listings"
-    __table_args__ = (Index("ix_result_listing_due", "active", "next_check_at"),)
+    __table_args__ = (Index("ix_result_listing_due", "active", "next_check_at"),
+                      Index("ix_result_listing_screener_due", "active", "screener_next_check_at"))
 
     company_id: Mapped[int] = mapped_column(ForeignKey("stocks.id"), primary_key=True)
     catalog_source: Mapped[str] = mapped_column(String(30))
@@ -21,3 +22,6 @@ class ResultListing(Base):
     next_check_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     status: Mapped[str] = mapped_column(String(20), default="pending", server_default="pending")
     error: Mapped[str | None] = mapped_column(Text)
+    screener_checked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    screener_next_check_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    screener_error: Mapped[str | None] = mapped_column(String(100))

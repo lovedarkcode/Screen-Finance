@@ -9,9 +9,8 @@ from app.models.stock import Stock
 from app.services.ai.financial_evidence import assess_quality, build_evidence
 from app.services.ai.stock_analysis_service import _load_financials, _resolve_quote
 from app.services.screener.metrics import METRICS, VALIDATION_VERSION
-from app.api.v1.stocks import _number
+from app.api.v1.stocks import _normalize_symbol, _number
 
-STARTER_SYMBOLS = ["AAPL", "NVDA", "MSFT", "GOOGL", "AMZN", "JPM", "BE", "F", "RELIANCE.NS", "TCS.NS", "INFY.NS", "HDFCBANK.NS", "ICICIBANK.NS", "MTARTECH.NS", "SBIN.NS", "BHARTIARTL.NS"]
 LABELS = {"Market capitalization": ("market_cap", "snapshot"), "Trailing P/E": ("pe", "ttm"), "Trailing EPS": ("eps", "ttm"), "Return on equity (provider)": ("roe", "ttm"), "Annual return on equity": ("roe", "annual"), "Net profit margin": ("net_profit_margin", "annual"), "Quarterly net profit margin": ("net_profit_margin", "quarterly"), "TTM net profit margin": ("net_profit_margin", "ttm"), "TTM revenue": ("revenue", "ttm"), "TTM net income": ("net_income", "ttm"), "Operating margin": ("operating_margin", "annual"), "Annual revenue growth": ("revenue_growth", "annual"), "Free cash flow": ("free_cash_flow", "annual"), "Free cash flow margin": ("free_cash_flow_margin", "annual"), "Current ratio": ("current_ratio", "snapshot"), "Debt to equity": ("debt_to_equity", "snapshot"), "Net debt": ("net_debt", "snapshot")}
 RAW_FIELDS = {"Total Revenue": "revenue", "Net Income": "net_income", "Operating Income": "operating_income", "Operating Cash Flow": "operating_cash_flow", "Total Debt": "total_debt"}
 
@@ -68,7 +67,10 @@ def normalize_rows(quote, snapshot, retrieved):
 
 
 async def sync_symbol(symbol):
+    symbol = _normalize_symbol(symbol)
     quote = await _resolve_quote(symbol)
+    if quote["symbol"] != symbol:
+        raise ValueError("The provider resolved a different listing")
     retrieved = datetime.now(UTC)
     snapshot = await run_in_threadpool(_load_financials, quote["symbol"])
     rows = normalize_rows(quote, snapshot, retrieved)
