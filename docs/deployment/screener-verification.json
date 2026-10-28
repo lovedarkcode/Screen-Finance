@@ -1,0 +1,79 @@
+{
+  "url": "https://assest-hunter.vercel.app",
+  "checks": [
+    {
+      "check": "Hosted database",
+      "passed": true
+    },
+    {
+      "check": "Deployed screener version",
+      "passed": true
+    },
+    {
+      "check": "Authentication enforced",
+      "passed": true
+    },
+    {
+      "check": "Verification account",
+      "passed": true
+    },
+    {
+      "check": "Indian growth and value",
+      "passed": true,
+      "http": 200,
+      "matches": 114,
+      "universe": 8160,
+      "eligible": 332
+    },
+    {
+      "check": "Indian growth and value market",
+      "passed": true
+    },
+    {
+      "check": "Indian growth and value pagination",
+      "passed": true
+    },
+    {
+      "check": "S&P 500",
+      "passed": true,
+      "http": 200,
+      "matches": 20,
+      "universe": 7139,
+      "eligible": 43
+    },
+    {
+      "check": "S&P 500 market",
+      "passed": true
+    },
+    {
+      "check": "Conflicting market is explained",
+      "passed": true
+    },
+    {
+      "check": "Production schema",
+      "passed": true
+    }
+  ],
+  "verified_at": "2026-10-28T13:14:07.273450+00:00",
+  "deployment": "https://assest-hunter-8njnyjm6k-aditya-s-projects-d0aaa785.vercel.app",
+  "deployment_id": "dpl_Fhi9rc8SrbysHqEDXFS77cuYmpZA",
+  "implementation_commit": "4dd44be5b3448b8546b049e6638f23417778246c",
+  "seeded_financial_listings": 831,
+  "seeded_snapshots": 8248,
+  "workflow": {
+    "url": "https://github.com/lovedarkcode/Screen-Finance/actions/runs/40693609933",
+    "conclusion": "success",
+    "schedule": "7,22,37,52 * * * *",
+    "attempted": 150,
+    "succeeded": 137,
+    "provider_failures": 13,
+    "bse_catalog": "Upstream HTTP error; last successful catalog retained for screening and financial refresh; subsequent jobs retry."
+  },
+  "browser": {
+    "desktop": "passed",
+    "mobile": "passed",
+    "real_prompt": "passed",
+    "pagination": "passed",
+    "runtime_errors": 0
+  }
+}
