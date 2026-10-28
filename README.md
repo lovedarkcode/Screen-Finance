@@ -183,3 +183,6 @@ These checks use mocked inference responses and do not establish live provider a
 - [Stock-analysis evidence checks and recorded verification](docs/ai-stock-analysis/README.md)
 
 Some older feature notes describe the original NVIDIA-only configuration; the provider selection documented above reflects the current code. General chat, comparison, and several background/embedding pipelines remain placeholders and are not part of the implemented Nemotron flows.
+
+
+Production stock discovery runs on Vercel against Neon, with exchange-wide financial refreshes scheduled by [GitHub Actions](https://github.com/lovedarkcode/Screen-Finance/actions/workflows/screener-refresh.yml). See [production deployment and verification](VERCEL_DEPLOYMENT.md#stock-discovery-production-refresh) for schema setup, the encrypted database secret, and live checks. Production refreshes do not depend on the local worker.

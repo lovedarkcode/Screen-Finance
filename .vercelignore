@@ -1,4 +1,6 @@
 .git
+.github
+.vercel
 .env
 .env.*
 .venv
@@ -7,6 +9,8 @@ __pycache__
 *.pyc
 
 backend/.env
+backend/.screener-worker.*
+backend/.quarterly-worker.*
 frontend/.env
 **/.env
 **/.env.*

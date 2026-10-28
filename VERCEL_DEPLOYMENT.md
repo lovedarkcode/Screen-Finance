@@ -67,8 +67,7 @@ Vercel does not run the Docker services from `docker-compose.yml`. Use hosted se
 Only PostgreSQL and Redis are used by the current deployed API paths; Qdrant and
 Celery workers are not running on Vercel. Quarterly results have a separate,
 implemented worker: it must run on a persistent host against the same production
-database. Vercel does not start it from Docker Compose. The screener's original
-sixteen-symbol metric import is separate from the quarterly exchange catalog.
+database. Vercel does not start it from Docker Compose. Stock discovery reuses the exchange catalog and has its own resumable financial refresh queue. Its production refresh runs in GitHub Actions, independently of Vercel request handling.
 The new database starts with fresh user accounts. Local test accounts were not
 copied. Google OAuth's authorized origins must include the production domain in
 the Google Cloud console; email/password sign-in is independently verified.
@@ -135,3 +134,22 @@ tests, docs and scripts are excluded from deployment uploads. Production secrets
 are stored in Vercel; sensitive values are not returned by `vercel env pull`.
 
 Live verification results are recorded in `docs/deployment/live-verification.json`.
+
+
+## Stock discovery production refresh
+
+The UI/API run on `assest-hunter.vercel.app`; the scheduled importer runs in this repository's [GitHub Actions workflow](https://github.com/lovedarkcode/Screen-Finance/actions/workflows/screener-refresh.yml). Both use the same Neon production database. Vercel Hobby cannot run the continuous local worker, and its per-job daily cron frequency is insufficient for catalog-wide financial refreshes.
+
+`.github/workflows/screener-refresh.yml` schedules one resumable batch at minutes 7, 22, 37 and 52 each hour (UTC). Actions can delay scheduled runs; the database lease and per-listing due dates preserve progress and prevent overlap. The workflow is also manually dispatchable. It runs only on this repository, never on pull requests or forks. The sole required Actions secret is `SCREENER_DATABASE_URL`, containing the same production database URL used by Vercel. No AI, user-login, or Vercel tokens are required by the importer. Dependencies come from `backend/requirements.worker.txt`.
+
+Before deploying this version, migrate the hosted database through `f1d53c6249ea`. To initialize production with already verified public financials from the local dataset:
+
+```powershell
+python scripts/prepare_screener_production.py --env-file .vercel/results-production.env --seed-local
+```
+
+This copies only stock masters and financial snapshots, remaps local IDs by symbol, preserves newer production observations, and optionally seeds current index membership. It never copies users, portfolios, watchlists or local worker leases. Future updates come from the hosted workflow; the workstation is not part of the production refresh pipeline.
+
+After deployment, run `python docs/deployment/verify_screener_production.py` from the project environment. It checks the live database/schema, authentication, Indian and S&P 500 prompts, threshold compliance, and pagination, then deletes its temporary verification account. Safe results are saved in `docs/deployment/screener-verification.json`.
+
+Monitor the workflow and `quarterly_poll_state` row named `screener` for failures. Provider availability still determines financial coverage. GitHub can disable schedules in public repositories after 60 days without activity; re-enable the workflow in Actions if this happens. Vercel deployment uploads exclude local worker logs, deployment helper files and secrets.

@@ -62,7 +62,7 @@ async def poll_once(market=None):
             except Exception as error:
                 outcome["sp500"] = {"status": "unavailable", "error_type": type(error).__name__}
             outcome["results"] = await refresh_batch(market=market)
-            outcome["status"] = "ok"
+            outcome["status"] = "error" if outcome["results"] and all(item["status"] == "failed" for item in outcome["results"]) else "ok"
     except TimeoutError:
         outcome["status"] = "timeout"
     except Exception as error:
