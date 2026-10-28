@@ -1,5 +1,7 @@
 # Asset Hunter (Screen Finance)
 
+Licensed under the [MIT License](LICENSE).
+
 Asset Hunter is a stock research application for US and Indian equities. It combines market data, charts, natural-language financial screening, and AI research grounded in retrieved financial evidence. The frontend uses React and Vite; the backend uses FastAPI, PostgreSQL, SQLAlchemy, and LangGraph.
 
 The **Quarterly Results** page (`/results`, also `/results/latest`) uses **Yahoo Finance/yfinance**, with daily NSE main-board/SME, BSE active-equity and NYSE/Nasdaq directory discovery. It lists the full imported catalog with exchange filters, search, pagination, coverage counts, and explicit pending/unavailable/retry states. A paced background worker stores quarterly statements and revisions, then creates validated NVIDIA Nemotron summaries through Nebius. Its APIs are `GET /api/results`, `GET /api/results/latest` and `GET /api/results/{ticker}` (also under `/api/v1`). See [setup, coverage, API contract and live evidence](docs/quarterly-results/PIPELINE.md).
@@ -186,3 +188,7 @@ Some older feature notes describe the original NVIDIA-only configuration; the pr
 
 
 Production stock discovery runs on Vercel against Neon, with exchange-wide financial refreshes scheduled by [GitHub Actions](https://github.com/lovedarkcode/Screen-Finance/actions/workflows/screener-refresh.yml). See [production deployment and verification](VERCEL_DEPLOYMENT.md#stock-discovery-production-refresh) for schema setup, the encrypted database secret, and live checks. Production refreshes do not depend on the local worker.
+
+## License
+
+This project's original source code is available under the [MIT License](LICENSE), copyright (c) 2026 lovedarkcode. Third-party dependencies, models, and financial data remain subject to their respective licenses and terms.
